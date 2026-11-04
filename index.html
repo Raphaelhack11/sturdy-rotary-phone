@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a1f44" />
+<title>LASU Math Education Portal — Raph Techs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1f44; --navy-2:#132d5e; --navy-3:#1e3a6f;
+  --gold:#c9a84c; --gold-soft:#e8d48b;
+  --white:#fff; --bg:#f7f9fc; --card:#fff;
+  --line:#e6ebf3; --ink:#1a2438; --muted:#6b7a95;
+  --ok:#1e7e4a; --warn:#d4830a; --danger:#c0392b;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 4px 24px rgba(10,31,68,.07);
+  --shadow-lg:0 14px 44px rgba(10,31,68,.14);
+  --sidebar-w:264px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --display:'Playfair Display',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:15px}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold-soft);color:var(--navy)}
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);
+  background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:#fff;z-index:1000;display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;
+}
+.sidebar-brand{padding:26px 22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-brand .eyebrow{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px}
+.sidebar-brand h1{font-family:var(--display);font-size:17px;font-weight:700;line-height:1.32}
+.sidebar-brand .sub{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.3px}
+.nav{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:3px}
+.nav-label{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.35);padding:14px 12px 6px;font-weight:600}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:10px;
+  font-size:14px;font-weight:500;color:rgba(255,255,255,.78);
+  transition:background .18s,color .18s;position:relative;text-align:left;width:100%;
+}
+.nav-item .ico{width:18px;height:18px;flex-shrink:0;opacity:.9}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-item.active{background:linear-gradient(90deg,rgba(201,168,76,.18),rgba(201,168,76,.05));color:#fff;font-weight:600}
+.nav-item.active::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--gold)}
+.nav-item.active .ico{color:var(--gold)}
+.sidebar-foot{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.42);letter-spacing:.3px}
+
+/* ============ LAYOUT ============ */
+.app{min-height:100vh;display:flex;flex-direction:column}
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{
+  position:sticky;top:0;z-index:500;background:rgba(255,255,255,.9);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:14px 22px;display:flex;align-items:center;gap:14px;
+  padding-top:calc(14px + env(safe-area-inset-top));
+}
+.burger{display:none;width:40px;height:40px;border-radius:10px;background:var(--navy);color:#fff;align-items:center;justify-content:center;flex-shrink:0}
+.page-title{font-size:16px;font-weight:700;color:var(--navy);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip-user{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--navy);background:var(--white);border:1px solid var(--line);padding:7px 12px;border-radius:100px}
+.chip-user .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(30,126,74,.15)}
+
+.content{padding:22px;max-width:1320px;width:100%;margin:0 auto;flex:1}
+.page{display:none;animation:fade .35s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ============ COMPONENTS ============ */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 100%);
+  color:#fff;border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-lg);margin-bottom:22px;
+}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.18),transparent 70%);pointer-events:none}
+.hero h2{font-family:var(--display);font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1.25;margin-bottom:6px}
+.hero p{font-size:14px;color:rgba(255,255,255,.72);max-width:560px}
+.hero .gold{color:var(--gold-soft)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  transition:transform .22s,box-shadow .22s;
+}
+.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.stat .ic{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;
+  background:linear-gradient(135deg,rgba(10,31,68,.06),rgba(10,31,68,.02));color:var(--navy);
+}
+.stat.gold .ic{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.06));color:#9a7d2e}
+.stat.warn .ic{background:rgba(212,131,10,.12);color:var(--warn)}
+.stat.danger .ic{background:rgba(192,57,43,.1);color:var(--danger)}
+.stat .num{font-size:28px;font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-.5px}
+.stat .lbl{font-size:12px;color:var(--muted);font-weight:500;margin-top:2px;letter-spacing:.2px}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:26px 0 14px;flex-wrap:wrap}
+.section-head h3{font-family:var(--display);font-size:19px;font-weight:700;color:var(--navy)}
+.section-head .hint{font-size:12px;color:var(--muted)}
+
+.searchbar{
+  display:flex;align-items:center;gap:10px;background:var(--white);
+  border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;
+  transition:border-color .2s,box-shadow .2s;margin-bottom:18px;
+}
+.searchbar:focus-within{border-color:var(--navy);box-shadow:0 0 0 4px rgba(10,31,68,.06)}
+.searchbar input{border:none;outline:none;flex:1;font-size:14.5px;background:transparent;color:var(--ink);min-width:0}
+.searchbar input::placeholder{color:var(--gray-400, #9aa5b8)}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filters select,.filters .btn-ghost{
+  border:1.5px solid var(--line);background:var(--white);border-radius:10px;
+  padding:9px 13px;font-size:13px;color:var(--ink);font-weight:500;outline:none;
+  transition:border-color .18s;
+}
+.filters select:focus{border-color:var(--navy)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);transition:transform .22s,box-shadow .22s,border-color .22s;
+  cursor:pointer;position:relative;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:#d5dceb}
+.card .row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.card .code{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold);background:rgba(201,168,76,.1);padding:3px 9px;border-radius:6px;white-space:nowrap}
+.card h4{font-size:15.5px;font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:6px}
+.card .meta{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.card .meta b{color:var(--ink);font-weight:600}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.3px;text-transform:uppercase}
+.badge.upcoming{background:rgba(10,31,68,.07);color:var(--navy)}
+.badge.soon{background:rgba(212,131,10,.14);color:var(--warn)}
+.badge.overdue{background:rgba(192,57,43,.12);color:var(--danger)}
+.badge.published{background:rgba(30,126,74,.12);color:var(--ok)}
+.badge.draft{background:rgba(107,122,149,.14);color:var(--muted)}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty svg{width:52px;height:52px;color:var(--line);margin-bottom:12px}
+.empty p{font-size:14px}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 18px;border-radius:10px;font-size:14px;font-weight:600;
+  transition:transform .15s,box-shadow .2s,background .2s;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--navy);color:#fff;box-shadow:0 4px 14px rgba(10,31,68,.22)}
+.btn-primary:hover{background:var(--navy-2);box-shadow:0 6px 20px rgba(10,31,68,.3)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#b89540);color:var(--navy);box-shadow:0 4px 14px rgba(201,168,76,.35)}
+.btn-gold:hover{box-shadow:0 6px 20px rgba(201,168,76,.45)}
+.btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-outline:hover{border-color:var(--navy);color:var(--navy)}
+.btn-danger{background:rgba(192,57,43,.1);color:var(--danger)}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+
+/* ============ MODAL ============ */
+.modal-back{position:fixed;inset:0;background:rgba(10,31,68,.55);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal-back.open{display:flex;animation:fade .25s ease}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:560px;box-shadow:var(--shadow-lg);overflow:hidden;animation:pop .3s cubic-bezier(.34,1.56,.64,1);max-height:92vh;display:flex;flex-direction:column}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
+.modal-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.modal-head h3{font-family:var(--display);font-size:19px;color:var(--navy);font-weight:700;line-height:1.3}
+.modal-close{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--muted);transition:background .18s,color .18s;flex-shrink:0}
+.modal-close:hover{background:var(--bg);color:var(--danger)}
+.modal-body{padding:22px;overflow-y:auto}
+.modal-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;flex-shrink:0;background:var(--bg)}
+
+/* ============ FORMS ============ */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:6px;letter-spacing:.2px}
+.field input,.field textarea,.field select{
+  width:100%;border:1.5px solid var(--line);border-radius:10px;
+  padding:11px 13px;font-size:14px;color:var(--ink);background:#fff;outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,31,68,.08)}
+.field textarea{resize:vertical;min-height:88px}
+.field .help{font-size:11.5px;color:var(--muted);margin-top:4px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.field-row{grid-template-columns:1fr}}
+
+/* ============ ALERTS / TOASTS ============ */
+.alert{padding:11px 14px;border-radius:10px;font-size:13px;font-weight:500;margin-bottom:14px;display:none;align-items:center;gap:8px}
+.alert.show{display:flex}
+.alert.error{background:rgba(192,57,43,.09);color:var(--danger)}
+.alert.ok{background:rgba(30,126,74,.09);color:var(--ok)}
+
+#toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:11px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);z-index:3000;transition:transform .35s cubic-bezier(.34,1.56,.64,1);max-width:90vw;text-align:center}
+#toast.show{transform:translate(-50%,0)}
+#toast.gold{background:linear-gradient(135deg,var(--gold),#b89540);color:var(--navy)}
+#toast.err{background:var(--danger)}
+
+/* ============ LOGIN ============ */
+.login-wrap{min-height:calc(100vh - 140px);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:18px;padding:34px 28px;max-width:420px;width:100%;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+.login-card .crest{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--navy-3));display:grid;place-items:center;margin:0 auto 16px;color:var(--gold);box-shadow:0 8px 24px rgba(10,31,68,.25)}
+.login-card h2{font-family:var(--display);font-size:23px;color:var(--navy);text-align:center;font-weight:700;margin-bottom:4px}
+.login-card .sub{text-align:center;font-size:13px;color:var(--muted);margin-bottom:24px}
+
+/* ============ ADMIN TOOLBAR ============ */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.toolbar .spacer{flex:1}
+
+.tabs{display:flex;gap:6px;border-bottom:1.5px solid var(--line);margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 16px;font-size:13.5px;font-weight:600;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .18s,border-color .18s;background:none}
+.tab.active{color:var(--navy);border-color:var(--gold)}
+
+/* ============ TABLE (admin) ============ */
+.table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:13.5px}
+.table th{text-align:left;padding:12px 14px;background:var(--bg);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line)}
+.table td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table .actions{display:flex;gap:6px;justify-content:flex-end}
+.table-wrap{overflow-x:auto;border-radius:var(--radius)}
+
+/* ============ FOOTER ============ */
+footer{margin-top:auto;padding:22px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);background:#fff}
+footer b{color:var(--navy);font-weight:700}
+
+/* ============ DETAIL LIST ============ */
+.detail-list{display:flex;flex-direction:column;gap:0;margin:14px 0}
+.detail-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.detail-row:last-child{border:none}
+.detail-row .k{color:var(--muted);font-weight:500;flex-shrink:0}
+.detail-row .v{color:var(--ink);font-weight:600;text-align:right;word-break:break-word}
+.detail-block{margin-top:14px}
+.detail-block h5{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+.detail-block p{font-size:14px;color:var(--ink);white-space:pre-wrap;line-height:1.65}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .burger{display:flex}
+  .content{padding:16px}
+  .topbar{padding-left:16px;padding-right:16px}
+}
+@media(max-width:520px){
+  .hero{padding:22px 20px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat{padding:15px}
+  .stat .num{font-size:23px}
+  .grid{grid-template-columns:1fr}
+  .modal{max-height:96vh;border-radius:14px}
+  .modal-body{padding:18px}
+  .chip-user .email{display:none}
+}
+.overlay{position:fixed;inset:0;background:rgba(10,31,68,.45);z-index:999;display:none;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+/* hide focus ring for mouse users, keep for keyboard */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* skeleton */
+.skel{background:linear-gradient(90deg,var(--line) 25%,#f0f3f9 50%,var(--line) 75%);background-size:200% 100%;animation:skel 1.2s infinite;border-radius:8px}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="eyebrow">Lagos State University</div>
+    <h1>Mathematical Education</h1>
+    <div class="sub">Assignment Portal</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Student</div>
+    <button class="nav-item active" data-page="home" onclick="go('home')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-page="courses" onclick="go('courses')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>All Courses</span>
+    </button>
+    <button class="nav-item" data-page="assignments" onclick="go('assignments')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+      <span>Assignments</span>
+    </button>
+    <button class="nav-item" data-page="deadlines" onclick="go('deadlines')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Upcoming Deadlines</span>
+    </button>
+    <div class="nav-label">Administration</div>
+    <button class="nav-item" data-page="login" onclick="go('login')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span id="adminNavLabel">Admin Login</span>
+    </button>
+  </nav>
+  <div class="sidebar-foot">Raph Techs · v1.0</div>
+</aside>
+
+<!-- ============ APP ============ -->
+<div class="app">
+  <div class="main">
+    <header class="topbar">
+      <button class="burger" onclick="toggleSidebar()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="page-title" id="pageTitle">Home</div>
+      <div class="chip-user" id="userChip" style="display:none">
+        <span class="dot"></span>
+        <span class="email" id="userEmail"></span>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ===== HOME ===== -->
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <h2>Welcome to the <span class="gold">Math Ed</span> Assignment Portal</h2>
+          <p>Access your courses, assignments, instructions, and submission deadlines — all in one place, updated in real time.</p>
+        </div>
+        <div class="stats" id="homeStats"></div>
+
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="homeSearch" placeholder="Search courses, assignments, codes…" oninput="renderHomeLists()" />
+        </div>
+
+        <div class="section-head"><h3>Upcoming Assignments</h3><span class="hint" id="upcomingHint"></span></div>
+        <div class="grid" id="homeUpcoming"></div>
+
+        <div class="section-head"><h3>Due Soon</h3><span class="hint">Within 3 days</span></div>
+        <div class="grid" id="homeDueSoon"></div>
+
+        <div class="section-head"><h3>Recent Assignments</h3></div>
+        <div class="grid" id="homeRecent"></div>
+      </section>
+
+      <!-- ===== COURSES ===== -->
+      <section class="page" id="page-courses">
+        <div class="hero"><h2>All Courses</h2><p>Browse every registered Mathematical Education course and its assignments.</p></div>
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="courseSearch" placeholder="Search by title or course code…" oninput="renderCourses()" />
+        </div>
+        <div class="grid" id="coursesGrid"></div>
+      </section>
+
+      <!-- ===== ASSIGNMENTS ===== -->
+      <section class="page" id="page-assignments">
+        <div class="hero"><h2>Assignments</h2><p>Detailed instructions, submission methods, deadlines, and notes for every assignment.</p></div>
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="assignSearch" placeholder="Search title, course, code, instructions…" oninput="renderAssignments()" />
+        </div>
+        <div class="filters">
+          <select id="filterCourse" onchange="renderAssignments()"><option value="">All Courses</option></select>
+          <select id="filterStatus" onchange="renderAssignments()">
+            <option value="">All Statuses</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="soon">Due Soon</option>
+            <option value="overdue">Overdue</option>
+          </select>
+          <select id="filterSort" onchange="renderAssignments()">
+            <option value="deadline">Sort: Deadline (soonest)</option>
+            <option value="recent">Sort: Recently assigned</option>
+            <option value="title">Sort: Title A–Z</option>
+          </select>
+        </div>
+        <div class="grid" id="assignGrid"></div>
+      </section>
+
+      <!-- ===== DEADLINES ===== -->
+      <section class="page" id="page-deadlines">
+        <div class="hero"><h2>Upcoming Deadlines</h2><p>Never miss a submission. Assignments sorted by deadline.</p></div>
+        <div class="stats" id="deadlineStats"></div>
+        <div class="grid" id="deadlineGrid"></div>
+      </section>
+
+      <!-- ===== LOGIN ===== -->
+      <section class="page" id="page-login">
+        <div class="login-wrap">
+          <div class="login-card">
+            <div class="crest">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h2>Admin Login</h2>
+            <p class="sub">Authorized administrators only</p>
+            <div class="alert error" id="loginError"></div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+              <div class="field">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@lasu.edu.ng" required autocomplete="username" />
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px" id="loginBtn">
+                Sign In Securely
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ADMIN DASHBOARD ===== -->
+      <section class="page" id="page-admin">
+        <div class="hero">
+          <h2>Admin Dashboard</h2>
+          <p>Manage courses and assignments. All changes are published to students in real time.</p>
+        </div>
+        <div class="stats" id="adminStats"></div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="dash" onclick="adminTab('dash')">Overview</button>
+          <button class="tab" data-tab="courses" onclick="adminTab('courses')">Courses</button>
+          <button class="tab" data-tab="assignments" onclick="adminTab('assignments')">Assignments</button>
+        </div>
+
+        <!-- Overview -->
+        <div id="adminTab-dash">
+          <div class="section-head"><h3>Recently Published</h3></div>
+          <div class="grid" id="adminRecent"></div>
+          <div class="section-head" style="margin-top:26px"><h3>Upcoming Deadlines</h3></div>
+          <div class="grid" id="adminUpcoming"></div>
+          <div class="section-head" style="margin-top:26px"><h3>Overdue</h3></div>
+          <div class="grid" id="adminOverdue"></div>
+        </div>
+
+        <!-- Courses -->
+        <div id="adminTab-courses" style="display:none">
+          <div class="toolbar">
+            <div class="spacer"></div>
+            <button class="btn btn-gold" onclick="openCourseModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Course
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Code</th><th>Title</th><th>Lecturer</th><th style="text-align:right">Actions</th></tr></thead>
+              <tbody id="adminCourseRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Assignments -->
+        <div id="adminTab-assignments" style="display:none">
+          <div class="toolbar">
+            <div class="spacer"></div>
+            <button class="btn btn-gold" onclick="openAssignModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Assignment
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Title</th><th>Course</th><th>Deadline</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+              <tbody id="adminAssignRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="toolbar" style="margin-top:24px">
+          <div class="spacer"></div>
+          <button class="btn btn-outline btn-sm" onclick="handleLogout()">Sign Out</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> LASU Mathematical Education · Designed &amp; Developed by <b>Raph Techs</b>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ ASSIGNMENT DETAIL MODAL ============ -->
+<div class="modal-back" id="detailModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="detailTitle">Assignment</h3>
+      <button class="modal-close" onclick="closeModal('detailModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('detailModal')">Close</button></div>
+  </div>
+</div>
+
+<!-- ============ COURSE MODAL ============ -->
+<div class="modal-back" id="courseModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="courseModalTitle">Add Course</h3>
+      <button class="modal-close" onclick="closeModal('courseModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="courseError"></div>
+      <input type="hidden" id="courseId" />
+      <div class="field"><label>Course Code *</label><input id="courseCode" placeholder="e.g. MTH 201" /></div>
+      <div class="field"><label>Course Title *</label><input id="courseTitle" placeholder="e.g. Mathematical Analysis" /></div>
+      <div class="field"><label>Lecturer (optional)</label><input id="courseLecturer" placeholder="e.g. Dr. A. O. Adebayo" /></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('courseModal')">Cancel</button>
+      <button class="btn btn-primary" id="saveCourseBtn" onclick="saveCourse()">Save Course</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ASSIGNMENT MODAL ============ -->
+<div class="modal-back" id="assignModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="assignModalTitle">Add Assignment</h3>
+      <button class="modal-close" onclick="closeModal('assignModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="assignError"></div>
+      <input type="hidden" id="assignId" />
+      <div class="field"><label>Course *</label><select id="assignCourse"></select></div>
+      <div class="field"><label>Assignment Title *</label><input id="assignTitle" placeholder="e.g. Problem Set 3 — Sequences" /></div>
+      <div class="field"><label>Detailed Instructions *</label><textarea id="assignInstructions" placeholder="Enter full assignment instructions…"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Date Assigned *</label><input type="date" id="assignDate" /></div>
+        <div class="field"><label>Submission Deadline *</label><input type="datetime-local" id="assignDeadline" /></div>
+      </div>
+      <div class="field">
+        <label>Submission Method *</label>
+        <select id="assignMethod">
+          <option value="">— Select method —</option>
+          <option>Submit in class (hard copy)</option>
+          <option>Email submission</option>
+          <option>Google Classroom</option>
+          <option>Course portal upload</option>
+          <option>Group submission</option>
+        </select>
+      </div>
+      <div class="field"><label>Additional Notes (optional)</label><textarea id="assignNotes" placeholder="Any extra guidance, resources, or warnings…"></textarea></div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <input type="checkbox" id="assignPublished" style="width:18px;height:18px;accent-color:#0a1f44" />
+          <span style="font-size:13.5px;font-weight:600;color:var(--navy)">Publish to students immediately</span>
+        </label>
+        <div class="help">Unpublished assignments are saved as drafts and hidden from students.</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('assignModal')">Cancel</button>
+      <button class="btn btn-primary" id="saveAssignBtn" onclick="saveAssignment()">Save Assignment</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   LASU MATH ED PORTAL — Raph Techs
+   Frontend: vanilla JS SPA
+   Backend: /api/* (Vercel serverless, see api/index.js)
+   ============================================================ */
+
+const API = '/api'; // in production
+// Local dev override — if you run api separately, set to e.g. 'http://localhost:3000/api'
+
+const state = {
+  courses: [],
+  assignments: [],
+  admin: null,
+  loaded: false
+};
+
+/* ---------- Utilities ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = d => {
+  if (!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+};
+const fmtDateTime = d => {
+  if (!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+};
+const todayISO = () => new Date().toISOString().slice(0,10);
+
+function toast(msg, variant='') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'show ' + variant;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.className = variant, 2800);
+}
+
+function statusOf(a) {
+  const now = Date.now();
+  const dl = new Date(a.deadline).getTime();
+  if (isNaN(dl)) return 'upcoming';
+  if (dl < now) return 'overdue';
+  if (dl - now <= 3 * 24 * 60 * 60 * 1000) return 'soon';
+  return 'upcoming';
+}
+
+function badgeForStatus(s) {
+  const map = { upcoming:['upcoming','Upcoming'], soon:['soon','Due Soon'], overdue:['overdue','Overdue'] };
+  const [cls,label] = map[s];
+  return `<span class="badge ${cls}"><span class="dot"></span>${label}</span>`;
+}
+
+/* ---------- API helper ---------- */
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    ...opts
+  });
+  let data = null;
+  try { data = await res.json(); } catch {}
+  if (!res.ok) {
+    const msg = (data && data.error) || `Request failed (${res.status})`;
+    throw new Error(msg);
+  }
+  return data;
+}
+
+/* ---------- Sidebar / navigation ---------- */
+function toggleSidebar() {
+  const sb = $('sidebar'), ov = $('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show', sb.classList.contains('open'));
+}
+function closeSidebar() {
+  $('sidebar').classList.remove('open');
+  $('overlay').classList.remove('show');
+}
+
+const PAGE_TITLES = {
+  home: 'Home', courses: 'All Courses', assignments: 'Assignments',
+  deadlines: 'Upcoming Deadlines', login: 'Admin Login', admin: 'Admin Dashboard'
+};
+
+function go(page) {
+  if (page === 'admin' && !state.admin) page = 'login';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = $('page-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === page);
+  });
+  $('pageTitle').textContent = PAGE_TITLES[page] || 'Home';
+  closeSidebar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (page === 'home') renderHomeLists();
+  if (page === 'courses') renderCourses();
+  if (page === 'assignments') renderAssignments();
+  if (page === 'deadlines') renderDeadlines();
+  if (page === 'admin') { renderAdminOverview(); renderAdminCourses(); renderAdminAssignments(); }
+}
+
+/* ---------- Data loading ---------- */
+async function loadPublicData() {
+  try {
+    const data = await api('/data');
+    state.courses = data.courses || [];
+    state.assignments = data.assignments || [];
+    state.loaded = true;
+    afterDataLoad();
+  } catch (e) {
+    console.error(e);
+    toast('Could not load data. ' + e.message, 'err');
+  }
+}
+
+async function loadAdminData() {
+  try {
+    const data = await api('/admin/data');
+    state.courses = data.courses || [];
+    state.assignments = data.assignments || [];
+    state.loaded = true;
+    afterDataLoad();
+  } catch (e) {
+    console.error(e);
+    if (String(e.message).toLowerCase().includes('unauthorized')) {
+      state.admin = null;
+      go('login');
+    }
+  }
+}
+
+function afterDataLoad() {
+  // populate course filter
+  const sel = $('filterCourse');
+  sel.innerHTML = '<option value="">All Courses</option>' +
+    state.courses.map(c => `<option value="${esc(c.code)}">${esc(c.code)} — ${esc(c.title)}</option>`).join('');
+  renderHomeLists();
+  renderCourses();
+  renderAssignments();
+  renderDeadlines();
+  if (state.admin) {
+    renderAdminOverview();
+    renderAdminCourses();
+    renderAdminAssignments();
+  }
+  refreshUserChip();
+}
+
+function refreshUserChip() {
+  const chip = $('userChip');
+  if (state.admin) {
+    chip.style.display = 'flex';
+    $('userEmail').textContent = state.admin.email || 'admin';
+    $('adminNavLabel').textContent = 'Admin Dashboard';
+    document.querySelector('[data-page="login"]').dataset.page = 'admin';
+  } else {
+    chip.style.display = 'none';
+    $('adminNavLabel').textContent = 'Admin Login';
+    document.querySelector('[data-page="admin"]').dataset.page = 'login';
+  }
+}
+
+/* ---------- HOME ---------- */
+function renderHomeLists() {
+  const published = state.assignments.filter(a => a.published !== false);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue')
+    .sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const dueSoon = upcoming.filter(a => statusOf(a) === 'soon');
+  const recent = [...published].sort((a,b) => new Date(b.date_assigned) - new Date(a.date_assigned)).slice(0,4);
+
+  const q = ($('homeSearch')?.value || '').toLowerCase().trim();
+  const match = (a) => !q || [a.title, a.course_code, a.course_title, a.instructions].join(' ').toLowerCase().includes(q);
+
+  // stats
+  const overdue = published.filter(a => statusOf(a) === 'overdue').length;
+  $('homeStats').innerHTML = `
+    <div class="stat">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="num">${state.courses.length}</div><div class="lbl">Total Courses</div>
+    </div>
+    <div class="stat gold">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="num">${published.length}</div><div class="lbl">Total Assignments</div>
+    </div>
+    <div class="stat warn">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="num">${dueSoon.length}</div><div class="lbl">Due Soon (3 days)</div>
+    </div>
+    <div class="stat danger">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="num">${overdue}</div><div class="lbl">Overdue</div>
+    </div>`;
+
+  $('upcomingHint').textContent = `${upcoming.length} assignment${upcoming.length !== 1 ? 's' : ''}`;
+
+  const renderCard = (a) => assignCardHTML(a);
+  $('homeUpcoming').innerHTML = upcoming.filter(match).slice(0,6).map(renderCard).join('') || emptyHTML('No upcoming assignments');
+  $('homeDueSoon').innerHTML = dueSoon.filter(match).map(renderCard).join('') || emptyHTML('Nothing due in the next 3 days');
+  $('homeRecent').innerHTML = recent.filter(match).map(renderCard).join('') || emptyHTML('No assignments yet');
+}
+
+function assignCardHTML(a) {
+  const st = statusOf(a);
+  return `
+    <div class="card" onclick='showDetail(${a.id})'>
+      <div class="row">
+        <span class="code">${esc(a.course_code || '')}</span>
+        ${badgeForStatus(st)}
+      </div>
+      <h4>${esc(a.title)}</h4>
+      <div class="meta" style="margin-bottom:6px">${esc(a.course_title || '')}</div>
+      <div class="meta">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Due <b style="margin-left:4px">${fmtDateTime(a.deadline)}</b>
+      </div>
+    </div>`;
+}
+
+function emptyHTML(msg) {
+  return `<div class="empty" style="grid-column:1/-1">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <p>${esc(msg)}</p></div>`;
+}
+
+/* ---------- COURSES ---------- */
+function renderCourses() {
+  const q = ($('courseSearch')?.value || '').toLowerCase().trim();
+  const published = state.assignments.filter(a => a.published !== false);
+  const list = state.courses.filter(c =>
+    !q || (c.title + ' ' + c.code + ' ' + (c.lecturer||'')).toLowerCase().includes(q)
+  );
+
+  if (!list.length) {
+    $('coursesGrid').innerHTML = emptyHTML(state.courses.length ? 'No matching courses' : 'No courses available yet');
+    return;
+  }
+
+  $('coursesGrid').innerHTML = list.map(c => {
+    const count = published.filter(a => a.course_id === c.id).length;
+    return `
+      <div class="card" onclick='filterAssignmentsByCourse(${JSON.stringify(c.code)})'>
+        <div class="row"><span class="code">${esc(c.code)}</span></div>
+        <h4>${esc(c.title)}</h4>
+        <div class="meta" style="margin-bottom:8px">${c.lecturer ? esc(c.lecturer) : '<span style="opacity:.6">No lecturer listed</span>'}</div>
+        <div class="meta"><b>${count}</b> assignment${count !== 1 ? 's' : ''}</div>
+      </div>`;
+  }).join('');
+}
+
+function filterAssignmentsByCourse(code) {
+  $('filterCourse').value = code;
+  go('assignments');
+  renderAssignments();
+}
+
+/* ---------- ASSIGNMENTS ---------- */
+function renderAssignments() {
+  const q = ($('assignSearch')?.value || '').toLowerCase().trim();
+  const course = $('filterCourse')?.value || '';
+  const status = $('filterStatus')?.value || '';
+  const sort = $('filterSort')?.value || 'deadline';
+
+  let list = state.assignments.filter(a => a.published !== false);
+
+  if (course) list = list.filter(a => a.course_code === course);
+  if (status) list = list.filter(a => statusOf(a) === status);
+  if (q) list = list.filter(a =>
+    [a.title, a.course_code, a.course_title, a.instructions, a.notes].join(' ').toLowerCase().includes(q)
+  );
+
+  if (sort === 'deadline') list.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  else if (sort === 'recent') list.sort((a,b) => new Date(b.date_assigned) - new Date(a.date_assigned));
+  else if (sort === 'title') list.sort((a,b) => a.title.localeCompare(b.title));
+
+  $('assignGrid').innerHTML = list.length
+    ? list.map(assignCardHTML).join('')
+    : emptyHTML('No assignments match your filters');
+}
+
+/* ---------- DEADLINES ---------- */
+function renderDeadlines() {
+  const published = state.assignments.filter(a => a.published !== false);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue')
+    .sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const soon = upcoming.filter(a => statusOf(a) === 'soon').length;
+  const week = upcoming.filter(a => {
+    const d = new Date(a.deadline).getTime() - Date.now();
+    return d > 0 && d <= 7 * 864e5;
+  }).length;
+  const overdue = published.filter(a => statusOf(a) === 'overdue').length;
+
+  $('deadlineStats').innerHTML = `
+    <div class="stat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+    <div class="stat warn"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="num">${soon}</div><div class="lbl">Due in 3 days</div></div>
+    <div class="stat gold"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="num">${week}</div><div class="lbl">This week</div></div>
+    <div class="stat danger"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="num">${overdue}</div><div class="lbl">Overdue</div></div>`;
+
+  $('deadlineGrid').innerHTML = upcoming.length
+    ? upcoming.map(assignCardHTML).join('')
+    : emptyHTML('No upcoming deadlines');
+}
+
+/* ---------- DETAIL MODAL ---------- */
+function showDetail(id) {
+  const a = state.assignments.find(x => x.id === id) || {};
+  const st = statusOf(a);
+  $('detailTitle').textContent = a.title || 'Assignment';
+  $('detailBody').innerHTML = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <span class="badge published"><span class="dot"></span>${esc(a.course_code || '')}</span>
+      ${badgeForStatus(st)}
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">${esc(a.course_title || '')}</div>
+    <div class="detail-list">
+      <div class="detail-row"><span class="k">Date Assigned</span><span class="v">${fmtDate(a.date_assigned)}</span></div>
+      <div class="detail-row"><span class="k">Submission Deadline</span><span class="v">${fmtDateTime(a.deadline)}</span></div>
+      <div class="detail-row"><span class="k">Submission Method</span><span class="v">${esc(a.submission_method || '—')}</span></div>
+      <div class="detail-row"><span class="k">Status</span><span class="v">${st.charAt(0).toUpperCase() + st.slice(1)}</span></div>
+    </div>
+    <div class="detail-block"><h5>Instructions</h5><p>${esc(a.instructions || 'No instructions provided.')}</p></div>
+    ${a.notes ? `<div class="detail-block"><h5>Additional Notes</h5><p>${esc(a.notes)}</p></div>` : ''}
+  `;
+  openModal('detailModal');
+}
+
+function openModal(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { $(id).classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-back').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+});
+
+/* ---------- LOGIN ---------- */
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = $('loginEmail').value.trim();
+  const password = $('loginPassword').value;
+  const errBox = $('loginError');
+  const btn = $('loginBtn');
+  errBox.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+
+  try {
+    await api('/admin/login', { method:'POST', body: JSON.stringify({ email, password }) });
+    const me = await api('/admin/me');
+    state.admin = me;
+    $('loginForm').reset();
+    refreshUserChip();
+    toast('Welcome, ' + (me.email || 'admin'), 'gold');
+    await loadAdminData();
+    go('admin');
+  } catch (err) {
+    errBox.textContent = err.message || 'Login failed';
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In Securely';
+  }
+}
+
+async function handleLogout() {
+  try { await api('/admin/logout', { method:'POST' }); } catch {}
+  state.admin = null;
+  refreshUserChip();
+  toast('Signed out');
+  await loadPublicData();
+  go('home');
+}
+
+/* ---------- ADMIN: DASHBOARD ---------- */
+function adminTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  $('adminTab-dash').style.display = name === 'dash' ? '' : 'none';
+  $('adminTab-courses').style.display = name === 'courses' ? '' : 'none';
+  $('adminTab-assignments').style.display = name === 'assignments' ? '' : 'none';
+}
+
+function renderAdminOverview() {
+  if (!state.admin) return;
+  const all = state.assignments;
+  const published = all.filter(a => a.published);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue').sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const overdue = published.filter(a => statusOf(a) === 'overdue');
+  const recent = [...published].sort((a,b) => new Date(b.created_at || b.date_assigned) - new Date(a.created_at || a.date_assigned)).slice(0,4);
+
+  $('adminStats').innerHTML = `
+    <div class="stat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="num">${state.courses.length}</div><div class="lbl">Courses</div></div>
+    <div class="stat gold"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="num">${all.length}</div><div class="lbl">Assignments</div></div>
+    <div class="stat warn"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+    <div class="stat danger"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="num">${overdue.length}</div><div class="lbl">Overdue</div></div>`;
+
+  $('adminRecent').innerHTML = recent.map(adminAssignCard).join('') || emptyHTML('No published assignments yet');
+  $('adminUpcoming').innerHTML = upcoming.slice(0,4).map(adminAssignCard).join('') || emptyHTML('Nothing upcoming');
+  $('adminOverdue').innerHTML = overdue.slice(0,4).map(adminAssignCard).join('') || emptyHTML('Nothing overdue');
+}
+
+function adminAssignCard(a) {
+  return `
+    <div class="card" onclick='editAssignment(${a.id})'>
+      <div class="row"><span class="code">${esc(a.course_code || '')}</span>${badgeForStatus(statusOf(a))}</div>
+      <h4>${esc(a.title)}</h4>
+      <div class="meta">Due ${fmtDateTime(a.deadline)}</div>
+      <div class="meta" style="margin-top:6px">${a.published ? '<span class="badge published"><span class="dot"></span>Published</span>' : '<span class="badge draft"><span class="dot"></span>Draft</span>'}</div>
+    </div>`;
+}
+
+/* ---------- ADMIN: COURSES CRUD ---------- */
+function renderAdminCourses() {
+  if (!state.admin) return;
+  const rows = state.courses.map(c => `
+    <tr>
+      <td><b style="color:var(--navy)">${esc(c.code)}</b></td>
+      <td>${esc(c.title)}</td>
+      <td>${c.lecturer ? esc(c.lecturer) : '<span style="color:var(--muted)">—</span>'}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-outline btn-sm" onclick='editCourse(${c.id})'>Edit</button>
+          <button class="btn btn-danger btn-sm" onclick='deleteCourse(${c.id})'>Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('adminCourseRows').innerHTML = rows || `<tr><td colspan="4" style="text-align:center;padding:30px;color:var(--muted)">No courses yet</td></tr>`;
+}
+
+function openCourseModal() {
+  $('courseId').value = '';
+  $('courseCode').value = '';
+  $('courseTitle').value = '';
+  $('courseLecturer').value = '';
+  $('courseModalTitle').textContent = 'Add Course';
+  $('courseError').classList.remove('show');
+  openModal('courseModal');
+}
+
+function editCourse(id) {
+  const c = state.courses.find(x => x.id === id);
+  if (!c) return;
+  $('courseId').value = c.id;
+  $('courseCode').value = c.code;
+  $('courseTitle').value = c.title;
+  $('courseLecturer').value = c.lecturer || '';
+  $('courseModalTitle').textContent = 'Edit Course';
+  $('courseError').classList.remove('show');
+  openModal('courseModal');
+}
+
+async function saveCourse() {
+  const id = $('courseId').value;
+  const body = {
+    code: $('courseCode').value.trim(),
+    title: $('courseTitle').value.trim(),
+    lecturer: $('courseLecturer').value.trim()
+  };
+  const errBox = $('courseError');
+  errBox.classList.remove('show');
+  if (!body.code || !body.title) {
+    errBox.textContent = 'Course code and title are required.';
+    errBox.classList.add('show');
+    return;
+  }
+  const btn = $('saveCourseBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    if (id) {
+      await api(`/admin/courses/${id}`, { method:'PUT', body: JSON.stringify(body) });
+      toast('Course updated', 'gold');
+    } else {
+      await api('/admin/courses', { method:'POST', body: JSON.stringify(body) });
+      toast('Course added', 'gold');
+    }
+    closeModal('courseModal');
+    await loadAdminData();
+    renderAdminCourses();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Course';
+  }
+}
+
+async function deleteCourse(id) {
+  const c = state.courses.find(x => x.id === id);
+  if (!confirm(`Delete "${c?.code} — ${c?.title}"?\nAll assignments for this course will be removed.`)) return;
+  try {
+    await api(`/admin/courses/${id}`, { method:'DELETE' });
+    toast('Course deleted');
+    await loadAdminData();
+    renderAdminCourses();
+    renderAdminAssignments();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* ---------- ADMIN: ASSIGNMENTS CRUD ---------- */
+function renderAdminAssignments() {
+  if (!state.admin) return;
+  const rows = state.assignments.map(a => `
+    <tr>
+      <td>${esc(a.title)}</td>
+      <td><b style="color:var(--navy)">${esc(a.course_code || '')}</b></td>
+      <td>${fmtDateTime(a.deadline)}</td>
+      <td>${a.published ? '<span class="badge published"><span class="dot"></span>Published</span>' : '<span class="badge draft"><span class="dot"></span>Draft</span>'}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-outline btn-sm" onclick='editAssignment(${a.id})'>Edit</button>
+          <button class="btn btn-danger btn-sm" onclick='deleteAssignment(${a.id})'>Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('adminAssignRows').innerHTML = rows || `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--muted)">No assignments yet</td></tr>`;
+
+  // populate course select
+  const sel = $('assignCourse');
+  sel.innerHTML = '<option value="">— Select course —</option>' +
+    state.courses.map(c => `<option value="${c.id}">${esc(c.code)} — ${esc(c.title)}</option>`).join('');
+}
+
+function openAssignModal() {
+  if (!state.courses.length) {
+    toast('Add a course first', 'err');
+    return;
+  }
+  $('assignId').value = '';
+  $('assignCourse').value = '';
+  $('assignTitle').value = '';
+  $('assignInstructions').value = '';
+  $('assignDate').value = todayISO();
+  $('assignDeadline').value = '';
+  $('assignMethod').value = '';
+  $('assignNotes').value = '';
+  $('assignPublished').checked = false;
+  $('assignModalTitle').textContent = 'Add Assignment';
+  $('assignError').classList.remove('show');
+  openModal('assignModal');
+}
+
+function editAssignment(id) {
+  const a = state.assignments.find(x => x.id === id);
+  if (!a) return;
+  $('assignId').value = a.id;
+  $('assignCourse').value = a.course_id;
+  $('assignTitle').value = a.title;
+  $('assignInstructions').value = a.instructions;
+  $('assignDate').value = (a.date_assigned || '').slice(0,10);
+  $('assignDeadline').value = toLocalDatetimeInput(a.deadline);
+  $('assignMethod').value = a.submission_method || '';
+  $('assignNotes').value = a.notes || '';
+  $('assignPublished').checked = !!a.published;
+  $('assignModalTitle').textContent = 'Edit Assignment';
+  $('assignError').classList.remove('show');
+  openModal('assignModal');
+}
+
+function toLocalDatetimeInput(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function saveAssignment() {
+  const id = $('assignId').value;
+  const body = {
+    course_id: parseInt($('assignCourse').value) || null,
+    title: $('assignTitle').value.trim(),
+    instructions: $('assignInstructions').value.trim(),
+    date_assigned: $('assignDate').value,
+    deadline: $('assignDeadline').value,
+    submission_method: $('assignMethod').value,
+    notes: $('assignNotes').value.trim(),
+    published: $('assignPublished').checked
+  };
+  const errBox = $('assignError');
+  errBox.classList.remove('show');
+  if (!body.course_id || !body.title || !body.instructions || !body.date_assigned || !body.deadline || !body.submission_method) {
+    errBox.textContent = 'Please fill in all required fields (marked *).';
+    errBox.classList.add('show');
+    return;
+  }
+  const btn = $('saveAssignBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    if (id) {
+      await api(`/admin/assignments/${id}`, { method:'PUT', body: JSON.stringify(body) });
+      toast('Assignment updated', 'gold');
+    } else {
+      await api('/admin/assignments', { method:'POST', body: JSON.stringify(body) });
+      toast('Assignment created', 'gold');
+    }
+    closeModal('assignModal');
+    await loadAdminData();
+    renderAdminAssignments();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Assignment';
+  }
+}
+
+async function deleteAssignment(id) {
+  const a = state.assignments.find(x => x.id === id);
+  if (!confirm(`Delete assignment "${a?.title}"?`)) return;
+  try {
+    await api(`/admin/assignments/${id}`, { method:'DELETE' });
+    toast('Assignment deleted');
+    await loadAdminData();
+    renderAdminAssignments();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+/* ---------- INIT ---------- */
+(async function init() {
+  $('year').textContent = new Date().getFullYear();
+  // check existing admin session
+  try {
+    const me = await api('/admin/me');
+    state.admin = me;
+    refreshUserChip();
+    await loadAdminData();
+    go('admin');
+  } catch {
+    await loadPublicData();
+    go('home');
+  }
+})();
+</script>
+</body>
+</html>
