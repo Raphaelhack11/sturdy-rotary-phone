@@ -235,4 +235,954 @@ footer b{color:var(--navy);font-weight:700}
 
 /* ============ DETAIL LIST ============ */
 .detail-list{display:flex;flex-direction:column;gap:0;margin:14px 0}
-.d
+.detail-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.detail-row:last-child{border:none}
+.detail-row .k{color:var(--muted);font-weight:500;flex-shrink:0}
+.detail-row .v{color:var(--ink);font-weight:600;text-align:right;word-break:break-word}
+.detail-block{margin-top:14px}
+.detail-block h5{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+.detail-block p{font-size:14px;color:var(--ink);white-space:pre-wrap;line-height:1.65}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .burger{display:flex}
+  .content{padding:16px}
+  .topbar{padding-left:16px;padding-right:16px}
+}
+@media(max-width:520px){
+  .hero{padding:22px 20px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat{padding:15px}
+  .stat .num{font-size:23px}
+  .grid{grid-template-columns:1fr}
+  .modal{max-height:96vh;border-radius:14px}
+  .modal-body{padding:18px}
+  .chip-user .email{display:none}
+}
+.overlay{position:fixed;inset:0;background:rgba(10,31,68,.45);z-index:999;display:none;backdrop-filter:blur(2px)}
+.overlay.show{display:block}
+
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="eyebrow">Lagos State University</div>
+    <h1>Mathematical Education</h1>
+    <div class="sub">Assignment Portal</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Student</div>
+    <button class="nav-item active" data-page="home" onclick="go('home')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-page="courses" onclick="go('courses')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>All Courses</span>
+    </button>
+    <button class="nav-item" data-page="assignments" onclick="go('assignments')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+      <span>Assignments</span>
+    </button>
+    <button class="nav-item" data-page="deadlines" onclick="go('deadlines')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Upcoming Deadlines</span>
+    </button>
+    <div class="nav-label">Administration</div>
+    <button class="nav-item" data-page="login" onclick="go('login')">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span id="adminNavLabel">Admin Login</span>
+    </button>
+  </nav>
+  <div class="sidebar-foot">Raph Techs · v1.0</div>
+</aside>
+
+<!-- ============ APP ============ -->
+<div class="app">
+  <div class="main">
+    <header class="topbar">
+      <button class="burger" onclick="toggleSidebar()" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="page-title" id="pageTitle">Home</div>
+      <div class="chip-user" id="userChip" style="display:none">
+        <span class="dot"></span>
+        <span class="email" id="userEmail"></span>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <h2>Welcome to the <span class="gold">Math Ed</span> Assignment Portal</h2>
+          <p>Access your courses, assignments, instructions, and submission deadlines — all in one place, updated in real time.</p>
+        </div>
+        <div class="stats" id="homeStats"></div>
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="homeSearch" placeholder="Search courses, assignments, codes…" oninput="renderHomeLists()" />
+        </div>
+        <div class="section-head"><h3>Upcoming Assignments</h3><span class="hint" id="upcomingHint"></span></div>
+        <div class="grid" id="homeUpcoming"></div>
+        <div class="section-head"><h3>Due Soon</h3><span class="hint">Within 3 days</span></div>
+        <div class="grid" id="homeDueSoon"></div>
+        <div class="section-head"><h3>Recent Assignments</h3></div>
+        <div class="grid" id="homeRecent"></div>
+      </section>
+
+      <section class="page" id="page-courses">
+        <div class="hero"><h2>All Courses</h2><p>Browse every registered Mathematical Education course and its assignments.</p></div>
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="courseSearch" placeholder="Search by title or course code…" oninput="renderCourses()" />
+        </div>
+        <div class="grid" id="coursesGrid"></div>
+      </section>
+
+      <section class="page" id="page-assignments">
+        <div class="hero"><h2>Assignments</h2><p>Detailed instructions, submission methods, deadlines, and notes for every assignment.</p></div>
+        <div class="searchbar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa5b8" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input id="assignSearch" placeholder="Search title, course, code, instructions…" oninput="renderAssignments()" />
+        </div>
+        <div class="filters">
+          <select id="filterCourse" onchange="renderAssignments()"><option value="">All Courses</option></select>
+          <select id="filterStatus" onchange="renderAssignments()">
+            <option value="">All Statuses</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="soon">Due Soon</option>
+            <option value="overdue">Overdue</option>
+          </select>
+          <select id="filterSort" onchange="renderAssignments()">
+            <option value="deadline">Sort: Deadline (soonest)</option>
+            <option value="recent">Sort: Recently assigned</option>
+            <option value="title">Sort: Title A–Z</option>
+          </select>
+        </div>
+        <div class="grid" id="assignGrid"></div>
+      </section>
+
+      <section class="page" id="page-deadlines">
+        <div class="hero"><h2>Upcoming Deadlines</h2><p>Never miss a submission. Assignments sorted by deadline.</p></div>
+        <div class="stats" id="deadlineStats"></div>
+        <div class="grid" id="deadlineGrid"></div>
+      </section>
+
+      <section class="page" id="page-login">
+        <div class="login-wrap">
+          <div class="login-card">
+            <div class="crest">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h2>Admin Login</h2>
+            <p class="sub">Authorized administrators only</p>
+            <div class="alert error" id="loginError"></div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+              <div class="field">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@lasu.edu.ng" required autocomplete="username" />
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;margin-top:6px" id="loginBtn">
+                Sign In Securely
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-admin">
+        <div class="hero">
+          <h2>Admin Dashboard</h2>
+          <p>Manage courses and assignments. All changes are published to students in real time.</p>
+        </div>
+        <div class="stats" id="adminStats"></div>
+        <div class="tabs">
+          <button class="tab active" data-tab="dash" onclick="adminTab('dash')">Overview</button>
+          <button class="tab" data-tab="courses" onclick="adminTab('courses')">Courses</button>
+          <button class="tab" data-tab="assignments" onclick="adminTab('assignments')">Assignments</button>
+        </div>
+
+        <div id="adminTab-dash">
+          <div class="section-head"><h3>Recently Published</h3></div>
+          <div class="grid" id="adminRecent"></div>
+          <div class="section-head" style="margin-top:26px"><h3>Upcoming Deadlines</h3></div>
+          <div class="grid" id="adminUpcoming"></div>
+          <div class="section-head" style="margin-top:26px"><h3>Overdue</h3></div>
+          <div class="grid" id="adminOverdue"></div>
+        </div>
+
+        <div id="adminTab-courses" style="display:none">
+          <div class="toolbar">
+            <div class="spacer"></div>
+            <button class="btn btn-gold" onclick="openCourseModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Course
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Code</th><th>Title</th><th>Units</th><th>Lecturer</th><th style="text-align:right">Actions</th></tr></thead>
+              <tbody id="adminCourseRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="adminTab-assignments" style="display:none">
+          <div class="toolbar">
+            <div class="spacer"></div>
+            <button class="btn btn-gold" onclick="openAssignModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Assignment
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Title</th><th>Course</th><th>Deadline</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+              <tbody id="adminAssignRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="toolbar" style="margin-top:24px">
+          <div class="spacer"></div>
+          <button class="btn btn-outline btn-sm" onclick="handleLogout()">Sign Out</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> LASU Mathematical Education · Designed &amp; Developed by <b>Raph Techs</b>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ ASSIGNMENT DETAIL MODAL ============ -->
+<div class="modal-back" id="detailModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="detailTitle">Assignment</h3>
+      <button class="modal-close" onclick="closeModal('detailModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-foot"><button class="btn btn-outline" onclick="closeModal('detailModal')">Close</button></div>
+  </div>
+</div>
+
+<!-- ============ COURSE MODAL ============ -->
+<div class="modal-back" id="courseModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="courseModalTitle">Add Course</h3>
+      <button class="modal-close" onclick="closeModal('courseModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="courseError"></div>
+      <input type="hidden" id="courseId" />
+      <div class="field"><label>Course Code *</label><input id="courseCode" placeholder="e.g. MAT 101" /></div>
+      <div class="field"><label>Course Title *</label><input id="courseTitle" placeholder="e.g. Elementary Mathematics I" /></div>
+      <div class="field-row">
+        <div class="field"><label>Units</label><input type="number" id="courseUnits" min="1" max="6" value="2" /></div>
+        <div class="field"><label>Lecturer (optional)</label><input id="courseLecturer" placeholder="e.g. Dr. A. O. Adebayo" /></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('courseModal')">Cancel</button>
+      <button class="btn btn-primary" id="saveCourseBtn" onclick="saveCourse()">Save Course</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ASSIGNMENT MODAL ============ -->
+<div class="modal-back" id="assignModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="assignModalTitle">Add Assignment</h3>
+      <button class="modal-close" onclick="closeModal('assignModal')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="assignError"></div>
+      <input type="hidden" id="assignId" />
+      <div class="field"><label>Course *</label><select id="assignCourse"></select></div>
+      <div class="field"><label>Assignment Title *</label><input id="assignTitle" placeholder="e.g. Problem Set 3 — Sequences" /></div>
+      <div class="field"><label>Detailed Instructions *</label><textarea id="assignInstructions" placeholder="Enter full assignment instructions…"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Date Assigned *</label><input type="date" id="assignDate" /></div>
+        <div class="field"><label>Submission Deadline *</label><input type="datetime-local" id="assignDeadline" /></div>
+      </div>
+      <div class="field">
+        <label>Submission Method *</label>
+        <select id="assignMethod">
+          <option value="">— Select method —</option>
+          <option>Submit in class (hard copy)</option>
+          <option>Email submission</option>
+          <option>Google Classroom</option>
+          <option>Course portal upload</option>
+          <option>Group submission</option>
+        </select>
+      </div>
+      <div class="field"><label>Additional Notes (optional)</label><textarea id="assignNotes" placeholder="Any extra guidance, resources, or warnings…"></textarea></div>
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <input type="checkbox" id="assignPublished" style="width:18px;height:18px;accent-color:#0a1f44" />
+          <span style="font-size:13.5px;font-weight:600;color:var(--navy)">Publish to students immediately</span>
+        </label>
+        <div class="help">Unpublished assignments are saved as drafts and hidden from students.</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('assignModal')">Cancel</button>
+      <button class="btn btn-primary" id="saveAssignBtn" onclick="saveAssignment()">Save Assignment</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   LASU MATH ED PORTAL — Raph Techs
+   Frontend: vanilla JS SPA
+   Backend: /api/* (Vercel serverless, see api/index.js)
+   ============================================================ */
+
+const API = '/api';
+
+const state = {
+  courses: [],
+  assignments: [],
+  admin: null,
+  loaded: false
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate = d => {
+  if (!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+};
+const fmtDateTime = d => {
+  if (!d) return '—';
+  const dt = new Date(d);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+};
+const todayISO = () => new Date().toISOString().slice(0,10);
+
+function toast(msg, variant='') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'show ' + variant;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.className = variant, 2800);
+}
+
+function statusOf(a) {
+  const now = Date.now();
+  const dl = new Date(a.deadline).getTime();
+  if (isNaN(dl)) return 'upcoming';
+  if (dl < now) return 'overdue';
+  if (dl - now <= 3 * 24 * 60 * 60 * 1000) return 'soon';
+  return 'upcoming';
+}
+
+function badgeForStatus(s) {
+  const map = { upcoming:['upcoming','Upcoming'], soon:['soon','Due Soon'], overdue:['overdue','Overdue'] };
+  const [cls,label] = map[s];
+  return `<span class="badge ${cls}"><span class="dot"></span>${label}</span>`;
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    ...opts
+  });
+  let data = null;
+  try { data = await res.json(); } catch {}
+  if (!res.ok) {
+    const msg = (data && data.error) || `Request failed (${res.status})`;
+    throw new Error(msg);
+  }
+  return data;
+}
+
+function toggleSidebar() {
+  const sb = $('sidebar'), ov = $('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show', sb.classList.contains('open'));
+}
+function closeSidebar() {
+  $('sidebar').classList.remove('open');
+  $('overlay').classList.remove('show');
+}
+
+const PAGE_TITLES = {
+  home: 'Home', courses: 'All Courses', assignments: 'Assignments',
+  deadlines: 'Upcoming Deadlines', login: 'Admin Login', admin: 'Admin Dashboard'
+};
+
+function go(page) {
+  if (page === 'admin' && !state.admin) page = 'login';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = $('page-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === page);
+  });
+  $('pageTitle').textContent = PAGE_TITLES[page] || 'Home';
+  closeSidebar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (page === 'home') renderHomeLists();
+  if (page === 'courses') renderCourses();
+  if (page === 'assignments') renderAssignments();
+  if (page === 'deadlines') renderDeadlines();
+  if (page === 'admin') { renderAdminOverview(); renderAdminCourses(); renderAdminAssignments(); }
+}
+
+async function loadPublicData() {
+  try {
+    const data = await api('/data');
+    state.courses = data.courses || [];
+    state.assignments = data.assignments || [];
+    state.loaded = true;
+    afterDataLoad();
+  } catch (e) {
+    console.error(e);
+    toast('Could not load data. ' + e.message, 'err');
+  }
+}
+
+async function loadAdminData() {
+  try {
+    const data = await api('/admin/data');
+    state.courses = data.courses || [];
+    state.assignments = data.assignments || [];
+    state.loaded = true;
+    afterDataLoad();
+  } catch (e) {
+    console.error(e);
+    if (String(e.message).toLowerCase().includes('unauthorized')) {
+      state.admin = null;
+      go('login');
+    }
+  }
+}
+
+function afterDataLoad() {
+  const sel = $('filterCourse');
+  sel.innerHTML = '<option value="">All Courses</option>' +
+    state.courses.map(c => `<option value="${esc(c.code)}">${esc(c.code)} — ${esc(c.title)}</option>`).join('');
+  renderHomeLists();
+  renderCourses();
+  renderAssignments();
+  renderDeadlines();
+  if (state.admin) {
+    renderAdminOverview();
+    renderAdminCourses();
+    renderAdminAssignments();
+  }
+  refreshUserChip();
+}
+
+function refreshUserChip() {
+  const chip = $('userChip');
+  const loginNav = document.querySelector('[data-page="login"], [data-page="admin"]');
+  if (state.admin) {
+    chip.style.display = 'flex';
+    $('userEmail').textContent = state.admin.email || 'admin';
+    $('adminNavLabel').textContent = 'Admin Dashboard';
+    if (loginNav) loginNav.dataset.page = 'admin';
+  } else {
+    chip.style.display = 'none';
+    $('adminNavLabel').textContent = 'Admin Login';
+    if (loginNav) loginNav.dataset.page = 'login';
+  }
+}
+
+function renderHomeLists() {
+  const published = state.assignments.filter(a => a.published !== false);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue')
+    .sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const dueSoon = upcoming.filter(a => statusOf(a) === 'soon');
+  const recent = [...published].sort((a,b) => new Date(b.date_assigned) - new Date(a.date_assigned)).slice(0,4);
+
+  const q = ($('homeSearch')?.value || '').toLowerCase().trim();
+  const match = (a) => !q || [a.title, a.course_code, a.course_title, a.instructions].join(' ').toLowerCase().includes(q);
+
+  const overdue = published.filter(a => statusOf(a) === 'overdue').length;
+  $('homeStats').innerHTML = `
+    <div class="stat">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="num">${state.courses.length}</div><div class="lbl">Total Courses</div>
+    </div>
+    <div class="stat gold">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="num">${published.length}</div><div class="lbl">Total Assignments</div>
+    </div>
+    <div class="stat warn">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="num">${dueSoon.length}</div><div class="lbl">Due Soon (3 days)</div>
+    </div>
+    <div class="stat danger">
+      <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="num">${overdue}</div><div class="lbl">Overdue</div>
+    </div>`;
+
+  $('upcomingHint').textContent = `${upcoming.length} assignment${upcoming.length !== 1 ? 's' : ''}`;
+  const renderCard = (a) => assignCardHTML(a);
+  $('homeUpcoming').innerHTML = upcoming.filter(match).slice(0,6).map(renderCard).join('') || emptyHTML('No upcoming assignments');
+  $('homeDueSoon').innerHTML = dueSoon.filter(match).map(renderCard).join('') || emptyHTML('Nothing due in the next 3 days');
+  $('homeRecent').innerHTML = recent.filter(match).map(renderCard).join('') || emptyHTML('No assignments yet');
+}
+
+function assignCardHTML(a) {
+  const st = statusOf(a);
+  return `
+    <div class="card" onclick='showDetail(${a.id})'>
+      <div class="row">
+        <span class="code">${esc(a.course_code || '')}</span>
+        ${badgeForStatus(st)}
+      </div>
+      <h4>${esc(a.title)}</h4>
+      <div class="meta" style="margin-bottom:6px">${esc(a.course_title || '')}</div>
+      <div class="meta">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Due <b style="margin-left:4px">${fmtDateTime(a.deadline)}</b>
+      </div>
+    </div>`;
+}
+
+function emptyHTML(msg) {
+  return `<div class="empty" style="grid-column:1/-1">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <p>${esc(msg)}</p></div>`;
+}
+
+function renderCourses() {
+  const q = ($('courseSearch')?.value || '').toLowerCase().trim();
+  const published = state.assignments.filter(a => a.published !== false);
+  const list = state.courses.filter(c =>
+    !q || (c.title + ' ' + c.code + ' ' + (c.lecturer||'')).toLowerCase().includes(q)
+  );
+
+  if (!list.length) {
+    $('coursesGrid').innerHTML = emptyHTML(state.courses.length ? 'No matching courses' : 'No courses available yet');
+    return;
+  }
+
+  $('coursesGrid').innerHTML = list.map(c => {
+    const count = published.filter(a => a.course_id === c.id).length;
+    return `
+      <div class="card" onclick='filterAssignmentsByCourse(${JSON.stringify(c.code)})'>
+        <div class="row">
+          <span class="code">${esc(c.code)}</span>
+          <span class="units">${c.units || 2} Units</span>
+        </div>
+        <h4>${esc(c.title)}</h4>
+        <div class="meta" style="margin-bottom:8px">${c.lecturer ? esc(c.lecturer) : '<span style="opacity:.6">No lecturer listed</span>'}</div>
+        <div class="meta"><b>${count}</b> assignment${count !== 1 ? 's' : ''}</div>
+      </div>`;
+  }).join('');
+}
+
+function filterAssignmentsByCourse(code) {
+  $('filterCourse').value = code;
+  go('assignments');
+  renderAssignments();
+}
+
+function renderAssignments() {
+  const q = ($('assignSearch')?.value || '').toLowerCase().trim();
+  const course = $('filterCourse')?.value || '';
+  const status = $('filterStatus')?.value || '';
+  const sort = $('filterSort')?.value || 'deadline';
+
+  let list = state.assignments.filter(a => a.published !== false);
+  if (course) list = list.filter(a => a.course_code === course);
+  if (status) list = list.filter(a => statusOf(a) === status);
+  if (q) list = list.filter(a =>
+    [a.title, a.course_code, a.course_title, a.instructions, a.notes].join(' ').toLowerCase().includes(q)
+  );
+
+  if (sort === 'deadline') list.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  else if (sort === 'recent') list.sort((a,b) => new Date(b.date_assigned) - new Date(a.date_assigned));
+  else if (sort === 'title') list.sort((a,b) => a.title.localeCompare(b.title));
+
+  $('assignGrid').innerHTML = list.length
+    ? list.map(assignCardHTML).join('')
+    : emptyHTML('No assignments match your filters');
+}
+
+function renderDeadlines() {
+  const published = state.assignments.filter(a => a.published !== false);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue')
+    .sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const soon = upcoming.filter(a => statusOf(a) === 'soon').length;
+  const week = upcoming.filter(a => {
+    const d = new Date(a.deadline).getTime() - Date.now();
+    return d > 0 && d <= 7 * 864e5;
+  }).length;
+  const overdue = published.filter(a => statusOf(a) === 'overdue').length;
+
+  $('deadlineStats').innerHTML = `
+    <div class="stat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+    <div class="stat warn"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="num">${soon}</div><div class="lbl">Due in 3 days</div></div>
+    <div class="stat gold"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="num">${week}</div><div class="lbl">This week</div></div>
+    <div class="stat danger"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="num">${overdue}</div><div class="lbl">Overdue</div></div>`;
+
+  $('deadlineGrid').innerHTML = upcoming.length
+    ? upcoming.map(assignCardHTML).join('')
+    : emptyHTML('No upcoming deadlines');
+}
+
+function showDetail(id) {
+  const a = state.assignments.find(x => x.id === id) || {};
+  const st = statusOf(a);
+  $('detailTitle').textContent = a.title || 'Assignment';
+  $('detailBody').innerHTML = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <span class="badge published"><span class="dot"></span>${esc(a.course_code || '')}</span>
+      ${badgeForStatus(st)}
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">${esc(a.course_title || '')}</div>
+    <div class="detail-list">
+      <div class="detail-row"><span class="k">Date Assigned</span><span class="v">${fmtDate(a.date_assigned)}</span></div>
+      <div class="detail-row"><span class="k">Submission Deadline</span><span class="v">${fmtDateTime(a.deadline)}</span></div>
+      <div class="detail-row"><span class="k">Submission Method</span><span class="v">${esc(a.submission_method || '—')}</span></div>
+      <div class="detail-row"><span class="k">Status</span><span class="v">${st.charAt(0).toUpperCase() + st.slice(1)}</span></div>
+    </div>
+    <div class="detail-block"><h5>Instructions</h5><p>${esc(a.instructions || 'No instructions provided.')}</p></div>
+    ${a.notes ? `<div class="detail-block"><h5>Additional Notes</h5><p>${esc(a.notes)}</p></div>` : ''}
+  `;
+  openModal('detailModal');
+}
+
+function openModal(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { $(id).classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-back').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+});
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = $('loginEmail').value.trim();
+  const password = $('loginPassword').value;
+  const errBox = $('loginError');
+  const btn = $('loginBtn');
+  errBox.classList.remove('show');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+
+  try {
+    await api('/admin/login', { method:'POST', body: JSON.stringify({ email, password }) });
+    const me = await api('/admin/me');
+    state.admin = me;
+    $('loginForm').reset();
+    refreshUserChip();
+    toast('Welcome, ' + (me.email || 'admin'), 'gold');
+    await loadAdminData();
+    go('admin');
+  } catch (err) {
+    errBox.textContent = err.message || 'Login failed';
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In Securely';
+  }
+}
+
+async function handleLogout() {
+  try { await api('/admin/logout', { method:'POST' }); } catch {}
+  state.admin = null;
+  refreshUserChip();
+  toast('Signed out');
+  await loadPublicData();
+  go('home');
+}
+
+function adminTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  $('adminTab-dash').style.display = name === 'dash' ? '' : 'none';
+  $('adminTab-courses').style.display = name === 'courses' ? '' : 'none';
+  $('adminTab-assignments').style.display = name === 'assignments' ? '' : 'none';
+}
+
+function renderAdminOverview() {
+  if (!state.admin) return;
+  const all = state.assignments;
+  const published = all.filter(a => a.published);
+  const upcoming = published.filter(a => statusOf(a) !== 'overdue').sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+  const overdue = published.filter(a => statusOf(a) === 'overdue');
+  const recent = [...published].sort((a,b) => new Date(b.created_at || b.date_assigned) - new Date(a.created_at || a.date_assigned)).slice(0,4);
+
+  $('adminStats').innerHTML = `
+    <div class="stat"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="num">${state.courses.length}</div><div class="lbl">Courses</div></div>
+    <div class="stat gold"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="num">${all.length}</div><div class="lbl">Assignments</div></div>
+    <div class="stat warn"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="num">${upcoming.length}</div><div class="lbl">Upcoming</div></div>
+    <div class="stat danger"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="num">${overdue.length}</div><div class="lbl">Overdue</div></div>`;
+
+  $('adminRecent').innerHTML = recent.map(adminAssignCard).join('') || emptyHTML('No published assignments yet');
+  $('adminUpcoming').innerHTML = upcoming.slice(0,4).map(adminAssignCard).join('') || emptyHTML('Nothing upcoming');
+  $('adminOverdue').innerHTML = overdue.slice(0,4).map(adminAssignCard).join('') || emptyHTML('Nothing overdue');
+}
+
+function adminAssignCard(a) {
+  return `
+    <div class="card" onclick='editAssignment(${a.id})'>
+      <div class="row"><span class="code">${esc(a.course_code || '')}</span>${badgeForStatus(statusOf(a))}</div>
+      <h4>${esc(a.title)}</h4>
+      <div class="meta">Due ${fmtDateTime(a.deadline)}</div>
+      <div class="meta" style="margin-top:6px">${a.published ? '<span class="badge published"><span class="dot"></span>Published</span>' : '<span class="badge draft"><span class="dot"></span>Draft</span>'}</div>
+    </div>`;
+}
+
+function renderAdminCourses() {
+  if (!state.admin) return;
+  const rows = state.courses.map(c => `
+    <tr>
+      <td><b style="color:var(--navy)">${esc(c.code)}</b></td>
+      <td>${esc(c.title)}</td>
+      <td>${c.units || 2}</td>
+      <td>${c.lecturer ? esc(c.lecturer) : '<span style="color:var(--muted)">—</span>'}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-outline btn-sm" onclick='editCourse(${c.id})'>Edit</button>
+          <button class="btn btn-danger btn-sm" onclick='deleteCourse(${c.id})'>Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('adminCourseRows').innerHTML = rows || `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--muted)">No courses yet</td></tr>`;
+}
+
+function openCourseModal() {
+  $('courseId').value = '';
+  $('courseCode').value = '';
+  $('courseTitle').value = '';
+  $('courseUnits').value = 2;
+  $('courseLecturer').value = '';
+  $('courseModalTitle').textContent = 'Add Course';
+  $('courseError').classList.remove('show');
+  openModal('courseModal');
+}
+
+function editCourse(id) {
+  const c = state.courses.find(x => x.id === id);
+  if (!c) return;
+  $('courseId').value = c.id;
+  $('courseCode').value = c.code;
+  $('courseTitle').value = c.title;
+  $('courseUnits').value = c.units || 2;
+  $('courseLecturer').value = c.lecturer || '';
+  $('courseModalTitle').textContent = 'Edit Course';
+  $('courseError').classList.remove('show');
+  openModal('courseModal');
+}
+
+async function saveCourse() {
+  const id = $('courseId').value;
+  const body = {
+    code: $('courseCode').value.trim(),
+    title: $('courseTitle').value.trim(),
+    lecturer: $('courseLecturer').value.trim(),
+    units: parseInt($('courseUnits').value) || 2
+  };
+  const errBox = $('courseError');
+  errBox.classList.remove('show');
+  if (!body.code || !body.title) {
+    errBox.textContent = 'Course code and title are required.';
+    errBox.classList.add('show');
+    return;
+  }
+  const btn = $('saveCourseBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    if (id) {
+      await api(`/admin/courses/${id}`, { method:'PUT', body: JSON.stringify(body) });
+      toast('Course updated', 'gold');
+    } else {
+      await api('/admin/courses', { method:'POST', body: JSON.stringify(body) });
+      toast('Course added', 'gold');
+    }
+    closeModal('courseModal');
+    await loadAdminData();
+    renderAdminCourses();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Course';
+  }
+}
+
+async function deleteCourse(id) {
+  const c = state.courses.find(x => x.id === id);
+  if (!confirm(`Delete "${c?.code} — ${c?.title}"?\nAll assignments for this course will be removed.`)) return;
+  try {
+    await api(`/admin/courses/${id}`, { method:'DELETE' });
+    toast('Course deleted');
+    await loadAdminData();
+    renderAdminCourses();
+    renderAdminAssignments();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+function renderAdminAssignments() {
+  if (!state.admin) return;
+  const rows = state.assignments.map(a => `
+    <tr>
+      <td>${esc(a.title)}</td>
+      <td><b style="color:var(--navy)">${esc(a.course_code || '')}</b></td>
+      <td>${fmtDateTime(a.deadline)}</td>
+      <td>${a.published ? '<span class="badge published"><span class="dot"></span>Published</span>' : '<span class="badge draft"><span class="dot"></span>Draft</span>'}</td>
+      <td>
+        <div class="actions">
+          <button class="btn btn-outline btn-sm" onclick='editAssignment(${a.id})'>Edit</button>
+          <button class="btn btn-danger btn-sm" onclick='deleteAssignment(${a.id})'>Delete</button>
+        </div>
+      </td>
+    </tr>`).join('');
+  $('adminAssignRows').innerHTML = rows || `<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--muted)">No assignments yet</td></tr>`;
+
+  const sel = $('assignCourse');
+  sel.innerHTML = '<option value="">— Select course —</option>' +
+    state.courses.map(c => `<option value="${c.id}">${esc(c.code)} — ${esc(c.title)}</option>`).join('');
+}
+
+function openAssignModal() {
+  if (!state.courses.length) {
+    toast('Add a course first', 'err');
+    return;
+  }
+  $('assignId').value = '';
+  $('assignCourse').value = '';
+  $('assignTitle').value = '';
+  $('assignInstructions').value = '';
+  $('assignDate').value = todayISO();
+  $('assignDeadline').value = '';
+  $('assignMethod').value = '';
+  $('assignNotes').value = '';
+  $('assignPublished').checked = false;
+  $('assignModalTitle').textContent = 'Add Assignment';
+  $('assignError').classList.remove('show');
+  openModal('assignModal');
+}
+
+function editAssignment(id) {
+  const a = state.assignments.find(x => x.id === id);
+  if (!a) return;
+  $('assignId').value = a.id;
+  $('assignCourse').value = a.course_id;
+  $('assignTitle').value = a.title;
+  $('assignInstructions').value = a.instructions;
+  $('assignDate').value = (a.date_assigned || '').slice(0,10);
+  $('assignDeadline').value = toLocalDatetimeInput(a.deadline);
+  $('assignMethod').value = a.submission_method || '';
+  $('assignNotes').value = a.notes || '';
+  $('assignPublished').checked = !!a.published;
+  $('assignModalTitle').textContent = 'Edit Assignment';
+  $('assignError').classList.remove('show');
+  openModal('assignModal');
+}
+
+function toLocalDatetimeInput(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function saveAssignment() {
+  const id = $('assignId').value;
+  const body = {
+    course_id: parseInt($('assignCourse').value) || null,
+    title: $('assignTitle').value.trim(),
+    instructions: $('assignInstructions').value.trim(),
+    date_assigned: $('assignDate').value,
+    deadline: $('assignDeadline').value,
+    submission_method: $('assignMethod').value,
+    notes: $('assignNotes').value.trim(),
+    published: $('assignPublished').checked
+  };
+  const errBox = $('assignError');
+  errBox.classList.remove('show');
+  if (!body.course_id || !body.title || !body.instructions || !body.date_assigned || !body.deadline || !body.submission_method) {
+    errBox.textContent = 'Please fill in all required fields (marked *).';
+    errBox.classList.add('show');
+    return;
+  }
+  const btn = $('saveAssignBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    if (id) {
+      await api(`/admin/assignments/${id}`, { method:'PUT', body: JSON.stringify(body) });
+      toast('Assignment updated', 'gold');
+    } else {
+      await api('/admin/assignments', { method:'POST', body: JSON.stringify(body) });
+      toast('Assignment created', 'gold');
+    }
+    closeModal('assignModal');
+    await loadAdminData();
+    renderAdminAssignments();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Assignment';
+  }
+}
+
+async function deleteAssignment(id) {
+  const a = state.assignments.find(x => x.id === id);
+  if (!confirm(`Delete assignment "${a?.title}"?`)) return;
+  try {
+    await api(`/admin/assignments/${id}`, { method:'DELETE' });
+    toast('Assignment deleted');
+    await loadAdminData();
+    renderAdminAssignments();
+  } catch (e) {
+    toast(e.message, 'err');
+  }
+}
+
+(async function init() {
+  $('year').textContent = new Date().getFullYear();
+  try {
+    const me = await api('/admin/me');
+    state.admin = me;
+    refreshUserChip();
+    await loadAdminData();
+    go('admin');
+  } catch {
+    await loadPublicData();
+    go('home');
+  }
+})();
+</script>
+</body>
+</html>
