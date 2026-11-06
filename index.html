@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#101b35">
-          <title>LASU Academic Hub | Mathematics Education</title>
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-              <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-                <style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b35">
+<title>LASU Academic Hub | Mathematics Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
 :root{--navy:#101b35;--navy2:#182747;--blue:#4268df;--blue-light:#edf2ff;--bg:#f5f7fb;--white:#fff;--text:#18243b;--muted:#8390a6;--border:#e8ecf3;--green:#15966a;--green-bg:#e8f7f0;--red:#d94b60;--red-bg:#fff0f2;--amber:#bd801c;--amber-bg:#fff6e5;--radius:16px;--shadow:0 8px 30px rgba(20,35,65,.045)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9cb2ff;outline-offset:2px}button:disabled{opacity:.55;cursor:not-allowed}.hidden{display:none!important}
 .app{min-height:100vh;display:flex}.sidebar{width:265px;position:fixed;inset:0 auto 0 0;background:var(--navy);color:white;z-index:30;display:flex;flex-direction:column;padding:25px 17px}.brand{display:flex;align-items:center;gap:12px;padding:0 8px 30px}.brand-icon{width:43px;height:43px;border-radius:13px;background:linear-gradient(145deg,#6387ff,#3557c6);display:grid;place-items:center;font-size:21px;font-weight:800}.brand-name{font-family:Manrope,sans-serif;font-weight:800;font-size:17px}.brand-sub{font-size:10px;color:#a7b4cf;letter-spacing:1.5px;margin-top:3px}.nav-label{color:#7e8da9;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:13px 10px 8px}.nav-list{list-style:none;padding:0;margin:0}.nav-btn{width:100%;border:0;background:transparent;color:#aebbd3;padding:11px 12px;border-radius:10px;text-align:left;display:flex;align-items:center;gap:11px;margin:3px 0;transition:.2s;font-size:13px}.nav-btn:hover{background:#ffffff12;color:white}.nav-btn.active{background:#ffffff16;color:white}.nav-btn.active .nav-icon{color:#91aaff}.nav-icon{width:20px;text-align:center;font-size:16px}.nav-count{margin-left:auto;background:#ffffff20;color:white;padding:2px 7px;border-radius:20px;font-size:10px}.course-nav{flex:1;overflow:auto;min-height:0}.course-btn{font-size:12px}.course-btn .nav-icon{font-size:10px}.sidebar-bottom{border-top:1px solid #ffffff20;padding-top:17px}.profile{display:flex;align-items:center;gap:10px;padding:10px 7px}.avatar{width:36px;height:36px;background:#293c63;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}.profile-name{font-size:12px;font-weight:700}.profile-role{font-size:10px;color:#9ba9c2;margin-top:3px}.admin-trigger{width:100%;padding:11px;border:1px solid #ffffff35;color:white;background:transparent;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px}.admin-trigger:hover{background:#ffffff12}
@@ -20,309 +20,300 @@
 dialog{border:0;border-radius:18px;padding:0;width:min(500px,calc(100% - 28px));color:var(--text);box-shadow:0 25px 80px #101b3550}dialog::backdrop{background:#101b3580;backdrop-filter:blur(4px)}.modal{padding:25px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}.modal-head h2{font-size:20px;margin:0}.close{border:0;background:var(--bg);width:32px;height:32px;border-radius:9px;font-size:17px}.field{margin-bottom:15px}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #dfe5ef;border-radius:9px;background:white;font-size:12px;color:var(--text)}.field textarea{min-height:105px;resize:vertical}.modal-footer{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.error{font-size:11px;color:var(--red);margin-top:10px;min-height:15px}
 .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--navy);color:white;padding:12px 19px;border-radius:30px;font-size:11px;z-index:100;transition:.25s;box-shadow:0 8px 30px #101b3540}.toast.show{opacity:1;transform:translate(-50%,0)}.footer{text-align:center;padding:28px 10px;color:var(--muted);font-size:10px;margin-top:40px}.footer b{color:var(--navy);font-family:Manrope;font-weight:800}.scrim{display:none}
 .timetable-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.day-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;box-shadow:var(--shadow)}.day-card h3{font-size:14px;margin:0 0 13px}.lecture-slot{padding:11px 0;border-top:1px solid var(--border)}.lecture-slot:first-of-type{border-top:0}.lecture-time{font-size:10px;font-weight:800;color:var(--blue);margin-bottom:5px}.lecture-course{font-size:12px;font-weight:800}.lecture-venue{font-size:10px;color:var(--muted);margin-top:4px}.no-lecture{font-size:12px;color:var(--muted);padding:9px 0}.lecture-update{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px}.lecture-update h3{font-size:14px;margin:8px 0}.lecture-update p{font-size:11px;color:var(--muted);line-height:1.7;white-space:pre-wrap;margin:0}.lecture-update-meta{font-size:10px;color:var(--muted)}.assignment-image{display:block;max-width:min(100%,520px);max-height:360px;object-fit:contain;border:1px solid var(--border);border-radius:10px;margin-top:12px;background:#f8faff}.image-preview img{max-width:100%;max-height:150px;object-fit:contain;border-radius:9px;margin-top:8px}.image-preview{font-size:10px;color:var(--muted)}
-@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.timetable-grid{grid-template-columns:1fr}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .25s;width:min(290px,85vw)}body.menu-open .sidebar{transform:translateX(0)}body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;z-index:25}.main{margin-left:0}.topbar{height:65px;padding:0 16px}.menu-btn{display:block}.content{padding:25px 17px 40px}.welcome-mark{width:53px;height:53px;font-size:24px}.welcome h1{font-size:27px}.courses-grid{grid-template-columns:1fr}.date-label{display:none}.admin-panel{align-items:flex-start;flex-direction:column}}@media(max-width:420px){.stats{gap:9px}.stat-card{padding:14px}.stat-number{font-size:25px}.assignment{padding:13px;gap:11px}.assignment-date{width:48px;height:58px}.assignment h3{font-size:12px}.status{font-size:9px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+/* Assignment preview popup (uses the existing dialog, tag and button styles) */
+.assignment[data-preview]{cursor:pointer}
+#previewDialog{width:min(640px,calc(100% - 28px))}
+#previewDialog[open]{display:flex;flex-direction:column}
+.preview-modal{display:flex;flex-direction:column;width:100%;min-height:0;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px)}
+.preview-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--border);flex:none}
+.preview-head .eyebrow{margin:0}
+.preview-body{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:22px}
+.preview-foot{flex:none;display:flex;justify-content:flex-end;padding:14px 22px;border-top:1px solid var(--border)}
+.preview-title{font-size:20px;line-height:1.35;letter-spacing:-.4px;margin:13px 0 6px;overflow-wrap:anywhere}
+.preview-course{font-size:12px;color:var(--muted);line-height:1.6;overflow-wrap:anywhere}
+.preview-info{margin:18px 0;padding:14px 15px;background:var(--blue-light);border-radius:12px}
+.preview-label{font-size:10px;font-weight:800;letter-spacing:1.3px;color:var(--blue);text-transform:uppercase;margin-bottom:7px}
+.preview-deadline{font-size:13px;font-weight:700;line-height:1.5}
+.preview-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.preview-section{margin-top:18px}
+.preview-text{font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.preview-image{display:block;max-width:100%;height:auto;max-height:70vh;margin:0 auto;object-fit:contain;border:1px solid var(--border);border-radius:10px;background:#f8faff}
+.preview-note{font-size:11px;color:var(--muted)}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.timetable-grid{grid-template-columns:1fr}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .25s;width:min(290px,85vw)}body.menu-open .sidebar{transform:translateX(0)}body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;z-index:25}.main{margin-left:0}.topbar{height:65px;padding:0 16px}.menu-btn{display:block}.content{padding:25px 17px 40px}.welcome-mark{width:53px;height:53px;font-size:24px}.welcome h1{font-size:27px}.courses-grid{grid-template-columns:1fr}.date-label{display:none}.admin-panel{align-items:flex-start;flex-direction:column}}@media(max-width:420px){.stats{gap:9px}.stat-card{padding:14px}.stat-number{font-size:25px}.assignment{padding:13px;gap:11px}.assignment-date{width:48px;height:58px}.assignment h3{font-size:12px}.status{font-size:9px}.preview-head{padding:14px 16px}.preview-body{padding:16px}.preview-foot{padding:12px 16px}.preview-title{font-size:18px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 </style>
-              </head>
-              <body>
-                <div class="app">
-                  <aside class="sidebar" id="sidebar">
-                    <div class="brand">
-                      <div class="brand-icon">L</div>
-                      <div>
-                        <div class="brand-name">LASU Academic Hub</div>
-                        <div class="brand-sub">MATHEMATICS EDUCATION</div>
-                      </div>
-                    </div>
-                    <div class="nav-label">WORKSPACE</div>
-                    <ul class="nav-list">
-                      <li>
-                        <button class="nav-btn active" data-view="dashboard">
-                          <span class="nav-icon">▦</span> Dashboard</button>
-                        </li>
-                        <li>
-                          <button class="nav-btn" data-view="assignments">
-                            <span class="nav-icon">▤</span> All assignments <span class="nav-count" id="navTotal">0</span>
-                          </button>
-                        </li>
-                        <li>
-                          <button class="nav-btn" data-view="upcoming">
-                            <span class="nav-icon">◷</span> Upcoming deadlines</button>
-                          </li>
-                          <li>
-                            <button class="nav-btn" data-view="past">
-                              <span class="nav-icon">✓</span> Past deadlines</button>
-                            </li>
-                            <li>
-                              <button class="nav-btn" data-view="lectures">
-                                <span class="nav-icon">▣</span> Lecture timetable</button>
-                              </li>
-                            </ul>
-                            <div class="nav-label">MY COURSES</div>
-                            <div class="course-nav">
-                              <ul class="nav-list" id="courseNav">
-                              </ul>
-                            </div>
-                            <div class="sidebar-bottom">
-                              <div class="profile">
-                                <div class="avatar" id="avatar">ST</div>
-                                <div>
-                                  <div class="profile-name" id="profileName">Student Workspace</div>
-                                  <div class="profile-role" id="profileRole">LASU · Mathematics Education</div>
-                                </div>
-                              </div>
-                              <button class="admin-trigger" id="adminTrigger">⚙ Admin access</button>
-                            </div>
-                          </aside>
-                          <div class="scrim" id="scrim">
-                          </div>
-                          <main class="main">
-                            <header class="topbar">
-                              <div class="top-left">
-                                <button class="menu-btn" id="menuBtn">☰</button>
-                                <div class="breadcrumb">LASU / <b id="crumb">Dashboard</b>
-                              </div>
-                            </div>
-                            <div class="top-right">
-                              <div class="date-label" id="today">
-                              </div>
-                              <div class="status">
-                                <span class="status-dot">
-                                </span> Academic portal</div>
-                              </div>
-                            </header>
-                            <div class="content">
-                              <section id="dashboardView">
-                                <div class="welcome">
-                                  <div>
-                                    <div class="eyebrow">YOUR ACADEMIC WORKSPACE</div>
-                                    <h1>Welcome to your<br>Academic Hub.</h1>
-                                    <p>Stay organized. Keep track of your assignments and never miss a deadline.</p>
-                                  </div>
-                                  <div class="welcome-mark">🎓</div>
-                                </div>
-                                <div class="stats">
-                                  <div class="stat-card">
-                                    <div class="stat-top">
-                                      <span class="stat-icon blue">▦</span>
-                                    </div>
-                                    <div class="stat-number" id="statCourses">10</div>
-                                    <div class="stat-label">Registered courses</div>
-                                  </div>
-                                  <div class="stat-card">
-                                    <div class="stat-top">
-                                      <span class="stat-icon green">▤</span>
-                                    </div>
-                                    <div class="stat-number" id="statActive">0</div>
-                                    <div class="stat-label">Active assignments</div>
-                                  </div>
-                                  <div class="stat-card">
-                                    <div class="stat-top">
-                                      <span class="stat-icon orange">◷</span>
-                                    </div>
-                                    <div class="stat-number" id="statSoon">0</div>
-                                    <div class="stat-label">Due within 72 hours</div>
-                                  </div>
-                                  <div class="stat-card">
-                                    <div class="stat-top">
-                                      <span class="stat-icon red">✓</span>
-                                    </div>
-                                    <div class="stat-number" id="statPast">0</div>
-                                    <div class="stat-label">Past deadlines</div>
-                                  </div>
-                                </div>
-                                <div id="adminBanner" class="admin-panel hidden">
-                                  <div>
-                                    <h2>Administrator workspace</h2>
-                                    <p>Manage course assignments and keep students updated.</p>
-                                  </div>
-                                  <button class="btn light" id="dashboardAdd">＋ New assignment</button>
-                                </div>
-                                <div class="section-head">
-                                  <div>
-                                    <h2>Your courses</h2>
-                                    <p>Select a course to view its assignments.</p>
-                                  </div>
-                                  <span class="text-btn" id="courseTotal">10 courses</span>
-                                </div>
-                                <div class="courses-grid" id="coursesGrid">
-                                </div>
-                                <div class="section-head">
-                                  <div>
-                                    <h2>Upcoming assignments</h2>
-                                    <p>Your nearest deadlines.</p>
-                                  </div>
-                                  <button class="text-btn" data-goto="assignments">View all →</button>
-                                </div>
-                                <div class="assignment-list" id="dashboardAssignments">
-                                </div>
-                              </section>
-                              <section id="listView" class="hidden">
-                                <div class="welcome">
-                                  <div>
-                                    <div class="eyebrow">ACADEMIC MANAGEMENT</div>
-                                    <h1 id="listHeading">All assignments</h1>
-                                    <p id="listDescription">Browse assignments across your courses.</p>
-                                  </div>
-                                  <div class="welcome-mark">📚</div>
-                                </div>
-                                <div class="assignment-tools">
-                                  <div class="search-wrap">
-                                    <span>⌕</span>
-                                    <input class="search" id="searchInput" placeholder="Search assignments or courses..." type="search">
-                                    </div>
-                                    <select class="filter" id="courseFilter">
-                                      <option value="">All courses</option>
-                                    </select>
-                                    <select class="filter" id="statusFilter">
-                                      <option value="">All statuses</option>
-                                      <option value="upcoming">Upcoming</option>
-                                      <option value="soon">Due soon</option>
-                                      <option value="past">Past deadlines</option>
-                                    </select>
-                                  </div>
-                                  <div class="section-head">
-                                    <div>
-                                      <h2 id="resultTitle">Assignments</h2>
-                                      <p id="resultCount">
-                                      </p>
-                                    </div>
-                                    <button class="btn hidden" id="listAdd">＋ Add assignment</button>
-                                  </div>
-                                  <div class="assignment-list" id="assignmentList">
-                                  </div>
-                                </section>
-                                <section id="lecturesView" class="hidden">
-                                  <div class="welcome">
-                                    <div>
-                                      <div class="eyebrow">ACADEMIC SCHEDULE</div>
-                                      <h1>Lecture timetable</h1>
-                                      <p>Keep track of your weekly lectures and important announcements.</p>
-                                    </div>
-                                    <div class="welcome-mark">📅</div>
-                                  </div>
-                                  <div id="lectureAdminBanner" class="admin-panel hidden">
-                                    <div>
-                                      <h2>Lecture announcements</h2>
-                                      <p>Publish important changes and updates for students.</p>
-                                    </div>
-                                    <button class="btn light" id="addLectureUpdate" type="button">＋ Publish update</button>
-                                  </div>
-                                  <div class="section-head">
-                                    <div>
-                                      <h2>Weekly timetable</h2>
-                                      <p>Your scheduled lectures for the week.</p>
-                                    </div>
-                                  </div>
-                                  <div class="timetable-grid" id="timetableGrid">
-                                  </div>
-                                  <div class="section-head">
-                                    <div>
-                                      <h2>Lecture announcements</h2>
-                                      <p>Updates published by the administrator.</p>
-                                    </div>
-                                  </div>
-                                  <div class="assignment-list" id="lectureUpdatesList">
-                                  </div>
-                                </section>
-                                <footer class="footer">Designed and developed by <b>Raph Techs</b>
-                                <br>LASU Mathematics Education · Academic Portal</footer>
-                              </div>
-                            </main>
-                          </div>
-                          <dialog id="loginDialog">
-                            <form class="modal" id="loginForm">
-                              <div class="modal-head">
-                                <h2>Administrator login</h2>
-                                <button type="button" class="close" data-close>×</button>
-                              </div>
-                              <p style="font-size:11px;color:#8390a6;margin-bottom:20px">Sign in to manage assignments and course information.</p>
-                              <div class="field">
-                                <label>Email address</label>
-                                <input id="email" type="email" required autocomplete="username" placeholder="admin@example.com">
-                                </div>
-                                <div class="field">
-                                  <label>Password</label>
-                                  <input id="password" type="password" required autocomplete="current-password" placeholder="Enter your password">
-                                  </div>
-                                  <div class="error" id="loginError">
-                                  </div>
-                                  <button class="btn full" id="loginSubmit" type="submit">Sign in securely</button>
-                                </form>
-                              </dialog>
-                              <dialog id="assignmentDialog">
-                                <form class="modal" id="assignmentForm" method="post">
-                                  <div class="modal-head">
-                                    <h2 id="formHeading">Create assignment</h2>
-                                    <button type="button" class="close" data-close>×</button>
-                                  </div>
-                                  <div class="field">
-                                    <label>Course</label>
-                                    <select id="formCourse" required>
-                                    </select>
-                                  </div>
-                                  <div class="field">
-                                    <label>Assignment title</label>
-                                    <input id="formTitle" maxlength="120" required placeholder="Enter assignment title">
-                                    </div>
-                                    <div class="field">
-                                      <label>Instructions and details</label>
-                                      <textarea id="formDetails" placeholder="Enter assignment instructions, requirements and submission information...">
-                                      </textarea>
-                                    </div>
-                                    <div class="field">
-                                      <label>Submission deadline</label>
-                                      <input id="formDeadline" type="datetime-local" required>
-                                      </div>
-                                      <div class="field">
-                                        <label>Assignment image URL (optional)</label>
-                                        <input id="formImageURL" type="url" inputmode="url" placeholder="https://example.com/assignment-image.jpg">
-                                          <small style="display:block;color:#8390a6;font-size:10px;margin-top:6px">Paste a direct, publicly accessible image link. No Firebase Storage or billing upgrade is needed.</small>
-                                          <div id="imagePreview" class="image-preview">
-                                          </div>
-                                        </div>
-                                        <div class="error" id="formError">
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn outline" data-close>Cancel</button>
-                                          <button class="btn" id="saveButton" type="submit">Publish assignment</button>
-                                        </div>
-                                      </form>
-                                    </dialog>
-                                    <dialog id="lectureDialog">
-                                      <form class="modal" id="lectureForm">
-                                        <div class="modal-head">
-                                          <h2>Publish lecture update</h2>
-                                          <button type="button" class="close" data-close>×</button>
-                                        </div>
-                                        <div class="field">
-                                          <label>Course</label>
-                                          <select id="lectureCourse" required>
-                                          </select>
-                                        </div>
-                                        <div class="field">
-                                          <label>Update title</label>
-                                          <input id="lectureTitle" maxlength="120" required placeholder="e.g. Change of venue">
-                                          </div>
-                                          <div class="field">
-                                            <label>Announcement</label>
-                                            <textarea id="lectureDetails" required placeholder="Enter the lecture update, new venue, reminder or meeting link...">
-                                            </textarea>
-                                          </div>
-                                          <div class="field">
-                                            <label>Effective date (optional)</label>
-                                            <input id="lectureDate" type="date">
-                                            </div>
-                                            <div class="error" id="lectureError">
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn outline" data-close>Cancel</button>
-                                              <button class="btn" id="lectureSave" type="submit">Publish update</button>
-                                            </div>
-                                          </form>
-                                        </dialog>
-                                        <div class="toast" id="toast" role="status" aria-live="polite">
-                                        </div>
-                                        <script type="module">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">L</div>
+      <div>
+        <div class="brand-name">LASU Academic Hub</div>
+        <div class="brand-sub">MATHEMATICS EDUCATION</div>
+      </div>
+    </div>
+    <div class="nav-label">WORKSPACE</div>
+    <ul class="nav-list">
+      <li><button class="nav-btn active" data-view="dashboard"><span class="nav-icon">▦</span> Dashboard</button></li>
+      <li><button class="nav-btn" data-view="assignments"><span class="nav-icon">▤</span> All assignments <span class="nav-count" id="navTotal">0</span></button></li>
+      <li><button class="nav-btn" data-view="upcoming"><span class="nav-icon">◷</span> Upcoming deadlines</button></li>
+      <li><button class="nav-btn" data-view="past"><span class="nav-icon">✓</span> Past deadlines</button></li>
+      <li><button class="nav-btn" data-view="lectures"><span class="nav-icon">▣</span> Lecture timetable</button></li>
+    </ul>
+    <div class="nav-label">MY COURSES</div>
+    <div class="course-nav">
+      <ul class="nav-list" id="courseNav"></ul>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="profile">
+        <div class="avatar" id="avatar">ST</div>
+        <div>
+          <div class="profile-name" id="profileName">Student Workspace</div>
+          <div class="profile-role" id="profileRole">LASU · Mathematics Education</div>
+        </div>
+      </div>
+      <button class="admin-trigger" id="adminTrigger">⚙ Admin access</button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <div class="breadcrumb">LASU / <b id="crumb">Dashboard</b></div>
+      </div>
+      <div class="top-right">
+        <div class="date-label" id="today"></div>
+        <div class="status"><span class="status-dot"></span> Academic portal</div>
+      </div>
+    </header>
+    <div class="content">
+      <section id="dashboardView">
+        <div class="welcome">
+          <div>
+            <div class="eyebrow">YOUR ACADEMIC WORKSPACE</div>
+            <h1>Welcome to your<br>Academic Hub.</h1>
+            <p>Stay organized. Keep track of your assignments and never miss a deadline.</p>
+          </div>
+          <div class="welcome-mark">🎓</div>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-top"><span class="stat-icon blue">▦</span></div>
+            <div class="stat-number" id="statCourses">10</div>
+            <div class="stat-label">Registered courses</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span class="stat-icon green">▤</span></div>
+            <div class="stat-number" id="statActive">0</div>
+            <div class="stat-label">Active assignments</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span class="stat-icon orange">◷</span></div>
+            <div class="stat-number" id="statSoon">0</div>
+            <div class="stat-label">Due within 72 hours</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span class="stat-icon red">✓</span></div>
+            <div class="stat-number" id="statPast">0</div>
+            <div class="stat-label">Past deadlines</div>
+          </div>
+        </div>
+        <div id="adminBanner" class="admin-panel hidden">
+          <div>
+            <h2>Administrator workspace</h2>
+            <p>Manage course assignments and keep students updated.</p>
+          </div>
+          <button class="btn light" id="dashboardAdd">＋ New assignment</button>
+        </div>
+        <div class="section-head">
+          <div>
+            <h2>Your courses</h2>
+            <p>Select a course to view its assignments.</p>
+          </div>
+          <span class="text-btn" id="courseTotal">10 courses</span>
+        </div>
+        <div class="courses-grid" id="coursesGrid"></div>
+        <div class="section-head">
+          <div>
+            <h2>Upcoming assignments</h2>
+            <p>Your nearest deadlines.</p>
+          </div>
+          <button class="text-btn" data-goto="assignments">View all →</button>
+        </div>
+        <div class="assignment-list" id="dashboardAssignments"></div>
+      </section>
+      <section id="listView" class="hidden">
+        <div class="welcome">
+          <div>
+            <div class="eyebrow">ACADEMIC MANAGEMENT</div>
+            <h1 id="listHeading">All assignments</h1>
+            <p id="listDescription">Browse assignments across your courses.</p>
+          </div>
+          <div class="welcome-mark">📚</div>
+        </div>
+        <div class="assignment-tools">
+          <div class="search-wrap">
+            <span>⌕</span>
+            <input class="search" id="searchInput" placeholder="Search assignments or courses..." type="search">
+          </div>
+          <select class="filter" id="courseFilter">
+            <option value="">All courses</option>
+          </select>
+          <select class="filter" id="statusFilter">
+            <option value="">All statuses</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="soon">Due soon</option>
+            <option value="past">Past deadlines</option>
+          </select>
+        </div>
+        <div class="section-head">
+          <div>
+            <h2 id="resultTitle">Assignments</h2>
+            <p id="resultCount"></p>
+          </div>
+          <button class="btn hidden" id="listAdd">＋ Add assignment</button>
+        </div>
+        <div class="assignment-list" id="assignmentList"></div>
+      </section>
+      <section id="lecturesView" class="hidden">
+        <div class="welcome">
+          <div>
+            <div class="eyebrow">ACADEMIC SCHEDULE</div>
+            <h1>Lecture timetable</h1>
+            <p>Keep track of your weekly lectures and important announcements.</p>
+          </div>
+          <div class="welcome-mark">📅</div>
+        </div>
+        <div id="lectureAdminBanner" class="admin-panel hidden">
+          <div>
+            <h2>Lecture announcements</h2>
+            <p>Publish important changes and updates for students.</p>
+          </div>
+          <button class="btn light" id="addLectureUpdate" type="button">＋ Publish update</button>
+        </div>
+        <div class="section-head">
+          <div>
+            <h2>Weekly timetable</h2>
+            <p>Your scheduled lectures for the week.</p>
+          </div>
+        </div>
+        <div class="timetable-grid" id="timetableGrid"></div>
+        <div class="section-head">
+          <div>
+            <h2>Lecture announcements</h2>
+            <p>Updates published by the administrator.</p>
+          </div>
+        </div>
+        <div class="assignment-list" id="lectureUpdatesList"></div>
+      </section>
+      <footer class="footer"><b>LASU Academic Hub</b><br>Designed and developed by Raph Techs</footer>
+    </div>
+  </main>
+</div>
+
+<dialog id="loginDialog">
+  <form class="modal" id="loginForm">
+    <div class="modal-head">
+      <h2>Administrator login</h2>
+      <button type="button" class="close" data-close>×</button>
+    </div>
+    <p style="font-size:11px;color:#8390a6;margin-bottom:20px">Sign in to manage assignments and course information.</p>
+    <div class="field">
+      <label>Email address</label>
+      <input id="email" type="email" required autocomplete="username" placeholder="admin@example.com">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input id="password" type="password" required autocomplete="current-password" placeholder="Enter your password">
+    </div>
+    <div class="error" id="loginError"></div>
+    <button class="btn full" id="loginSubmit" type="submit">Sign in securely</button>
+  </form>
+</dialog>
+
+<dialog id="assignmentDialog">
+  <form class="modal" id="assignmentForm" method="post">
+    <div class="modal-head">
+      <h2 id="formHeading">Create assignment</h2>
+      <button type="button" class="close" data-close>×</button>
+    </div>
+    <div class="field">
+      <label>Course</label>
+      <select id="formCourse" required></select>
+    </div>
+    <div class="field">
+      <label>Assignment title</label>
+      <input id="formTitle" maxlength="120" required placeholder="Enter assignment title">
+    </div>
+    <div class="field">
+      <label>Instructions and details</label>
+      <textarea id="formDetails" placeholder="Enter assignment instructions, requirements and submission information..."></textarea>
+    </div>
+    <div class="field">
+      <label>Submission deadline</label>
+      <input id="formDeadline" type="datetime-local" required>
+    </div>
+    <div class="field">
+      <label>Assignment image URL (optional)</label>
+      <input id="formImageURL" type="url" inputmode="url" placeholder="https://example.com/assignment-image.jpg">
+      <small style="display:block;color:#8390a6;font-size:10px;margin-top:6px">Paste a direct, publicly accessible image link. No Firebase Storage or billing upgrade is needed.</small>
+      <div id="imagePreview" class="image-preview"></div>
+    </div>
+    <div class="error" id="formError"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn outline" data-close>Cancel</button>
+      <button class="btn" id="saveButton" type="submit">Publish assignment</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="lectureDialog">
+  <form class="modal" id="lectureForm">
+    <div class="modal-head">
+      <h2>Publish lecture update</h2>
+      <button type="button" class="close" data-close>×</button>
+    </div>
+    <div class="field">
+      <label>Course</label>
+      <select id="lectureCourse" required></select>
+    </div>
+    <div class="field">
+      <label>Update title</label>
+      <input id="lectureTitle" maxlength="120" required placeholder="e.g. Change of venue">
+    </div>
+    <div class="field">
+      <label>Announcement</label>
+      <textarea id="lectureDetails" required placeholder="Enter the lecture update, new venue, reminder or meeting link..."></textarea>
+    </div>
+    <div class="field">
+      <label>Effective date (optional)</label>
+      <input id="lectureDate" type="date">
+    </div>
+    <div class="error" id="lectureError"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn outline" data-close>Cancel</button>
+      <button class="btn" id="lectureSave" type="submit">Publish update</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="previewDialog" aria-labelledby="previewHeading">
+  <div class="modal preview-modal">
+    <div class="preview-head">
+      <div class="eyebrow" id="previewHeading">ASSIGNMENT DETAILS</div>
+      <button type="button" class="close" data-close aria-label="Close assignment details">×</button>
+    </div>
+    <div class="preview-body" id="previewBody"></div>
+    <div class="preview-foot">
+      <button type="button" class="btn outline" data-close>Cancel</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -370,6 +361,7 @@ let assignments = [];
 let lectureUpdates = [];
 let admin = null;
 let editingId = null;
+let previewId = null;
 let currentView = "dashboard";
 let currentCourse = "";
 let toastTimer;
@@ -429,10 +421,16 @@ async function removeAssignment(id){
 
 /* Course selectors and cards */
 function populateCourses(){
+  /* Keep current selections so live updates never reset a filter or an open form. */
+  const keepCourseFilter=$("courseFilter").value,keepFormCourse=$("formCourse").value,keepLectureCourse=$("lectureCourse").value;
   $("courseNav").innerHTML=COURSES.map(c=>`<li><button class="nav-btn course-btn" data-course="${escapeHTML(c.code)}"><span class="nav-icon">•</span>${escapeHTML(c.code)}</button></li>`).join("");
+  $("courseNav").querySelectorAll("[data-course]").forEach(b=>b.classList.toggle("active",currentView==="course"&&b.dataset.course===currentCourse));
   $("courseFilter").innerHTML='<option value="">All courses</option>'+COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)}</option>`).join("");
   $("formCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
   $("lectureCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
+  if(keepCourseFilter)$("courseFilter").value=keepCourseFilter;
+  if(keepFormCourse)$("formCourse").value=keepFormCourse;
+  if(keepLectureCourse)$("lectureCourse").value=keepLectureCourse;
   $("coursesGrid").innerHTML=COURSES.map(c=>{
     const count=assignments.filter(a=>a.course===c.code&&!isPast(a)).length;
     return `<article class="course-card" data-course-card="${escapeHTML(c.code)}"><div class="course-card-top"><span class="course-code">${escapeHTML(c.code)}</span><span class="course-units">${c.units} credit units</span></div><h3>${escapeHTML(c.title)}</h3><div class="course-foot"><span><b>${count}</b> active assignment${count===1?"":"s"}</span><span class="course-arrow">→</span></div></article>`;
@@ -442,7 +440,7 @@ function populateCourses(){
 function assignmentHTML(a){
   const d=new Date(a.deadline),past=isPast(a),soon=isSoon(a),c=COURSE_MAP[a.course];
   const status=past?"overdue":soon?"soon":"upcoming",statusText=past?"PAST DEADLINE":soon?"DUE SOON":"UPCOMING";
-  return `<article class="assignment"><div class="assignment-date"><strong>${d.getDate()}</strong><small>${d.toLocaleDateString("en",{month:"short"}).toUpperCase()}</small></div><div class="assignment-main"><div class="assignment-meta"><span class="tag course">${escapeHTML(a.course)}</span><span class="tag ${status}">${statusText}</span></div><h3>${escapeHTML(a.title)}</h3>${c?`<div class="assignment-desc">${escapeHTML(c.title)}</div>`:""}${a.details?`<div class="assignment-desc" style="margin-top:7px">${escapeHTML(a.details)}</div>`:""}${a.imageURL?`<a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="assignment-image" src="${escapeHTML(a.imageURL)}" alt="Assignment reference image" loading="lazy"></a>`:""}<div class="assignment-bottom"><span class="deadline">◷ ${escapeHTML(timeLabel(a.deadline))} · ${formatTime(a.deadline)}</span>${admin?`<div class="admin-actions"><button class="small-btn" data-edit="${escapeHTML(a.id)}">Edit</button><button class="small-btn delete" data-delete="${escapeHTML(a.id)}">Delete</button></div>`:""}</div></div></article>`;
+  return `<article class="assignment" data-preview="${escapeHTML(a.id)}" tabindex="0"><div class="assignment-date"><strong>${d.getDate()}</strong><small>${d.toLocaleDateString("en",{month:"short"}).toUpperCase()}</small></div><div class="assignment-main"><div class="assignment-meta"><span class="tag course">${escapeHTML(a.course)}</span><span class="tag ${status}">${statusText}</span></div><h3>${escapeHTML(a.title)}</h3>${c?`<div class="assignment-desc">${escapeHTML(c.title)}</div>`:""}${a.details?`<div class="assignment-desc" style="margin-top:7px">${escapeHTML(a.details)}</div>`:""}${a.imageURL?`<a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="assignment-image" src="${escapeHTML(a.imageURL)}" alt="Assignment reference image" loading="lazy"></a>`:""}<div class="assignment-bottom"><span class="deadline">◷ ${escapeHTML(timeLabel(a.deadline))} · ${formatTime(a.deadline)}</span>${admin?`<div class="admin-actions"><button class="small-btn" data-edit="${escapeHTML(a.id)}">Edit</button><button class="small-btn delete" data-delete="${escapeHTML(a.id)}">Delete</button></div>`:""}</div></div></article>`;
 }
 function emptyHTML(title,description){return `<div class="empty"><div class="empty-icon">📭</div><h3>${escapeHTML(title)}</h3><p>${escapeHTML(description)}</p></div>`}
 
@@ -480,6 +478,9 @@ function renderAssignmentList(){
   if(currentCourse)list=list.filter(a=>a.course===currentCourse);
   if(course)list=list.filter(a=>a.course===course);
   if(search)list=list.filter(a=>`${a.title} ${a.details||""} ${a.course} ${COURSE_MAP[a.course]?.title||""}`.toLowerCase().includes(search));
+  /* The default All assignments page shows only pending (not yet expired) assignments.
+     Expired ones stay in Firestore and remain available under Past deadlines / the status filter. */
+  if(currentView==="assignments"&&status!=="past")list=list.filter(a=>!isPast(a));
   if(currentView==="upcoming")list=list.filter(a=>!isPast(a));
   if(currentView==="past")list=list.filter(isPast);
   if(status==="upcoming")list=list.filter(a=>!isPast(a)&&!isSoon(a));
@@ -488,7 +489,7 @@ function renderAssignmentList(){
   list.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));if(currentView==="past")list.reverse();
   const heading=currentCourse?`${currentCourse} assignments`:currentView==="upcoming"?"Upcoming deadlines":currentView==="past"?"Past deadlines":"All assignments";
   $("listHeading").textContent=heading;
-  $("listDescription").textContent=currentCourse?COURSE_MAP[currentCourse]?.title||"Course assignments":"Manage and track your academic assignments.";
+  $("listDescription").textContent=currentCourse?COURSE_MAP[currentCourse]?.title||"Course assignments":currentView==="assignments"?"All pending assignments across your courses.":"Manage and track your academic assignments.";
   $("resultTitle").textContent="Assignment records";$("resultCount").textContent=`${list.length} result${list.length===1?"":"s"}`;
   $("assignmentList").innerHTML=list.length?list.map(assignmentHTML).join(""):emptyHTML("No assignments found","Try changing your filters or check back later.");
 }
@@ -500,7 +501,37 @@ function renderAdmin(){
   $("adminBanner").classList.toggle("hidden",!admin);
   $("listAdd").classList.toggle("hidden",!admin);
 }
-function renderAll(){populateCourses();renderDashboard();renderAdmin();if(currentView!=="dashboard"&&currentView!=="lectures")renderAssignmentList();if(currentView==="lectures")renderLectures()}
+function renderAll(){populateCourses();renderDashboard();renderAdmin();if(currentView!=="dashboard"&&currentView!=="lectures")renderAssignmentList();if(currentView==="lectures")renderLectures();refreshPreview()}
+
+/* Assignment preview popup (read-only) */
+function fillPreview(a){
+  const c=COURSE_MAP[a.course],past=isPast(a),soon=isSoon(a);
+  const status=past?"overdue":soon?"soon":"upcoming",statusText=past?"PAST DEADLINE":soon?"DUE SOON":"PENDING";
+  const fullDate=formatDate(a.deadline,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  $("previewBody").innerHTML=
+    `<div class="assignment-meta"><span class="tag course">${escapeHTML(a.course||"GENERAL")}</span><span class="tag ${status}">${statusText}</span></div>`+
+    `<h2 class="preview-title">${escapeHTML(a.title)}</h2>`+
+    `<div class="preview-course">${escapeHTML(a.course||"")}${c?" — "+escapeHTML(c.title):""}</div>`+
+    `<div class="preview-info"><div class="preview-label">Submission deadline</div><div class="preview-deadline">${escapeHTML(fullDate)} at ${escapeHTML(formatTime(a.deadline))}</div><div class="preview-sub">${escapeHTML(timeLabel(a.deadline))}</div></div>`+
+    `<div class="preview-section"><div class="preview-label">Instructions and details</div>${a.details?`<div class="preview-text">${escapeHTML(a.details)}</div>`:`<div class="preview-note">No additional instructions were provided for this assignment.</div>`}</div>`+
+    (a.imageURL?`<div class="preview-section"><div class="preview-label">Attached image</div><a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="preview-image" src="${escapeHTML(a.imageURL)}" alt="Assignment attachment"></a></div>`:"");
+  const img=$("previewBody").querySelector(".preview-image");
+  if(img)img.addEventListener("error",()=>{img.closest(".preview-section").insertAdjacentHTML("beforeend",'<div class="preview-note" style="margin-top:8px">The attached image could not be loaded.</div>');img.closest("a").remove()});
+}
+function openPreview(id){
+  const a=assignments.find(x=>x.id===id);if(!a)return;
+  previewId=id;fillPreview(a);
+  if(!$("previewDialog").open)$("previewDialog").showModal();
+  $("previewBody").scrollTop=0;
+}
+function refreshPreview(){
+  if(!previewId||!$("previewDialog").open)return;
+  const a=assignments.find(x=>x.id===previewId);
+  if(!a){$("previewDialog").close();return}
+  const top=$("previewBody").scrollTop;fillPreview(a);$("previewBody").scrollTop=top;
+}
+$("previewDialog").addEventListener("click",e=>{if(e.target===$("previewDialog"))$("previewDialog").close()});
+$("previewDialog").addEventListener("close",()=>{previewId=null});
 
 /* Dialogs and admin authentication */
 function openLogin(){$("loginForm").reset();$("loginError").textContent="";$("loginDialog").showModal()}
@@ -639,12 +670,21 @@ async function deleteAssignment(id){
   try{await removeAssignment(id);notify("Assignment deleted.")}catch(err){notify(err.code==="permission-denied"?"Permission denied. Check Firestore Rules.":(err.message||"Could not delete assignment."))}
 }
 function handleAssignmentActions(e){
+  /* Admin Edit/Delete work independently and never open the preview. */
   const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");
   if(edit){openAssignment(edit.dataset.edit);return}
-  if(del)deleteAssignment(del.dataset.delete);
+  if(del){deleteAssignment(del.dataset.delete);return}
+  if(e.target.closest(".admin-actions"))return;
+  const card=e.target.closest("[data-preview]");
+  if(card){e.preventDefault();openPreview(card.dataset.preview)}
+}
+function handleAssignmentKey(e){
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches("[data-preview]")){e.preventDefault();openPreview(e.target.dataset.preview)}
 }
 $("assignmentList").addEventListener("click",handleAssignmentActions);
 $("dashboardAssignments").addEventListener("click",handleAssignmentActions);
+$("assignmentList").addEventListener("keydown",handleAssignmentKey);
+$("dashboardAssignments").addEventListener("keydown",handleAssignmentKey);
 
 /* Filters and mobile navigation */
 $("searchInput").addEventListener("input",renderAssignmentList);
@@ -658,6 +698,8 @@ $("today").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",da
 renderAll();
 startAssignmentListener();
 startLectureListener();
+/* Re-evaluate deadlines every minute so assignments that expire while the page is open drop off automatically. */
+setInterval(renderAll,60000);
 </script>
-                                      </body>
-                                    </html>
+</body>
+</html>
