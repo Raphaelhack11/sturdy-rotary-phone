@@ -191,6 +191,39 @@ dialog{border:0;border-radius:18px;padding:0;width:min(500px,calc(100% - 28px));
                                   <div class="assignment-list" id="assignmentList">
                                   </div>
                                 </section>
+                                <section id="lecturesView" class="hidden">
+                                  <div class="welcome">
+                                    <div>
+                                      <div class="eyebrow">ACADEMIC SCHEDULE</div>
+                                      <h1>Lecture timetable</h1>
+                                      <p>Keep track of your weekly lectures and important announcements.</p>
+                                    </div>
+                                    <div class="welcome-mark">📅</div>
+                                  </div>
+                                  <div id="lectureAdminBanner" class="admin-panel hidden">
+                                    <div>
+                                      <h2>Lecture announcements</h2>
+                                      <p>Publish important changes and updates for students.</p>
+                                    </div>
+                                    <button class="btn light" id="addLectureUpdate" type="button">＋ Publish update</button>
+                                  </div>
+                                  <div class="section-head">
+                                    <div>
+                                      <h2>Weekly timetable</h2>
+                                      <p>Your scheduled lectures for the week.</p>
+                                    </div>
+                                  </div>
+                                  <div class="timetable-grid" id="timetableGrid">
+                                  </div>
+                                  <div class="section-head">
+                                    <div>
+                                      <h2>Lecture announcements</h2>
+                                      <p>Updates published by the administrator.</p>
+                                    </div>
+                                  </div>
+                                  <div class="assignment-list" id="lectureUpdatesList">
+                                  </div>
+                                </section>
                                 <footer class="footer">Designed and developed by <b>Raph Techs</b>
                                 <br>LASU Mathematics Education · Academic Portal</footer>
                               </div>
@@ -217,7 +250,7 @@ dialog{border:0;border-radius:18px;padding:0;width:min(500px,calc(100% - 28px));
                                 </form>
                               </dialog>
                               <dialog id="assignmentDialog">
-                                <form class="modal" id="assignmentForm">
+                                <form class="modal" id="assignmentForm" method="post">
                                   <div class="modal-head">
                                     <h2 id="formHeading">Create assignment</h2>
                                     <button type="button" class="close" data-close>×</button>
@@ -538,19 +571,68 @@ $("lectureUpdatesList").addEventListener("click",async e=>{
 
 /* Assignment create, edit and delete */
 $("assignmentForm").addEventListener("submit",async e=>{
-  e.preventDefault();if(!admin){$("formError").textContent="Administrator session required.";return}
-  const deadline=$("formDeadline").value,date=new Date(deadline);
-  if(!deadline||Number.isNaN(date.getTime())){$("formError").textContent="Please enter a valid deadline.";return}
-  const existing=editingId?assignments.find(x=>x.id===editingId):null;
-  const data={course:$("formCourse").value,title:$("formTitle").value.trim(),details:$("formDetails").value.trim(),deadline:date.toISOString(),imageURL:$("formImageURL").value.trim()};
-  if(!data.title){$("formError").textContent="Please enter an assignment title.";return}
-  if(data.imageURL){try{const imageURL=new URL(data.imageURL);if(!["https:","http:"].includes(imageURL.protocol))throw new Error();}catch{$("formError").textContent="Please enter a valid image URL beginning with https://";return}}
-  const button=$("saveButton");button.disabled=true;$("formError").textContent="";
+  e.preventDefault();
+
+  if(!admin || !auth.currentUser || auth.currentUser.uid!==ADMIN_UID){
+    $("formError").textContent="Administrator session required. Please sign in again.";
+    return;
+  }
+
+  const button=$("saveButton");
+  const isEditing=Boolean(editingId);
+  const deadline=$("formDeadline").value;
+  const date=new Date(deadline);
+  if(!deadline || Number.isNaN(date.getTime())){
+    $("formError").textContent="Please enter a valid deadline.";
+    return;
+  }
+
+  const data={
+    course:$("formCourse").value,
+    title:$("formTitle").value.trim(),
+    details:$("formDetails").value.trim(),
+    deadline:date.toISOString(),
+    imageURL:$("formImageURL").value.trim()
+  };
+  if(!data.title){
+    $("formError").textContent="Please enter an assignment title.";
+    return;
+  }
+  if(data.imageURL){
+    try{
+      const imageURL=new URL(data.imageURL);
+      if(!["https:","http:"].includes(imageURL.protocol))throw new Error("Invalid image URL protocol");
+    }catch{
+      $("formError").textContent="Please enter a valid image URL beginning with https://";
+      return;
+    }
+  }
+
+  button.disabled=true;
+  button.textContent=isEditing?"Saving...":"Publishing...";
+  $("formError").textContent="";
   try{
-    if(editingId)await updateAssignment(editingId,data);else await createAssignment(data);
-    $("assignmentDialog").close();notify(editingId?"Assignment updated successfully.":"Assignment published successfully.");
-  }catch(err){$("formError").textContent=err.code==="permission-denied"?"Permission denied. Check that the admin UID in Firestore Rules is correct.":(err.message||"Unable to save assignment.")}
-  finally{button.disabled=false}
+    if(isEditing){
+      await updateAssignment(editingId,data);
+    }else{
+      const saved=await addDoc(assignmentsRef,{
+        ...data,
+        createdAt:serverTimestamp(),
+        updatedAt:serverTimestamp()
+      });
+      console.info("Assignment saved to Firestore. Document ID:",saved.id);
+    }
+    $("assignmentDialog").close();
+    editingId=null;
+    notify(isEditing?"Assignment updated successfully.":"Assignment published successfully.");
+  }catch(err){
+    console.error("Assignment save failed:",err);
+    const code=err?.code?` (${err.code})`:"";
+    $("formError").textContent=(err?.message||"Unable to save assignment.")+code;
+  }finally{
+    button.disabled=false;
+    button.textContent=isEditing?"Save changes":"Publish assignment";
+  }
 });
 async function deleteAssignment(id){
   const a=assignments.find(x=>x.id===id);if(!a||!admin||!confirm(`Delete "${a.title}"? This cannot be undone.`))return;
