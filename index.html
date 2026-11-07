@@ -5,6 +5,16 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#101b35">
           <title>LASU Academic Hub | Mathematics Education</title>
+          <!-- OneSignal Web Push Notifications -->
+          <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+          <script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "c86fd8d8-26ff-4cd1-9995-f2b12eed7bb5"
+    });
+  });
+</script>
           <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
               <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
