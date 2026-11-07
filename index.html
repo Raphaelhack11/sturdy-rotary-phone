@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +6,8 @@
 <meta name="theme-color" content="#101b35">
 <title>LASU Academic Hub | Mathematics Education</title>
 
-<!-- OneSignal Web Push -->
+<!-- OneSignal Web Push SDK -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-window.OneSignalDeferred = window.OneSignalDeferred || [];
-OneSignalDeferred.push(async function(OneSignal) {
-  await OneSignal.init({
-    appId: "c86fd8d8-26ff-4cd1-9995-f2b12eed7bb5"
-  });
-});
-</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -514,18 +505,34 @@ function notify(message){
 function closeMenu(){document.body.classList.remove("menu-open")}
 
 /* -------------------------------------------------------
-   ONESIGNAL SUBSCRIPTION AND PUSH NOTIFICATION FUNCTIONS
+   ONESIGNAL INITIALIZATION AND PUSH SUBSCRIPTION
 -------------------------------------------------------- */
 
 let oneSignalRef=null;
 let oneSignalReady=false;
+let oneSignalError=null;
+let pushBusy=false;
 
 function refreshPushButton(){
  const button=$("pushTrigger");
  if(!button)return;
 
+ if(pushBusy){
+   button.disabled=true;
+   button.textContent="Enabling...";
+   return;
+ }
+
+ button.disabled=false;
+
+ if(oneSignalError){
+   button.textContent="🔔 Retry notifications";
+   button.classList.remove("enabled");
+   return;
+ }
+
  if(!oneSignalReady||!oneSignalRef){
-   button.textContent="🔔 Enable notifications";
+   button.textContent="Loading notifications...";
    button.classList.remove("enabled");
    return;
  }
@@ -541,20 +548,69 @@ function refreshPushButton(){
  }
 }
 
-/* Wait for OneSignal to finish loading before using it. */
-window.OneSignalDeferred=window.OneSignalDeferred||[];
-window.OneSignalDeferred.push(async function(OneSignal){
- try{
-   oneSignalRef=OneSignal;
-   oneSignalReady=true;
+/* Timeout helper: prevents the button from staying stuck indefinitely. */
+function withTimeout(promise,milliseconds,label){
+ let timer;
 
-   if(OneSignal.User?.PushSubscription?.addEventListener){
-     OneSignal.User.PushSubscription.addEventListener("change",refreshPushButton);
+ const timeout=new Promise((_,reject)=>{
+   timer=setTimeout(()=>{
+     reject(new Error(label+" timed out."));
+   },milliseconds);
+ });
+
+ return Promise.race([promise,timeout]).finally(()=>{
+   clearTimeout(timer);
+ });
+}
+
+/* Wait for OneSignal to confirm that the subscription is active. */
+async function waitForPushSubscription(milliseconds=15000){
+ const start=Date.now();
+
+ while(Date.now()-start<milliseconds){
+   if(oneSignalRef?.User?.PushSubscription?.optedIn===true){
+     return true;
    }
 
+   await new Promise(resolve=>setTimeout(resolve,400));
+ }
+
+ return oneSignalRef?.User?.PushSubscription?.optedIn===true;
+}
+
+/* Initialize OneSignal only once, after the SDK has loaded. */
+window.OneSignalDeferred=window.OneSignalDeferred||[];
+
+window.OneSignalDeferred.push(async function(OneSignal){
+ try{
+   await OneSignal.init({
+     appId:"c86fd8d8-26ff-4cd1-9995-f2b12eed7bb5"
+   });
+
+   oneSignalRef=OneSignal;
+   oneSignalReady=true;
+   oneSignalError=null;
+
+   if(OneSignal.User?.PushSubscription?.addEventListener){
+     OneSignal.User.PushSubscription.addEventListener(
+       "change",
+       refreshPushButton
+     );
+   }
+
+   if(OneSignal.Notifications?.addEventListener){
+     OneSignal.Notifications.addEventListener(
+       "permissionChange",
+       refreshPushButton
+     );
+   }
+
+   console.info("OneSignal initialized successfully.");
    refreshPushButton();
+
  }catch(error){
-   console.error("OneSignal initialization error:",error);
+   console.error("OneSignal initialization failed:",error);
+   oneSignalError=error;
    oneSignalReady=false;
    refreshPushButton();
  }
@@ -564,8 +620,16 @@ window.OneSignalDeferred.push(async function(OneSignal){
 $("pushTrigger").addEventListener("click",async()=>{
  const button=$("pushTrigger");
 
+ if(pushBusy)return;
+
+ if(oneSignalError){
+   console.error("Previous OneSignal error:",oneSignalError);
+   notify("OneSignal could not initialize. Refresh the page and try again.");
+   return;
+ }
+
  if(!oneSignalReady||!oneSignalRef){
-   notify("Notifications are still loading. Please try again shortly.");
+   notify("Notifications are still loading. Please wait a moment.");
    return;
  }
 
@@ -575,6 +639,10 @@ $("pushTrigger").addEventListener("click",async()=>{
  const isStandalone=window.matchMedia("(display-mode: standalone)").matches||
    navigator.standalone===true;
 
+ /*
+   iPhone/iPad Web Push requires the website to be installed
+   on the Home Screen and opened from its Home Screen icon.
+ */
  if(isIOS&&!isStandalone){
    notify("On iPhone: tap Share, choose Add to Home Screen, then open the app from your Home Screen.");
    return;
@@ -585,39 +653,67 @@ $("pushTrigger").addEventListener("click",async()=>{
    return;
  }
 
+ if(Notification.permission==="denied"){
+   notify("Notifications are blocked. Enable them in your browser or app settings.");
+   return;
+ }
+
  if(oneSignalRef.User?.PushSubscription?.optedIn===true){
    notify("Notifications are already enabled on this device.");
    refreshPushButton();
    return;
  }
 
- button.disabled=true;
- button.textContent="Enabling...";
+ pushBusy=true;
+ refreshPushButton();
 
  try{
-   await oneSignalRef.Notifications.requestPermission();
+   /*
+     Request browser permission first.
+     The user must click the button for this to work.
+   */
+   await withTimeout(
+     oneSignalRef.Notifications.requestPermission(),
+     20000,
+     "Permission request"
+   );
 
-   if(oneSignalRef.Notifications.permission){
-     await oneSignalRef.User.PushSubscription.optIn();
-
-     /* Give OneSignal a moment to update its subscription state. */
-     await new Promise(resolve=>setTimeout(resolve,1000));
-
-     refreshPushButton();
-
-     if(oneSignalRef.User?.PushSubscription?.optedIn===true){
-       notify("Push notifications enabled successfully.");
-     }else{
-       notify("Permission granted. Your subscription is still being registered.");
-     }
-   }else{
-     notify("Permission was not granted. Enable notifications in your browser settings.");
+   if(Notification.permission!=="granted"){
+     notify("Notification permission was not granted. Please allow notifications.");
+     return;
    }
+
+   /*
+     Ask OneSignal to register this device/browser.
+   */
+   await withTimeout(
+     oneSignalRef.User.PushSubscription.optIn(),
+     20000,
+     "Subscription registration"
+   );
+
+   /*
+     Wait for OneSignal to update its subscription state.
+   */
+   const subscribed=await waitForPushSubscription(15000);
+
+   if(subscribed){
+     notify("Push notifications enabled successfully.");
+   }else{
+     notify("Permission granted, but registration is still pending. Please refresh and check again.");
+   }
+
  }catch(error){
    console.error("Push subscription failed:",error);
-   notify("Could not enable notifications. Please try again.");
+
+   if(Notification.permission==="denied"){
+     notify("Notifications are blocked. Allow them in your device settings.");
+   }else{
+     notify(error.message||"Could not enable notifications. Please try again.");
+   }
+
  }finally{
-   button.disabled=false;
+   pushBusy=false;
    refreshPushButton();
  }
 });
