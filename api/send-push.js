@@ -141,13 +141,11 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  // 3. Direct OneSignal subscription test
+  // 3. Send to all subscribed devices
   const payload = {
     app_id: ONESIGNAL_APP_ID,
 
-    include_subscription_ids: [
-      "06074e3e-ae70-4005-9800-7ded8f2b61ce"
-    ],
+    included_segments: ["All"],
 
     headings: {
       en: title.slice(0, 120)
