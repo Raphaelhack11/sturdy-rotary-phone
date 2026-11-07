@@ -1,429 +1,439 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#101b35">
-          <title>LASU Academic Hub | Mathematics Education</title>
-          <!-- OneSignal Web Push Notifications -->
-          <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-          <script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "c86fd8d8-26ff-4cd1-9995-f2b12eed7bb5"
-    });
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b35">
+<title>LASU Academic Hub | Mathematics Education</title>
+
+<!-- OneSignal Web Push -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "c86fd8d8-26ff-4cd1-9995-f2b12eed7bb5"
   });
+});
 </script>
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-              <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-                <style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
 :root{--navy:#101b35;--navy2:#182747;--blue:#4268df;--blue-light:#edf2ff;--bg:#f5f7fb;--white:#fff;--text:#18243b;--muted:#8390a6;--border:#e8ecf3;--green:#15966a;--green-bg:#e8f7f0;--red:#d94b60;--red-bg:#fff0f2;--amber:#bd801c;--amber-bg:#fff6e5;--radius:16px;--shadow:0 8px 30px rgba(20,35,65,.045)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9cb2ff;outline-offset:2px}button:disabled{opacity:.55;cursor:not-allowed}.hidden{display:none!important}
-.app{min-height:100vh;display:flex}.sidebar{width:265px;position:fixed;inset:0 auto 0 0;background:var(--navy);color:white;z-index:30;display:flex;flex-direction:column;padding:25px 17px}.brand{display:flex;align-items:center;gap:12px;padding:0 8px 30px}.brand-icon{width:43px;height:43px;border-radius:13px;background:linear-gradient(145deg,#6387ff,#3557c6);display:grid;place-items:center;font-size:21px;font-weight:800}.brand-name{font-family:Manrope,sans-serif;font-weight:800;font-size:17px}.brand-sub{font-size:10px;color:#a7b4cf;letter-spacing:1.5px;margin-top:3px}.nav-label{color:#7e8da9;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:13px 10px 8px}.nav-list{list-style:none;padding:0;margin:0}.nav-btn{width:100%;border:0;background:transparent;color:#aebbd3;padding:11px 12px;border-radius:10px;text-align:left;display:flex;align-items:center;gap:11px;margin:3px 0;transition:.2s;font-size:13px}.nav-btn:hover{background:#ffffff12;color:white}.nav-btn.active{background:#ffffff16;color:white}.nav-btn.active .nav-icon{color:#91aaff}.nav-icon{width:20px;text-align:center;font-size:16px}.nav-count{margin-left:auto;background:#ffffff20;color:white;padding:2px 7px;border-radius:20px;font-size:10px}.course-nav{flex:1;overflow:auto;min-height:0}.course-btn{font-size:12px}.course-btn .nav-icon{font-size:10px}.sidebar-bottom{border-top:1px solid #ffffff20;padding-top:17px}.profile{display:flex;align-items:center;gap:10px;padding:10px 7px}.avatar{width:36px;height:36px;background:#293c63;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}.profile-name{font-size:12px;font-weight:700}.profile-role{font-size:10px;color:#9ba9c2;margin-top:3px}.admin-trigger{width:100%;padding:11px;border:1px solid #ffffff35;color:white;background:transparent;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px}.admin-trigger:hover{background:#ffffff12}
-.main{margin-left:265px;min-width:0;flex:1}.topbar{height:76px;background:#ffffffd9;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:15}.top-left{display:flex;align-items:center;gap:13px}.menu-btn{display:none;border:1px solid var(--border);background:white;padding:8px 11px;border-radius:9px}.breadcrumb{font-size:12px;color:var(--muted)}.breadcrumb b{color:var(--text)}.top-right{display:flex;align-items:center;gap:12px}.date-label{font-size:12px;color:var(--muted)}.status{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--green);font-weight:700;background:var(--green-bg);padding:7px 11px;border-radius:30px}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}.content{max-width:1250px;margin:auto;padding:35px 38px 55px}.welcome{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:27px}.eyebrow{color:var(--blue);font-size:10px;letter-spacing:1.8px;font-weight:800;text-transform:uppercase;margin-bottom:10px}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Manrope,sans-serif}.welcome h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1.3px;margin-bottom:8px}.welcome p{font-size:13px;color:var(--muted);margin:0}.welcome-mark{width:70px;height:70px;flex:none;border-radius:20px;background:var(--blue-light);display:grid;place-items:center;font-size:32px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:29px}.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;align-items:center}.stat-icon{width:37px;height:37px;border-radius:11px;display:grid;place-items:center;font-size:17px}.stat-icon.blue{background:#edf2ff}.stat-icon.green{background:#e9f7f0}.stat-icon.orange{background:#fff4e6}.stat-icon.red{background:#fff0f2}.stat-number{font-family:Manrope,sans-serif;font-size:29px;font-weight:800;letter-spacing:-1px;margin-top:15px}.stat-label{font-size:11px;color:var(--muted);margin-top:4px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:32px 0 16px}.section-head h2{font-size:19px;letter-spacing:-.5px;margin:0}.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.text-btn{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:12px}.courses-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.course-card{background:white;border:1px solid var(--border);border-radius:14px;padding:17px;cursor:pointer;transition:transform .2s,border-color .2s}.course-card:hover{transform:translateY(-3px);border-color:#a9baff}.course-card-top{display:flex;justify-content:space-between;align-items:center}.course-code{background:var(--blue-light);color:var(--blue);border-radius:7px;padding:6px 9px;font-size:10px;font-weight:800}.course-units{font-size:10px;color:var(--muted)}.course-card h3{font-size:13px;line-height:1.5;margin:13px 0}.course-foot{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted)}.course-foot b{color:var(--text)}.course-arrow{color:var(--blue);font-size:17px}
-.assignment-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}.search-wrap{position:relative;flex:1;min-width:190px}.search-wrap span{position:absolute;left:13px;top:11px;color:var(--muted)}.search{width:100%;padding:10px 13px 10px 37px;border:1px solid var(--border);background:white;border-radius:10px;font-size:12px;color:var(--text)}.filter{border:1px solid var(--border);background:white;padding:10px 13px;border-radius:10px;font-size:12px;color:var(--text);min-width:145px}.assignment-list{display:flex;flex-direction:column;gap:12px}.assignment{background:white;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;gap:16px;box-shadow:var(--shadow);transition:.2s}.assignment:hover{border-color:#c7d3f6}.assignment-date{width:59px;height:65px;flex:none;border-radius:11px;background:var(--blue-light);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue)}.assignment-date strong{font-family:Manrope;font-size:22px;line-height:1}.assignment-date small{font-size:10px;font-weight:700;margin-top:4px}.assignment-main{flex:1;min-width:0}.assignment-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:7px}.tag{font-size:9px;font-weight:800;padding:5px 8px;border-radius:5px}.tag.course{background:#edf2ff;color:var(--blue)}.tag.upcoming{background:var(--green-bg);color:var(--green)}.tag.soon{background:var(--amber-bg);color:var(--amber)}.tag.overdue{background:var(--red-bg);color:var(--red)}.assignment h3{font-size:14px;margin-bottom:5px;line-height:1.4}.assignment-desc{color:var(--muted);font-size:11px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}.assignment-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}.deadline{font-size:10px;color:var(--muted)}.admin-actions{display:flex;gap:7px}.small-btn{border:1px solid var(--border);background:white;padding:6px 10px;border-radius:7px;font-size:10px;font-weight:700}.small-btn:hover{background:var(--bg)}.small-btn.delete{color:var(--red)}.empty{padding:45px 20px;text-align:center;background:white;border:1px dashed #d6ddeb;border-radius:14px}.empty-icon{font-size:35px;margin-bottom:12px}.empty h3{font-size:16px;margin-bottom:6px}.empty p{font-size:11px;color:var(--muted);margin:0}
-.admin-panel{background:linear-gradient(120deg,#172849,#263f72);border-radius:17px;padding:23px;color:white;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:20px}.admin-panel h2{font-size:17px;margin-bottom:6px}.admin-panel p{font-size:11px;color:#bdcbe5;margin:0}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:700;font-size:11px;background:var(--blue);color:white;transition:.2s}.btn:hover{filter:brightness(.94);transform:translateY(-1px)}.btn.light{background:white;color:var(--navy)}.btn.outline{background:white;color:var(--text);border:1px solid var(--border)}.btn.danger{background:var(--red)}.btn.full{width:100%}
-dialog{border:0;border-radius:18px;padding:0;width:min(500px,calc(100% - 28px));color:var(--text);box-shadow:0 25px 80px #101b3550}dialog::backdrop{background:#101b3580;backdrop-filter:blur(4px)}.modal{padding:25px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}.modal-head h2{font-size:20px;margin:0}.close{border:0;background:var(--bg);width:32px;height:32px;border-radius:9px;font-size:17px}.field{margin-bottom:15px}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #dfe5ef;border-radius:9px;background:white;font-size:12px;color:var(--text)}.field textarea{min-height:105px;resize:vertical}.modal-footer{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.error{font-size:11px;color:var(--red);margin-top:10px;min-height:15px}
-.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--navy);color:white;padding:12px 19px;border-radius:30px;font-size:11px;z-index:100;transition:.25s;box-shadow:0 8px 30px #101b3540}.toast.show{opacity:1;transform:translate(-50%,0)}.footer{text-align:center;padding:28px 10px;color:var(--muted);font-size:10px;margin-top:40px}.footer b{color:var(--navy);font-family:Manrope;font-weight:800}.scrim{display:none}
-.timetable-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.day-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;box-shadow:var(--shadow)}.day-card h3{font-size:14px;margin:0 0 13px}.lecture-slot{padding:11px 0;border-top:1px solid var(--border)}.lecture-slot:first-of-type{border-top:0}.lecture-time{font-size:10px;font-weight:800;color:var(--blue);margin-bottom:5px}.lecture-course{font-size:12px;font-weight:800}.lecture-venue{font-size:10px;color:var(--muted);margin-top:4px}.no-lecture{font-size:12px;color:var(--muted);padding:9px 0}.lecture-update{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px}.lecture-update h3{font-size:14px;margin:8px 0}.lecture-update p{font-size:11px;color:var(--muted);line-height:1.7;white-space:pre-wrap;margin:0}.lecture-update-meta{font-size:10px;color:var(--muted)}.assignment-image{display:block;max-width:min(100%,520px);max-height:360px;object-fit:contain;border:1px solid var(--border);border-radius:10px;margin-top:12px;background:#f8faff}.image-preview img{max-width:100%;max-height:150px;object-fit:contain;border-radius:9px;margin-top:8px}.image-preview{font-size:10px;color:var(--muted)}
-@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.timetable-grid{grid-template-columns:1fr}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .25s;width:min(290px,85vw)}body.menu-open .sidebar{transform:translateX(0)}body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;z-index:25}.main{margin-left:0}.topbar{height:65px;padding:0 16px}.menu-btn{display:block}.content{padding:25px 17px 40px}.welcome-mark{width:53px;height:53px;font-size:24px}.welcome h1{font-size:27px}.courses-grid{grid-template-columns:1fr}.date-label{display:none}.admin-panel{align-items:flex-start;flex-direction:column}}@media(max-width:420px){.stats{gap:9px}.stat-card{padding:14px}.stat-number{font-size:25px}.assignment{padding:13px;gap:11px}.assignment-date{width:48px;height:58px}.assignment h3{font-size:12px}.status{font-size:9px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9cb2ff;outline-offset:2px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.hidden{display:none!important}
+
+.app{min-height:100vh;display:flex}
+.sidebar{width:265px;position:fixed;inset:0 auto 0 0;background:var(--navy);color:white;z-index:30;display:flex;flex-direction:column;padding:25px 17px}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px 30px}
+.brand-icon{width:43px;height:43px;border-radius:13px;background:linear-gradient(145deg,#6387ff,#3557c6);display:grid;place-items:center;font-size:21px;font-weight:800}
+.brand-name{font-family:Manrope,sans-serif;font-weight:800;font-size:17px}
+.brand-sub{font-size:10px;color:#a7b4cf;letter-spacing:1.5px;margin-top:3px}
+.nav-label{color:#7e8da9;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:13px 10px 8px}
+.nav-list{list-style:none;padding:0;margin:0}
+.nav-btn{width:100%;border:0;background:transparent;color:#aebbd3;padding:11px 12px;border-radius:10px;text-align:left;display:flex;align-items:center;gap:11px;margin:3px 0;transition:.2s;font-size:13px}
+.nav-btn:hover{background:#ffffff12;color:white}
+.nav-btn.active{background:#ffffff16;color:white}
+.nav-btn.active .nav-icon{color:#91aaff}
+.nav-icon{width:20px;text-align:center;font-size:16px}
+.nav-count{margin-left:auto;background:#ffffff20;color:white;padding:2px 7px;border-radius:20px;font-size:10px}
+.course-nav{flex:1;overflow:auto;min-height:0}
+.course-btn{font-size:12px}
+.course-btn .nav-icon{font-size:10px}
+.sidebar-bottom{border-top:1px solid #ffffff20;padding-top:17px}
+.profile{display:flex;align-items:center;gap:10px;padding:10px 7px}
+.avatar{width:36px;height:36px;background:#293c63;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}
+.profile-name{font-size:12px;font-weight:700}
+.profile-role{font-size:10px;color:#9ba9c2;margin-top:3px}
+.admin-trigger{width:100%;padding:11px;border:1px solid #ffffff35;color:white;background:transparent;border-radius:10px;font-size:12px;font-weight:700;margin-top:10px}
+.admin-trigger:hover{background:#ffffff12}
+
+.main{margin-left:265px;min-width:0;flex:1}
+.topbar{height:76px;background:#ffffffd9;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:15}
+.top-left{display:flex;align-items:center;gap:13px}
+.menu-btn{display:none;border:1px solid var(--border);background:white;padding:8px 11px;border-radius:9px}
+.breadcrumb{font-size:12px;color:var(--muted)}
+.breadcrumb b{color:var(--text)}
+.top-right{display:flex;align-items:center;gap:12px}
+.date-label{font-size:12px;color:var(--muted)}
+.status{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--green);font-weight:700;background:var(--green-bg);padding:7px 11px;border-radius:30px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.content{max-width:1250px;margin:auto;padding:35px 38px 55px}
+
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:27px}
+.eyebrow{color:var(--blue);font-size:10px;letter-spacing:1.8px;font-weight:800;text-transform:uppercase;margin-bottom:10px}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:Manrope,sans-serif}
+.welcome h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1.3px;margin-bottom:8px}
+.welcome p{font-size:13px;color:var(--muted);margin:0}
+.welcome-mark{width:70px;height:70px;flex:none;border-radius:20px;background:var(--blue-light);display:grid;place-items:center;font-size:32px}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:29px}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.stat-top{display:flex;justify-content:space-between;align-items:center}
+.stat-icon{width:37px;height:37px;border-radius:11px;display:grid;place-items:center;font-size:17px}
+.stat-icon.blue{background:#edf2ff}
+.stat-icon.green{background:#e9f7f0}
+.stat-icon.orange{background:#fff4e6}
+.stat-icon.red{background:#fff0f2}
+.stat-number{font-family:Manrope,sans-serif;font-size:29px;font-weight:800;letter-spacing:-1px;margin-top:15px}
+.stat-label{font-size:11px;color:var(--muted);margin-top:4px}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:32px 0 16px}
+.section-head h2{font-size:19px;letter-spacing:-.5px;margin:0}
+.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.text-btn{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:12px}
+.courses-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.course-card{background:white;border:1px solid var(--border);border-radius:14px;padding:17px;cursor:pointer;transition:transform .2s,border-color .2s}
+.course-card:hover{transform:translateY(-3px);border-color:#a9baff}
+.course-card-top{display:flex;justify-content:space-between;align-items:center}
+.course-code{background:var(--blue-light);color:var(--blue);border-radius:7px;padding:6px 9px;font-size:10px;font-weight:800}
+.course-units{font-size:10px;color:var(--muted)}
+.course-card h3{font-size:13px;line-height:1.5;margin:13px 0}
+.course-foot{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted)}
+.course-foot b{color:var(--text)}
+.course-arrow{color:var(--blue);font-size:17px}
+
+.assignment-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}
+.search-wrap{position:relative;flex:1;min-width:190px}
+.search-wrap span{position:absolute;left:13px;top:11px;color:var(--muted)}
+.search{width:100%;padding:10px 13px 10px 37px;border:1px solid var(--border);background:white;border-radius:10px;font-size:12px;color:var(--text)}
+.filter{border:1px solid var(--border);background:white;padding:10px 13px;border-radius:10px;font-size:12px;color:var(--text);min-width:145px}
+.assignment-list{display:flex;flex-direction:column;gap:12px}
+.assignment{background:white;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;gap:16px;box-shadow:var(--shadow);transition:.2s}
+.assignment:hover{border-color:#c7d3f6}
+.assignment-date{width:59px;height:65px;flex:none;border-radius:11px;background:var(--blue-light);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue)}
+.assignment-date strong{font-family:Manrope;font-size:22px;line-height:1}
+.assignment-date small{font-size:10px;font-weight:700;margin-top:4px}
+.assignment-main{flex:1;min-width:0}
+.assignment-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:7px}
+.tag{font-size:9px;font-weight:800;padding:5px 8px;border-radius:5px}
+.tag.course{background:#edf2ff;color:var(--blue)}
+.tag.upcoming{background:var(--green-bg);color:var(--green)}
+.tag.soon{background:var(--amber-bg);color:var(--amber)}
+.tag.overdue{background:var(--red-bg);color:var(--red)}
+.assignment h3{font-size:14px;margin-bottom:5px;line-height:1.4}
+.assignment-desc{color:var(--muted);font-size:11px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.assignment-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
+.deadline{font-size:10px;color:var(--muted)}
+.admin-actions{display:flex;gap:7px}
+.small-btn{border:1px solid var(--border);background:white;padding:6px 10px;border-radius:7px;font-size:10px;font-weight:700}
+.small-btn:hover{background:var(--bg)}
+.small-btn.delete{color:var(--red)}
+.empty{padding:45px 20px;text-align:center;background:white;border:1px dashed #d6ddeb;border-radius:14px}
+.empty-icon{font-size:35px;margin-bottom:12px}
+.empty h3{font-size:16px;margin-bottom:6px}
+.empty p{font-size:11px;color:var(--muted);margin:0}
+
+.admin-panel{background:linear-gradient(120deg,#172849,#263f72);border-radius:17px;padding:23px;color:white;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.admin-panel h2{font-size:17px;margin-bottom:6px}
+.admin-panel p{font-size:11px;color:#bdcbe5;margin:0}
+.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:700;font-size:11px;background:var(--blue);color:white;transition:.2s}
+.btn:hover{filter:brightness(.94);transform:translateY(-1px)}
+.btn.light{background:white;color:var(--navy)}
+.btn.outline{background:white;color:var(--text);border:1px solid var(--border)}
+.btn.danger{background:var(--red)}
+.btn.full{width:100%}
+
+dialog{border:0;border-radius:18px;padding:0;width:min(500px,calc(100% - 28px));color:var(--text);box-shadow:0 25px 80px #101b3550}
+dialog::backdrop{background:#101b3580;backdrop-filter:blur(4px)}
+.modal{padding:25px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}
+.modal-head h2{font-size:20px;margin:0}
+.close{border:0;background:var(--bg);width:32px;height:32px;border-radius:9px;font-size:17px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:11px;font-weight:800;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #dfe5ef;border-radius:9px;background:white;font-size:12px;color:var(--text)}
+.field textarea{min-height:105px;resize:vertical}
+.modal-footer{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+.error{font-size:11px;color:var(--red);margin-top:10px;min-height:15px}
+
+.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--navy);color:white;padding:12px 19px;border-radius:30px;font-size:11px;z-index:100;transition:.25s;box-shadow:0 8px 30px #101b3540}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{text-align:center;padding:28px 10px;color:var(--muted);font-size:10px;margin-top:40px}
+.footer b{color:var(--navy);font-family:Manrope;font-weight:800}
+.scrim{display:none}
+
+.timetable-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.day-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px;box-shadow:var(--shadow)}
+.day-card h3{font-size:14px;margin:0 0 13px}
+.lecture-slot{padding:11px 0;border-top:1px solid var(--border)}
+.lecture-slot:first-of-type{border-top:0}
+.lecture-time{font-size:10px;font-weight:800;color:var(--blue);margin-bottom:5px}
+.lecture-course{font-size:12px;font-weight:800}
+.lecture-venue{font-size:10px;color:var(--muted);margin-top:4px}
+.no-lecture{font-size:12px;color:var(--muted);padding:9px 0}
+.lecture-update{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px}
+.lecture-update h3{font-size:14px;margin:8px 0}
+.lecture-update p{font-size:11px;color:var(--muted);line-height:1.7;white-space:pre-wrap;margin:0}
+.lecture-update-meta{font-size:10px;color:var(--muted)}
+.assignment-image{display:block;max-width:min(100%,520px);max-height:360px;object-fit:contain;border:1px solid var(--border);border-radius:10px;margin-top:12px;background:#f8faff}
+.image-preview img{max-width:100%;max-height:150px;object-fit:contain;border-radius:9px;margin-top:8px}
+.image-preview{font-size:10px;color:var(--muted)}
 
 .notification-bell{position:relative;width:40px;height:40px;border:1px solid var(--border);border-radius:12px;background:white;color:var(--navy);font-size:19px;display:grid;place-items:center}
 .notification-bell:hover{background:var(--blue-light)}
 .notification-badge{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:#e34455;color:white;border:2px solid white;font-size:9px;font-weight:800;display:grid;place-items:center}
+
+/* Push notification button */
+.push-trigger{border:1px solid #dce5ff;background:#edf2ff;color:#3156c7;border-radius:11px;padding:10px 13px;font-size:11px;font-weight:800;white-space:nowrap;transition:.2s}
+.push-trigger:hover{background:#dfe8ff}
+.push-trigger.enabled{background:var(--green-bg);border-color:#cceedd;color:var(--green)}
+.push-trigger:disabled{opacity:.65;cursor:wait}
+
 .notification-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 16px}
-.notification-toolbar h2{font-size:18px;margin:0}.notification-toolbar p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.notification-toolbar h2{font-size:18px;margin:0}
+.notification-toolbar p{font-size:11px;color:var(--muted);margin:5px 0 0}
 .notification-list{display:flex;flex-direction:column;gap:12px}
 .notification-card{background:white;border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
-.notification-card.unread{border-left:4px solid var(--blue)}.notification-card.read{opacity:.9}
+.notification-card.unread{border-left:4px solid var(--blue)}
+.notification-card.read{opacity:.9}
 .notification-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.notification-card h3{font-size:14px;margin:11px 0 7px}.notification-message{font-size:12px;line-height:1.8;color:#59667d;white-space:pre-wrap;overflow-wrap:anywhere}
-.notification-time{font-size:10px;color:var(--muted)}.notification-new{background:var(--blue-light);color:var(--blue);padding:5px 8px;border-radius:20px;font-size:9px;font-weight:800}
+.notification-card h3{font-size:14px;margin:11px 0 7px}
+.notification-message{font-size:12px;line-height:1.8;color:#59667d;white-space:pre-wrap;overflow-wrap:anywhere}
+.notification-time{font-size:10px;color:var(--muted)}
+.notification-new{background:var(--blue-light);color:var(--blue);padding:5px 8px;border-radius:20px;font-size:9px;font-weight:800}
 .notification-contact{margin-top:13px;padding:11px 13px;background:var(--green-bg);border:1px solid #cceedd;border-radius:10px;color:var(--green);font-size:12px;font-weight:800;overflow-wrap:anywhere}
-.notification-contact a{color:var(--green);text-decoration:none}.notification-contact a:hover{text-decoration:underline}
+.notification-contact a{color:var(--green);text-decoration:none}
+.notification-contact a:hover{text-decoration:underline}
 .notification-card-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}
-@media(max-width:420px){.notification-card{padding:14px}.notification-toolbar{align-items:flex-start}.notification-toolbar h2{font-size:16px}}
 
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+.timetable-grid{grid-template-columns:1fr}
+.sidebar{transform:translateX(-100%);transition:transform .25s;width:min(290px,85vw)}
+body.menu-open .sidebar{transform:translateX(0)}
+body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;z-index:25}
+.main{margin-left:0}
+.topbar{height:65px;padding:0 12px}
+.menu-btn{display:block}
+.content{padding:25px 17px 40px}
+.welcome-mark{width:53px;height:53px;font-size:24px}
+.welcome h1{font-size:27px}
+.courses-grid{grid-template-columns:1fr}
+.date-label{display:none}
+.admin-panel{align-items:flex-start;flex-direction:column}
+.top-right{gap:7px}
+.push-trigger{padding:9px 8px;font-size:10px}
+.status{display:none}
+}
+@media(max-width:420px){
+.stats{gap:9px}
+.stat-card{padding:14px}
+.stat-number{font-size:25px}
+.assignment{padding:13px;gap:11px}
+.assignment-date{width:48px;height:58px}
+.assignment h3{font-size:12px}
+.notification-card{padding:14px}
+.notification-toolbar{align-items:flex-start}
+.notification-toolbar h2{font-size:16px}
+.push-trigger{font-size:9px;padding:8px 6px}
+.notification-bell{width:36px;height:36px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 </style>
-              </head>
-              <body>
-                <div class="app">
-                  <aside class="sidebar" id="sidebar">
-                    <div class="brand">
-                      <div class="brand-icon">L</div>
-                      <div>
-                        <div class="brand-name">LASU Academic Hub</div>
-                        <div class="brand-sub">MATHEMATICS EDUCATION</div>
-                      </div>
-                    </div>
-                    <div class="nav-label">WORKSPACE</div>
-                    <ul class="nav-list">
-                      <li>
-                        <button class="nav-btn active" data-view="dashboard">
-                          <span class="nav-icon">▦</span> Dashboard</button>
-                        </li>
-                        <li>
-                          <button class="nav-btn" data-view="assignments">
-                            <span class="nav-icon">▤</span> All assignments <span class="nav-count" id="navTotal">0</span>
-                          </button>
-                        </li>
-                        <li>
-                          <button class="nav-btn" data-view="upcoming">
-                            <span class="nav-icon">◷</span> Upcoming deadlines</button>
-                          </li>
-                          <li>
-                            <button class="nav-btn" data-view="past">
-                              <span class="nav-icon">✓</span> Past deadlines</button>
-                            </li>
-                            <li>
-                              <button class="nav-btn" data-view="lectures">
-                                <span class="nav-icon">▣</span> Lecture timetable</button>
-                              </li>
-                              <li>
-                                <button class="nav-btn" data-view="notifications">
-                                  <span class="nav-icon">♧</span> Notifications <span class="nav-count hidden" id="notificationNavCount">0</span>
-                                </button>
-                              </li>
-                            </ul>
-                            <div class="nav-label">MY COURSES</div>
-                            <div class="course-nav">
-                              <ul class="nav-list" id="courseNav">
-                              </ul>
-                            </div>
-                            <div class="sidebar-bottom">
-                              <div class="profile">
-                                <div class="avatar" id="avatar">ST</div>
-                                <div>
-                                  <div class="profile-name" id="profileName">Student Workspace</div>
-                                  <div class="profile-role" id="profileRole">LASU · Mathematics Education</div>
-                                </div>
-                              </div>
-                              <button class="admin-trigger" id="adminTrigger">⚙ Admin access</button>
-                            </div>
-                          </aside>
-                          <div class="scrim" id="scrim">
-                          </div>
-                          <main class="main">
-                            <header class="topbar">
-                              <div class="top-left">
-                                <button class="menu-btn" id="menuBtn">☰</button>
-                                <div class="breadcrumb">LASU / <b id="crumb">Dashboard</b>
-                              </div>
-                            </div>
-                            <div class="top-right">
-                              <div class="date-label" id="today">
-                              </div>
-                              <button class="notification-bell" id="notificationBell" type="button" aria-label="Open notifications" title="Notifications">♧<span class="notification-badge hidden" id="notificationBadge">0</span>
-                            </button>
-                            <div class="status">
-                              <span class="status-dot">
-                              </span> Academic portal</div>
-                            </div>
-                          </header>
-                          <div class="content">
-                            <section id="dashboardView">
-                              <div class="welcome">
-                                <div>
-                                  <div class="eyebrow">YOUR ACADEMIC WORKSPACE</div>
-                                  <h1>Welcome to your<br>Academic Hub.</h1>
-                                  <p>Stay organized. Keep track of your assignments and never miss a deadline.</p>
-                                </div>
-                                <div class="welcome-mark">🎓</div>
-                              </div>
-                              <div class="stats">
-                                <div class="stat-card">
-                                  <div class="stat-top">
-                                    <span class="stat-icon blue">▦</span>
-                                  </div>
-                                  <div class="stat-number" id="statCourses">10</div>
-                                  <div class="stat-label">Registered courses</div>
-                                </div>
-                                <div class="stat-card">
-                                  <div class="stat-top">
-                                    <span class="stat-icon green">▤</span>
-                                  </div>
-                                  <div class="stat-number" id="statActive">0</div>
-                                  <div class="stat-label">Active assignments</div>
-                                </div>
-                                <div class="stat-card">
-                                  <div class="stat-top">
-                                    <span class="stat-icon orange">◷</span>
-                                  </div>
-                                  <div class="stat-number" id="statSoon">0</div>
-                                  <div class="stat-label">Due within 72 hours</div>
-                                </div>
-                                <div class="stat-card">
-                                  <div class="stat-top">
-                                    <span class="stat-icon red">✓</span>
-                                  </div>
-                                  <div class="stat-number" id="statPast">0</div>
-                                  <div class="stat-label">Past deadlines</div>
-                                </div>
-                              </div>
-                              <div id="adminBanner" class="admin-panel hidden">
-                                <div>
-                                  <h2>Administrator workspace</h2>
-                                  <p>Manage course assignments and keep students updated.</p>
-                                </div>
-                                <button class="btn light" id="dashboardAdd">＋ New assignment</button>
-                              </div>
-                              <div class="section-head">
-                                <div>
-                                  <h2>Your courses</h2>
-                                  <p>Select a course to view its assignments.</p>
-                                </div>
-                                <span class="text-btn" id="courseTotal">10 courses</span>
-                              </div>
-                              <div class="courses-grid" id="coursesGrid">
-                              </div>
-                              <div class="section-head">
-                                <div>
-                                  <h2>Upcoming assignments</h2>
-                                  <p>Your nearest deadlines.</p>
-                                </div>
-                                <button class="text-btn" data-goto="assignments">View all →</button>
-                              </div>
-                              <div class="assignment-list" id="dashboardAssignments">
-                              </div>
-                            </section>
-                            <section id="listView" class="hidden">
-                              <div class="welcome">
-                                <div>
-                                  <div class="eyebrow">ACADEMIC MANAGEMENT</div>
-                                  <h1 id="listHeading">All assignments</h1>
-                                  <p id="listDescription">Browse assignments across your courses.</p>
-                                </div>
-                                <div class="welcome-mark">📚</div>
-                              </div>
-                              <div class="assignment-tools">
-                                <div class="search-wrap">
-                                  <span>⌕</span>
-                                  <input class="search" id="searchInput" placeholder="Search assignments or courses..." type="search">
-                                  </div>
-                                  <select class="filter" id="courseFilter">
-                                    <option value="">All courses</option>
-                                  </select>
-                                  <select class="filter" id="statusFilter">
-                                    <option value="">All statuses</option>
-                                    <option value="upcoming">Upcoming</option>
-                                    <option value="soon">Due soon</option>
-                                    <option value="past">Past deadlines</option>
-                                  </select>
-                                </div>
-                                <div class="section-head">
-                                  <div>
-                                    <h2 id="resultTitle">Assignments</h2>
-                                    <p id="resultCount">
-                                    </p>
-                                  </div>
-                                  <button class="btn hidden" id="listAdd">＋ Add assignment</button>
-                                </div>
-                                <div class="assignment-list" id="assignmentList">
-                                </div>
-                              </section>
-                              <section id="lecturesView" class="hidden">
-                                <div class="welcome">
-                                  <div>
-                                    <div class="eyebrow">ACADEMIC SCHEDULE</div>
-                                    <h1>Lecture timetable</h1>
-                                    <p>Keep track of your weekly lectures and important announcements.</p>
-                                  </div>
-                                  <div class="welcome-mark">📅</div>
-                                </div>
-                                <div id="lectureAdminBanner" class="admin-panel hidden">
-                                  <div>
-                                    <h2>Lecture announcements</h2>
-                                    <p>Publish important changes and updates for students.</p>
-                                  </div>
-                                  <button class="btn light" id="addLectureUpdate" type="button">＋ Publish update</button>
-                                </div>
-                                <div class="section-head">
-                                  <div>
-                                    <h2>Weekly timetable</h2>
-                                    <p>Your scheduled lectures for the week.</p>
-                                  </div>
-                                </div>
-                                <div class="timetable-grid" id="timetableGrid">
-                                </div>
-                                <div class="section-head">
-                                  <div>
-                                    <h2>Lecture announcements</h2>
-                                    <p>Updates published by the administrator.</p>
-                                  </div>
-                                </div>
-                                <div class="assignment-list" id="lectureUpdatesList">
-                                </div>
-                              </section>
-                              <section id="notificationsView" class="hidden">
-                                <div class="welcome">
-                                  <div>
-                                    <div class="eyebrow">STUDENT UPDATES</div>
-                                    <h1>Notifications</h1>
-                                    <p>Important announcements and messages from your academic administrator.</p>
-                                  </div>
-                                  <div class="welcome-mark">🔔</div>
-                                </div>
-                                <div id="notificationAdminBanner" class="admin-panel hidden">
-                                  <div>
-                                    <h2>Notification management</h2>
-                                    <p>Publish an update for everyone using the academic hub.</p>
-                                  </div>
-                                  <button class="btn light" id="addNotification" type="button">＋ New notification</button>
-                                </div>
-                                <div class="notification-toolbar">
-                                  <div>
-                                    <h2 id="notificationSummary">Your notifications</h2>
-                                    <p>New notifications remain unread until you open them on this device.</p>
-                                  </div>
-                                  <button class="text-btn" id="markAllRead" type="button">Mark all viewed</button>
-                                </div>
-                                <div class="notification-list" id="notificationList">
-                                </div>
-                              </section>
-                              <footer class="footer">
-                                <b>LASU Academic Hub</b>
-                                <br>Mathematics Education<br>Designed and developed by Raph Techs</footer>
-                              </div>
-                            </main>
-                          </div>
-                          <dialog id="loginDialog">
-                            <form class="modal" id="loginForm">
-                              <div class="modal-head">
-                                <h2>Administrator login</h2>
-                                <button type="button" class="close" data-close>×</button>
-                              </div>
-                              <p style="font-size:11px;color:#8390a6;margin-bottom:20px">Sign in to manage assignments and course information.</p>
-                              <div class="field">
-                                <label>Email address</label>
-                                <input id="email" type="email" required autocomplete="username" placeholder="admin@example.com">
-                                </div>
-                                <div class="field">
-                                  <label>Password</label>
-                                  <input id="password" type="password" required autocomplete="current-password" placeholder="Enter your password">
-                                  </div>
-                                  <div class="error" id="loginError">
-                                  </div>
-                                  <button class="btn full" id="loginSubmit" type="submit">Sign in securely</button>
-                                </form>
-                              </dialog>
-                              <dialog id="assignmentDialog">
-                                <form class="modal" id="assignmentForm" method="post">
-                                  <div class="modal-head">
-                                    <h2 id="formHeading">Create assignment</h2>
-                                    <button type="button" class="close" data-close>×</button>
-                                  </div>
-                                  <div class="field">
-                                    <label>Course</label>
-                                    <select id="formCourse" required>
-                                    </select>
-                                  </div>
-                                  <div class="field">
-                                    <label>Assignment title</label>
-                                    <input id="formTitle" maxlength="120" required placeholder="Enter assignment title">
-                                    </div>
-                                    <div class="field">
-                                      <label>Instructions and details</label>
-                                      <textarea id="formDetails" placeholder="Enter assignment instructions, requirements and submission information...">
-                                      </textarea>
-                                    </div>
-                                    <div class="field">
-                                      <label>Submission deadline</label>
-                                      <input id="formDeadline" type="datetime-local" required>
-                                      </div>
-                                      <div class="field">
-                                        <label>Assignment image URL (optional)</label>
-                                        <input id="formImageURL" type="url" inputmode="url" placeholder="https://example.com/assignment-image.jpg">
-                                          <small style="display:block;color:#8390a6;font-size:10px;margin-top:6px">Paste a direct, publicly accessible image link. No Firebase Storage or billing upgrade is needed.</small>
-                                          <div id="imagePreview" class="image-preview">
-                                          </div>
-                                        </div>
-                                        <div class="error" id="formError">
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn outline" data-close>Cancel</button>
-                                          <button class="btn" id="saveButton" type="submit">Publish assignment</button>
-                                        </div>
-                                      </form>
-                                    </dialog>
-                                    <dialog id="lectureDialog">
-                                      <form class="modal" id="lectureForm">
-                                        <div class="modal-head">
-                                          <h2>Publish lecture update</h2>
-                                          <button type="button" class="close" data-close>×</button>
-                                        </div>
-                                        <div class="field">
-                                          <label>Course</label>
-                                          <select id="lectureCourse" required>
-                                          </select>
-                                        </div>
-                                        <div class="field">
-                                          <label>Update title</label>
-                                          <input id="lectureTitle" maxlength="120" required placeholder="e.g. Change of venue">
-                                          </div>
-                                          <div class="field">
-                                            <label>Announcement</label>
-                                            <textarea id="lectureDetails" required placeholder="Enter the lecture update, new venue, reminder or meeting link...">
-                                            </textarea>
-                                          </div>
-                                          <div class="field">
-                                            <label>Effective date (optional)</label>
-                                            <input id="lectureDate" type="date">
-                                            </div>
-                                            <div class="error" id="lectureError">
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn outline" data-close>Cancel</button>
-                                              <button class="btn" id="lectureSave" type="submit">Publish update</button>
-                                            </div>
-                                          </form>
-                                        </dialog>
-                                        <dialog id="notificationDialog">
-                                          <form class="modal" id="notificationForm">
-                                            <div class="modal-head">
-                                              <h2>Publish notification</h2>
-                                              <button type="button" class="close" data-close>×</button>
-                                            </div>
-                                            <div class="field">
-                                              <label>Notification title</label>
-                                              <input id="notificationTitle" maxlength="120" required placeholder="e.g. Important class update">
-                                              </div>
-                                              <div class="field">
-                                                <label>Message</label>
-                                                <textarea id="notificationMessage" required placeholder="Write the announcement for students...">
-                                                </textarea>
-                                              </div>
-                                              <div class="field">
-                                                <label>Contact information (optional)</label>
-                                                <select id="notificationContactType">
-                                                  <option value="none">No contact details</option>
-                                                  <option value="phone">Phone number</option>
-                                                  <option value="email">Email address</option>
-                                                </select>
-                                              </div>
-                                              <div class="field hidden" id="notificationContactField">
-                                                <label id="notificationContactLabel">Contact</label>
-                                                <input id="notificationContactValue" placeholder="Enter contact information">
-                                                </div>
-                                                <div class="error" id="notificationError">
-                                                </div>
-                                                <div class="modal-footer">
-                                                  <button type="button" class="btn outline" data-close>Cancel</button>
-                                                  <button class="btn" id="notificationPublish" type="submit">Publish notification</button>
-                                                </div>
-                                              </form>
-                                            </dialog>
-                                            <div class="toast" id="toast" role="status" aria-live="polite">
-                                            </div>
-                                            <script type="module">
+</head>
+
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-icon">L</div>
+    <div>
+      <div class="brand-name">LASU Academic Hub</div>
+      <div class="brand-sub">MATHEMATICS EDUCATION</div>
+    </div>
+  </div>
+
+  <div class="nav-label">WORKSPACE</div>
+  <ul class="nav-list">
+    <li><button class="nav-btn active" data-view="dashboard"><span class="nav-icon">▦</span> Dashboard</button></li>
+    <li><button class="nav-btn" data-view="assignments"><span class="nav-icon">▤</span> All assignments <span class="nav-count" id="navTotal">0</span></button></li>
+    <li><button class="nav-btn" data-view="upcoming"><span class="nav-icon">◷</span> Upcoming deadlines</button></li>
+    <li><button class="nav-btn" data-view="past"><span class="nav-icon">✓</span> Past deadlines</button></li>
+    <li><button class="nav-btn" data-view="lectures"><span class="nav-icon">▣</span> Lecture timetable</button></li>
+    <li><button class="nav-btn" data-view="notifications"><span class="nav-icon">♧</span> Notifications <span class="nav-count hidden" id="notificationNavCount">0</span></button></li>
+  </ul>
+
+  <div class="nav-label">MY COURSES</div>
+  <div class="course-nav"><ul class="nav-list" id="courseNav"></ul></div>
+
+  <div class="sidebar-bottom">
+    <div class="profile">
+      <div class="avatar" id="avatar">ST</div>
+      <div>
+        <div class="profile-name" id="profileName">Student Workspace</div>
+        <div class="profile-role" id="profileRole">LASU · Mathematics Education</div>
+      </div>
+    </div>
+    <button class="admin-trigger" id="adminTrigger">⚙ Admin access</button>
+  </div>
+</aside>
+
+<div class="scrim" id="scrim"></div>
+
+<main class="main">
+<header class="topbar">
+  <div class="top-left">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="breadcrumb">LASU / <b id="crumb">Dashboard</b></div>
+  </div>
+
+  <div class="top-right">
+    <div class="date-label" id="today"></div>
+    <button class="push-trigger" id="pushTrigger" type="button">🔔 Enable notifications</button>
+    <button class="notification-bell" id="notificationBell" type="button" aria-label="Open notifications" title="Notifications">♧<span class="notification-badge hidden" id="notificationBadge">0</span></button>
+    <div class="status"><span class="status-dot"></span> Academic portal</div>
+  </div>
+</header>
+
+<div class="content">
+<section id="dashboardView">
+  <div class="welcome">
+    <div>
+      <div class="eyebrow">YOUR ACADEMIC WORKSPACE</div>
+      <h1>Welcome to your<br>Academic Hub.</h1>
+      <p>Stay organized. Keep track of your assignments and never miss a deadline.</p>
+    </div>
+    <div class="welcome-mark">🎓</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-top"><span class="stat-icon blue">▦</span></div><div class="stat-number" id="statCourses">10</div><div class="stat-label">Registered courses</div></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-icon green">▤</span></div><div class="stat-number" id="statActive">0</div><div class="stat-label">Active assignments</div></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-icon orange">◷</span></div><div class="stat-number" id="statSoon">0</div><div class="stat-label">Due within 72 hours</div></div>
+    <div class="stat-card"><div class="stat-top"><span class="stat-icon red">✓</span></div><div class="stat-number" id="statPast">0</div><div class="stat-label">Past deadlines</div></div>
+  </div>
+
+  <div id="adminBanner" class="admin-panel hidden">
+    <div><h2>Administrator workspace</h2><p>Manage course assignments and keep students updated.</p></div>
+    <button class="btn light" id="dashboardAdd">＋ New assignment</button>
+  </div>
+
+  <div class="section-head"><div><h2>Your courses</h2><p>Select a course to view its assignments.</p></div><span class="text-btn" id="courseTotal">10 courses</span></div>
+  <div class="courses-grid" id="coursesGrid"></div>
+
+  <div class="section-head"><div><h2>Upcoming assignments</h2><p>Your nearest deadlines.</p></div><button class="text-btn" data-goto="assignments">View all →</button></div>
+  <div class="assignment-list" id="dashboardAssignments"></div>
+</section>
+
+<section id="listView" class="hidden">
+  <div class="welcome">
+    <div><div class="eyebrow">ACADEMIC MANAGEMENT</div><h1 id="listHeading">All assignments</h1><p id="listDescription">Browse assignments across your courses.</p></div>
+    <div class="welcome-mark">📚</div>
+  </div>
+  <div class="assignment-tools">
+    <div class="search-wrap"><span>⌕</span><input class="search" id="searchInput" placeholder="Search assignments or courses..." type="search"></div>
+    <select class="filter" id="courseFilter"><option value="">All courses</option></select>
+    <select class="filter" id="statusFilter"><option value="">All statuses</option><option value="upcoming">Upcoming</option><option value="soon">Due soon</option><option value="past">Past deadlines</option></select>
+  </div>
+  <div class="section-head"><div><h2 id="resultTitle">Assignments</h2><p id="resultCount"></p></div><button class="btn hidden" id="listAdd">＋ Add assignment</button></div>
+  <div class="assignment-list" id="assignmentList"></div>
+</section>
+
+<section id="lecturesView" class="hidden">
+  <div class="welcome">
+    <div><div class="eyebrow">ACADEMIC SCHEDULE</div><h1>Lecture timetable</h1><p>Keep track of your weekly lectures and important announcements.</p></div>
+    <div class="welcome-mark">📅</div>
+  </div>
+  <div id="lectureAdminBanner" class="admin-panel hidden"><div><h2>Lecture announcements</h2><p>Publish important changes and updates for students.</p></div><button class="btn light" id="addLectureUpdate" type="button">＋ Publish update</button></div>
+  <div class="section-head"><div><h2>Weekly timetable</h2><p>Your scheduled lectures for the week.</p></div></div>
+  <div class="timetable-grid" id="timetableGrid"></div>
+  <div class="section-head"><div><h2>Lecture announcements</h2><p>Updates published by the administrator.</p></div></div>
+  <div class="assignment-list" id="lectureUpdatesList"></div>
+</section>
+
+<section id="notificationsView" class="hidden">
+  <div class="welcome">
+    <div><div class="eyebrow">STUDENT UPDATES</div><h1>Notifications</h1><p>Important announcements and messages from your academic administrator.</p></div>
+    <div class="welcome-mark">🔔</div>
+  </div>
+  <div id="notificationAdminBanner" class="admin-panel hidden"><div><h2>Notification management</h2><p>Publish an update for everyone using the academic hub.</p></div><button class="btn light" id="addNotification" type="button">＋ New notification</button></div>
+  <div class="notification-toolbar">
+    <div><h2 id="notificationSummary">Your notifications</h2><p>New notifications remain unread until you open them on this device.</p></div>
+    <button class="text-btn" id="markAllRead" type="button">Mark all viewed</button>
+  </div>
+  <div class="notification-list" id="notificationList"></div>
+</section>
+
+<footer class="footer"><b>LASU Academic Hub</b><br>Mathematics Education<br>Designed and developed by Raph Techs</footer>
+</div>
+</main>
+</div>
+
+<dialog id="loginDialog">
+<form class="modal" id="loginForm">
+  <div class="modal-head"><h2>Administrator login</h2><button type="button" class="close" data-close>×</button></div>
+  <p style="font-size:11px;color:#8390a6;margin-bottom:20px">Sign in to manage assignments and course information.</p>
+  <div class="field"><label>Email address</label><input id="email" type="email" required autocomplete="username" placeholder="admin@example.com"></div>
+  <div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password" placeholder="Enter your password"></div>
+  <div class="error" id="loginError"></div>
+  <button class="btn full" id="loginSubmit" type="submit">Sign in securely</button>
+</form>
+</dialog>
+
+<dialog id="assignmentDialog">
+<form class="modal" id="assignmentForm" method="post">
+  <div class="modal-head"><h2 id="formHeading">Create assignment</h2><button type="button" class="close" data-close>×</button></div>
+  <div class="field"><label>Course</label><select id="formCourse" required></select></div>
+  <div class="field"><label>Assignment title</label><input id="formTitle" maxlength="120" required placeholder="Enter assignment title"></div>
+  <div class="field"><label>Instructions and details</label><textarea id="formDetails" placeholder="Enter assignment instructions, requirements and submission information..."></textarea></div>
+  <div class="field"><label>Submission deadline</label><input id="formDeadline" type="datetime-local" required></div>
+  <div class="field">
+    <label>Assignment image URL (optional)</label>
+    <input id="formImageURL" type="url" inputmode="url" placeholder="https://example.com/assignment-image.jpg">
+    <small style="display:block;color:#8390a6;font-size:10px;margin-top:6px">Paste a direct, publicly accessible image link. No Firebase Storage or billing upgrade is needed.</small>
+    <div id="imagePreview" class="image-preview"></div>
+  </div>
+  <div class="error" id="formError"></div>
+  <div class="modal-footer"><button type="button" class="btn outline" data-close>Cancel</button><button class="btn" id="saveButton" type="submit">Publish assignment</button></div>
+</form>
+</dialog>
+
+<dialog id="lectureDialog">
+<form class="modal" id="lectureForm">
+  <div class="modal-head"><h2>Publish lecture update</h2><button type="button" class="close" data-close>×</button></div>
+  <div class="field"><label>Course</label><select id="lectureCourse" required></select></div>
+  <div class="field"><label>Update title</label><input id="lectureTitle" maxlength="120" required placeholder="e.g. Change of venue"></div>
+  <div class="field"><label>Announcement</label><textarea id="lectureDetails" required placeholder="Enter the lecture update, new venue, reminder or meeting link..."></textarea></div>
+  <div class="field"><label>Effective date (optional)</label><input id="lectureDate" type="date"></div>
+  <div class="error" id="lectureError"></div>
+  <div class="modal-footer"><button type="button" class="btn outline" data-close>Cancel</button><button class="btn" id="lectureSave" type="submit">Publish update</button></div>
+</form>
+</dialog>
+
+<dialog id="notificationDialog">
+<form class="modal" id="notificationForm">
+  <div class="modal-head"><h2>Publish notification</h2><button type="button" class="close" data-close>×</button></div>
+  <div class="field"><label>Notification title</label><input id="notificationTitle" maxlength="120" required placeholder="e.g. Important class update"></div>
+  <div class="field"><label>Message</label><textarea id="notificationMessage" required placeholder="Write the announcement for students..."></textarea></div>
+  <div class="field">
+    <label>Contact information (optional)</label>
+    <select id="notificationContactType"><option value="none">No contact details</option><option value="phone">Phone number</option><option value="email">Email address</option></select>
+  </div>
+  <div class="field hidden" id="notificationContactField"><label id="notificationContactLabel">Contact</label><input id="notificationContactValue" placeholder="Enter contact information"></div>
+  <div class="error" id="notificationError"></div>
+  <div class="modal-footer"><button type="button" class="btn outline" data-close>Cancel</button><button class="btn" id="notificationPublish" type="submit">Publish notification</button></div>
+</form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* Your Firebase web-app configuration */
 const firebaseConfig = {
   apiKey: "AIzaSyCD_JoNL-xDElmx5Wr1FyJ6TLHkm9HinTo",
   authDomain: "lasu-e32a2.firebaseapp.com",
@@ -434,7 +444,6 @@ const firebaseConfig = {
   measurementId: "G-99F8L1KDVZ"
 };
 
-/* Only this Firebase Authentication user gets admin controls. */
 const ADMIN_UID = "pILYP9QuOESDTNRKW1QoBiiQ9o42";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -444,16 +453,16 @@ const lecturesRef = collection(db, "lectureUpdates");
 const notificationsRef = collection(db, "notifications");
 
 const COURSES = [
-  {code:"GNS 111",title:"Communication in English, Use of Library and ICT",units:2},
-  {code:"EDU 101",title:"Introduction to Teaching and Foundations of Education",units:2},
-  {code:"SED 101",title:"Introduction to Science and Mathematics Education",units:2},
-  {code:"MAT 101",title:"Elementary Mathematics I (Algebra and Trigonometry)",units:2},
-  {code:"EDM 111",title:"Principles and Practice of Educational Management",units:2},
-  {code:"EST 151",title:"Teaching Difficult Concepts in Primary and Junior Secondary School Mathematics",units:2},
-  {code:"EST 153",title:"Curriculum Evolution in Mathematics Education",units:2},
-  {code:"EST 155",title:"School Attachment Programme",units:2},
-  {code:"EDT 105",title:"Teaching and Learning in the Digital Age",units:2},
-  {code:"MAT 161",title:"Descriptive Statistics",units:2}
+ {code:"GNS 111",title:"Communication in English, Use of Library and ICT",units:2},
+ {code:"EDU 101",title:"Introduction to Teaching and Foundations of Education",units:2},
+ {code:"SED 101",title:"Introduction to Science and Mathematics Education",units:2},
+ {code:"MAT 101",title:"Elementary Mathematics I (Algebra and Trigonometry)",units:2},
+ {code:"EDM 111",title:"Principles and Practice of Educational Management",units:2},
+ {code:"EST 151",title:"Teaching Difficult Concepts in Primary and Junior Secondary School Mathematics",units:2},
+ {code:"EST 153",title:"Curriculum Evolution in Mathematics Education",units:2},
+ {code:"EST 155",title:"School Attachment Programme",units:2},
+ {code:"EDT 105",title:"Teaching and Learning in the Digital Age",units:2},
+ {code:"MAT 161",title:"Descriptive Statistics",units:2}
 ];
 const COURSE_MAP = Object.fromEntries(COURSES.map(c=>[c.code,c]));
 const TIMETABLE = [
@@ -463,348 +472,753 @@ const TIMETABLE = [
  {day:"Thursday",items:[["8:00 – 10:00","MAT 101 – Elementary Maths I","Venue not specified"],["12:00 – 1:30","SED 101","Sandwich Hall 2 · Moved from Tuesday"]]},
  {day:"Friday",items:[]}
 ];
-let assignments = [];
-let lectureUpdates = [];
-let notifications = [];
-let expandedNotifications = new Set();
-const NOTIFICATION_STORAGE_KEY = "lasu_hub_viewed_notifications_v1";
+
+let assignments=[];
+let lectureUpdates=[];
+let notifications=[];
+let expandedNotifications=new Set();
+const NOTIFICATION_STORAGE_KEY="lasu_hub_viewed_notifications_v1";
 function loadViewedNotifications(){try{const a=JSON.parse(localStorage.getItem(NOTIFICATION_STORAGE_KEY)||"[]");return new Set(Array.isArray(a)?a:[])}catch{return new Set()}}
-let viewedNotifications = loadViewedNotifications();
+let viewedNotifications=loadViewedNotifications();
 function saveViewedNotifications(){try{localStorage.setItem(NOTIFICATION_STORAGE_KEY,JSON.stringify([...viewedNotifications]))}catch(e){console.warn("Could not save notification read state",e)}}
-let admin = null;
-let editingId = null;
-let currentView = "dashboard";
-let currentCourse = "";
+
+let admin=null;
+let editingId=null;
+let currentView="dashboard";
+let currentCourse="";
 let toastTimer;
-let unsubscribeAssignments = null;
-let authInitialized = false;
-const $ = id => document.getElementById(id);
-const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const isPast = a => new Date(a.deadline).getTime() < Date.now();
-const isSoon = a => !isPast(a) && new Date(a.deadline).getTime()-Date.now() <= 72*60*60*1000;
+let unsubscribeAssignments=null;
+const $=id=>document.getElementById(id);
+const escapeHTML=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const isPast=a=>new Date(a.deadline).getTime()<Date.now();
+const isSoon=a=>!isPast(a)&&new Date(a.deadline).getTime()-Date.now()<=72*60*60*1000;
+
 function formatDate(date,options={}){return new Date(date).toLocaleDateString("en-GB",options)}
 function formatTime(date){return new Date(date).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})}
 function timeLabel(date){
-  const diff=new Date(date).getTime()-Date.now();
-  if(diff<0){const days=Math.floor(Math.abs(diff)/86400000);return days===0?"Deadline passed today":`Passed ${days} day${days===1?"":"s"} ago`}
-  if(diff<3600000)return `Due in ${Math.max(1,Math.ceil(diff/60000))} minutes`;
-  if(diff<86400000)return `Due in ${Math.ceil(diff/3600000)} hours`;
-  if(diff<172800000)return "Due tomorrow";
-  return `Due ${formatDate(date,{day:"numeric",month:"short",year:"numeric"})}`;
+ const diff=new Date(date).getTime()-Date.now();
+ if(diff<0){const days=Math.floor(Math.abs(diff)/86400000);return days===0?"Deadline passed today":`Passed ${days} day${days===1?"":"s"} ago`}
+ if(diff<3600000)return `Due in ${Math.max(1,Math.ceil(diff/60000))} minutes`;
+ if(diff<86400000)return `Due in ${Math.ceil(diff/3600000)} hours`;
+ if(diff<172800000)return "Due tomorrow";
+ return `Due ${formatDate(date,{day:"numeric",month:"short",year:"numeric"})}`;
 }
 function localInput(date){
-  const d=new Date(date),p=n=>String(n).padStart(2,"0");
-  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+ const d=new Date(date),p=n=>String(n).padStart(2,"0");
+ return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 function notify(message){
-  const t=$("toast");t.textContent=message;t.classList.add("show");
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2800);
+ const t=$("toast");t.textContent=message;t.classList.add("show");
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3500);
 }
 function closeMenu(){document.body.classList.remove("menu-open")}
 
-/* Firestore live listener: every connected browser receives updates automatically. */
+/* -------------------------------------------------------
+   ONESIGNAL SUBSCRIPTION AND PUSH NOTIFICATION FUNCTIONS
+-------------------------------------------------------- */
+
+let oneSignalRef=null;
+let oneSignalReady=false;
+
+function refreshPushButton(){
+ const button=$("pushTrigger");
+ if(!button)return;
+
+ if(!oneSignalReady||!oneSignalRef){
+   button.textContent="🔔 Enable notifications";
+   button.classList.remove("enabled");
+   return;
+ }
+
+ const optedIn=oneSignalRef.User?.PushSubscription?.optedIn===true;
+
+ if(optedIn){
+   button.textContent="✓ Notifications on";
+   button.classList.add("enabled");
+ }else{
+   button.textContent="🔔 Enable notifications";
+   button.classList.remove("enabled");
+ }
+}
+
+/* Wait for OneSignal to finish loading before using it. */
+window.OneSignalDeferred=window.OneSignalDeferred||[];
+window.OneSignalDeferred.push(async function(OneSignal){
+ try{
+   oneSignalRef=OneSignal;
+   oneSignalReady=true;
+
+   if(OneSignal.User?.PushSubscription?.addEventListener){
+     OneSignal.User.PushSubscription.addEventListener("change",refreshPushButton);
+   }
+
+   refreshPushButton();
+ }catch(error){
+   console.error("OneSignal initialization error:",error);
+   oneSignalReady=false;
+   refreshPushButton();
+ }
+});
+
+/* Subscribe the visitor to browser push notifications. */
+$("pushTrigger").addEventListener("click",async()=>{
+ const button=$("pushTrigger");
+
+ if(!oneSignalReady||!oneSignalRef){
+   notify("Notifications are still loading. Please try again shortly.");
+   return;
+ }
+
+ const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||
+   (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+
+ const isStandalone=window.matchMedia("(display-mode: standalone)").matches||
+   navigator.standalone===true;
+
+ if(isIOS&&!isStandalone){
+   notify("On iPhone: tap Share, choose Add to Home Screen, then open the app from your Home Screen.");
+   return;
+ }
+
+ if(!("Notification" in window)){
+   notify("This browser does not support push notifications.");
+   return;
+ }
+
+ if(oneSignalRef.User?.PushSubscription?.optedIn===true){
+   notify("Notifications are already enabled on this device.");
+   refreshPushButton();
+   return;
+ }
+
+ button.disabled=true;
+ button.textContent="Enabling...";
+
+ try{
+   await oneSignalRef.Notifications.requestPermission();
+
+   if(oneSignalRef.Notifications.permission){
+     await oneSignalRef.User.PushSubscription.optIn();
+
+     /* Give OneSignal a moment to update its subscription state. */
+     await new Promise(resolve=>setTimeout(resolve,1000));
+
+     refreshPushButton();
+
+     if(oneSignalRef.User?.PushSubscription?.optedIn===true){
+       notify("Push notifications enabled successfully.");
+     }else{
+       notify("Permission granted. Your subscription is still being registered.");
+     }
+   }else{
+     notify("Permission was not granted. Enable notifications in your browser settings.");
+   }
+ }catch(error){
+   console.error("Push subscription failed:",error);
+   notify("Could not enable notifications. Please try again.");
+ }finally{
+   button.disabled=false;
+   refreshPushButton();
+ }
+});
+
+/* Send a push through the protected Vercel API. */
+async function sendPush({title,message}){
+ const user=auth.currentUser;
+
+ if(!user||user.uid!==ADMIN_UID){
+   throw new Error("Administrator session required.");
+ }
+
+ const idToken=await user.getIdToken(true);
+
+ const response=await fetch("/api/send-push",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+     idToken,
+     title,
+     message,
+     url:location.origin,
+     idempotencyKey:(
+       window.crypto&&typeof window.crypto.randomUUID==="function"
+         ?window.crypto.randomUUID()
+         :`${Date.now()}-${Math.random().toString(36).slice(2)}`
+     )
+   })
+ });
+
+ const result=await response.json().catch(()=>({}));
+
+ if(!response.ok||!result.success){
+   throw new Error(result.error||result.message||`Push request failed (${response.status})`);
+ }
+
+ return result;
+}
+
+/* Push errors must never undo a successful Firestore save. */
+async function pushAfterPublish(label,payload){
+ try{
+   const result=await sendPush(payload);
+   console.info(`${label} push sent:`,result);
+   notify(`${label} published and push notification sent.`);
+   return true;
+ }catch(error){
+   console.error(`${label} was saved, but push notification failed:`,error);
+   notify(`${label} saved, but push notification could not be sent.`);
+   return false;
+ }
+}
+
+/* Firestore live listeners */
 function startLectureListener(){
-  onSnapshot(lecturesRef,snapshot=>{
-    lectureUpdates=snapshot.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-    renderLectures();
-  },error=>{console.error("Lecture updates listener:",error);notify("Could not load lecture announcements.")});
+ onSnapshot(lecturesRef,snapshot=>{
+   lectureUpdates=snapshot.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+   renderLectures();
+ },error=>{
+   console.error("Lecture updates listener:",error);
+   notify("Could not load lecture announcements.");
+ });
 }
 function startAssignmentListener(){
-  if(unsubscribeAssignments)unsubscribeAssignments();
-  unsubscribeAssignments=onSnapshot(assignmentsRef,snapshot=>{
-    assignments=snapshot.docs.map(d=>({id:d.id,...d.data()}));
-    assignments=assignments.filter(a=>a.deadline && !Number.isNaN(new Date(a.deadline).getTime()));
-    renderAll();
-  },error=>{
-    console.error("Firestore listener:",error);
-    notify("Could not load live assignments. Check Firestore rules and connection.");
-  });
+ if(unsubscribeAssignments)unsubscribeAssignments();
+ unsubscribeAssignments=onSnapshot(assignmentsRef,snapshot=>{
+   assignments=snapshot.docs.map(d=>({id:d.id,...d.data()}));
+   assignments=assignments.filter(a=>a.deadline&&!Number.isNaN(new Date(a.deadline).getTime()));
+   renderAll();
+ },error=>{
+   console.error("Firestore listener:",error);
+   notify("Could not load live assignments. Check Firestore rules and connection.");
+ });
 }
 async function createAssignment(data){
-  await addDoc(assignmentsRef,{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+ return await addDoc(assignmentsRef,{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
 }
 async function updateAssignment(id,data){
-  await updateDoc(doc(db,"assignments",id),{...data,updatedAt:serverTimestamp()});
+ await updateDoc(doc(db,"assignments",id),{...data,updatedAt:serverTimestamp()});
 }
-async function removeAssignment(id){
-  await deleteDoc(doc(db,"assignments",id));
-}
+async function removeAssignment(id){await deleteDoc(doc(db,"assignments",id))}
 
 /* Course selectors and cards */
 function populateCourses(){
-  $("courseNav").innerHTML=COURSES.map(c=>`<li><button class="nav-btn course-btn" data-course="${escapeHTML(c.code)}"><span class="nav-icon">•</span>${escapeHTML(c.code)}</button></li>`).join("");
-  $("courseFilter").innerHTML='<option value="">All courses</option>'+COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)}</option>`).join("");
-  $("formCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
-  $("lectureCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
-  $("coursesGrid").innerHTML=COURSES.map(c=>{
-    const count=assignments.filter(a=>a.course===c.code&&!isPast(a)).length;
-    return `<article class="course-card" data-course-card="${escapeHTML(c.code)}"><div class="course-card-top"><span class="course-code">${escapeHTML(c.code)}</span><span class="course-units">${c.units} credit units</span></div><h3>${escapeHTML(c.title)}</h3><div class="course-foot"><span><b>${count}</b> active assignment${count===1?"":"s"}</span><span class="course-arrow">→</span></div></article>`;
-  }).join("");
-  $("courseTotal").textContent=`${COURSES.length} courses`;
+ $("courseNav").innerHTML=COURSES.map(c=>`<li><button class="nav-btn course-btn" data-course="${escapeHTML(c.code)}"><span class="nav-icon">•</span>${escapeHTML(c.code)}</button></li>`).join("");
+ $("courseFilter").innerHTML='<option value="">All courses</option>'+COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)}</option>`).join("");
+ $("formCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
+ $("lectureCourse").innerHTML=COURSES.map(c=>`<option value="${escapeHTML(c.code)}">${escapeHTML(c.code)} — ${escapeHTML(c.title)}</option>`).join("");
+ $("coursesGrid").innerHTML=COURSES.map(c=>{
+   const count=assignments.filter(a=>a.course===c.code&&!isPast(a)).length;
+   return `<article class="course-card" data-course-card="${escapeHTML(c.code)}"><div class="course-card-top"><span class="course-code">${escapeHTML(c.code)}</span><span class="course-units">${c.units} credit units</span></div><h3>${escapeHTML(c.title)}</h3><div class="course-foot"><span><b>${count}</b> active assignment${count===1?"":"s"}</span><span class="course-arrow">→</span></div></article>`;
+ }).join("");
+ $("courseTotal").textContent=`${COURSES.length} courses`;
 }
+
 function assignmentHTML(a){
-  const d=new Date(a.deadline),past=isPast(a),soon=isSoon(a),c=COURSE_MAP[a.course];
-  const status=past?"overdue":soon?"soon":"upcoming",statusText=past?"PAST DEADLINE":soon?"DUE SOON":"UPCOMING";
-  return `<article class="assignment"><div class="assignment-date"><strong>${d.getDate()}</strong><small>${d.toLocaleDateString("en",{month:"short"}).toUpperCase()}</small></div><div class="assignment-main"><div class="assignment-meta"><span class="tag course">${escapeHTML(a.course)}</span><span class="tag ${status}">${statusText}</span></div><h3>${escapeHTML(a.title)}</h3>${c?`<div class="assignment-desc">${escapeHTML(c.title)}</div>`:""}${a.details?`<div class="assignment-desc" style="margin-top:7px">${escapeHTML(a.details)}</div>`:""}${a.imageURL?`<a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="assignment-image" src="${escapeHTML(a.imageURL)}" alt="Assignment reference image" loading="lazy"></a>`:""}<div class="assignment-bottom"><span class="deadline">◷ ${escapeHTML(timeLabel(a.deadline))} · ${formatTime(a.deadline)}</span>${admin?`<div class="admin-actions"><button class="small-btn" data-edit="${escapeHTML(a.id)}">Edit</button><button class="small-btn delete" data-delete="${escapeHTML(a.id)}">Delete</button></div>`:""}</div></div></article>`;
+ const d=new Date(a.deadline),past=isPast(a),soon=isSoon(a),c=COURSE_MAP[a.course];
+ const status=past?"overdue":soon?"soon":"upcoming";
+ const statusText=past?"PAST DEADLINE":soon?"DUE SOON":"UPCOMING";
+ return `<article class="assignment">
+ <div class="assignment-date"><strong>${d.getDate()}</strong><small>${d.toLocaleDateString("en",{month:"short"}).toUpperCase()}</small></div>
+ <div class="assignment-main">
+ <div class="assignment-meta"><span class="tag course">${escapeHTML(a.course)}</span><span class="tag ${status}">${statusText}</span></div>
+ <h3>${escapeHTML(a.title)}</h3>
+ ${c?`<div class="assignment-desc">${escapeHTML(c.title)}</div>`:""}
+ ${a.details?`<div class="assignment-desc" style="margin-top:7px">${escapeHTML(a.details)}</div>`:""}
+ ${a.imageURL?`<a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="assignment-image" src="${escapeHTML(a.imageURL)}" alt="Assignment reference image" loading="lazy"></a>`:""}
+ <div class="assignment-bottom"><span class="deadline">◷ ${escapeHTML(timeLabel(a.deadline))} · ${formatTime(a.deadline)}</span>
+ ${admin?`<div class="admin-actions"><button class="small-btn" data-edit="${escapeHTML(a.id)}">Edit</button><button class="small-btn delete" data-delete="${escapeHTML(a.id)}">Delete</button></div>`:""}
+ </div></div></article>`;
 }
-function emptyHTML(title,description){return `<div class="empty"><div class="empty-icon">📭</div><h3>${escapeHTML(title)}</h3><p>${escapeHTML(description)}</p></div>`}
+function emptyHTML(title,description){
+ return `<div class="empty"><div class="empty-icon">📭</div><h3>${escapeHTML(title)}</h3><p>${escapeHTML(description)}</p></div>`;
+}
 
 /* Navigation */
 function setNavigation(view,course=""){
-  currentView=view;currentCourse=course;
-  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===view||(course&&b.dataset.course===course)));
-  $("dashboardView").classList.toggle("hidden",view!=="dashboard");
-  $("listView").classList.toggle("hidden",!["assignments","upcoming","past","course"].includes(view));
-  $("lecturesView").classList.toggle("hidden",view!=="lectures");
-  $("notificationsView").classList.toggle("hidden",view!=="notifications");
-  $("crumb").textContent=course||({dashboard:"Dashboard",assignments:"All assignments",upcoming:"Upcoming deadlines",past:"Past deadlines",lectures:"Lecture timetable",notifications:"Notifications"}[view]||view);
-  if(["assignments","upcoming","past","course"].includes(view))renderAssignmentList();
-  if(view==="lectures")renderLectures();
-  if(view==="notifications")renderNotifications();
-  closeMenu();window.scrollTo({top:0,behavior:"smooth"});
+ currentView=view;currentCourse=course;
+ document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.view===view||(course&&b.dataset.course===course)));
+ $("dashboardView").classList.toggle("hidden",view!=="dashboard");
+ $("listView").classList.toggle("hidden",!["assignments","upcoming","past","course"].includes(view));
+ $("lecturesView").classList.toggle("hidden",view!=="lectures");
+ $("notificationsView").classList.toggle("hidden",view!=="notifications");
+ $("crumb").textContent=course||({dashboard:"Dashboard",assignments:"All assignments",upcoming:"Upcoming deadlines",past:"Past deadlines",lectures:"Lecture timetable",notifications:"Notifications"}[view]||view);
+ if(["assignments","upcoming","past","course"].includes(view))renderAssignmentList();
+ if(view==="lectures")renderLectures();
+ if(view==="notifications")renderNotifications();
+ closeMenu();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>setNavigation(b.dataset.view)));
-$("courseNav").addEventListener("click",e=>{const b=e.target.closest("[data-course]");if(b)setNavigation("course",b.dataset.course)});
-$("coursesGrid").addEventListener("click",e=>{const c=e.target.closest("[data-course-card]");if(c)setNavigation("course",c.dataset.courseCard)});
+$("courseNav").addEventListener("click",e=>{
+ const b=e.target.closest("[data-course]");
+ if(b)setNavigation("course",b.dataset.course);
+});
+$("coursesGrid").addEventListener("click",e=>{
+ const c=e.target.closest("[data-course-card]");
+ if(c)setNavigation("course",c.dataset.courseCard);
+});
 document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>setNavigation(b.dataset.goto)));
 
-/* Notifications: public read access, admin-only publishing and deletion. Read state is local to each browser/device. */
-function notificationDate(n){const d=n.createdAt?.toDate?n.createdAt.toDate():(n.createdAt?.seconds?new Date(n.createdAt.seconds*1000):null);return d?d.toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}):"Just published"}
+/* Notifications */
+function notificationDate(n){
+ const d=n.createdAt?.toDate?n.createdAt.toDate():(n.createdAt?.seconds?new Date(n.createdAt.seconds*1000):null);
+ return d?d.toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}):"Just published";
+}
 function notificationContactHTML(n){
-  const value=String(n.contactValue||"").trim();if(!value||!['phone','email'].includes(n.contactType))return "";
-  const safe=escapeHTML(value);const href=n.contactType==="email"?`mailto:${encodeURIComponent(value)}`:`tel:${value.replace(/[^+\d]/g,"")}`;
-  return `<div class="notification-contact">${n.contactType==="email"?"Email":"Phone"}: <a href="${escapeHTML(href)}">${safe}</a></div>`;
+ const value=String(n.contactValue||"").trim();
+ if(!value||!["phone","email"].includes(n.contactType))return "";
+ const safe=escapeHTML(value);
+ const href=n.contactType==="email"?`mailto:${encodeURIComponent(value)}`:`tel:${value.replace(/[^+\d]/g,"")}`;
+ return `<div class="notification-contact">${n.contactType==="email"?"Email":"Phone"}: <a href="${escapeHTML(href)}">${safe}</a></div>`;
 }
 function renderNotifications(){
-  const unread=notifications.filter(n=>!viewedNotifications.has(n.id)).length;
-  const badge=$("notificationBadge"),navCount=$("notificationNavCount");
-  badge.textContent=unread>99?"99+":String(unread);badge.classList.toggle("hidden",unread===0);
-  navCount.textContent=unread>99?"99+":String(unread);navCount.classList.toggle("hidden",unread===0);
-  $("notificationSummary").textContent=`${unread} new · ${notifications.length} total`;
-  $("notificationAdminBanner").classList.toggle("hidden",!admin);
-  $("markAllRead").classList.toggle("hidden",unread===0);
-  if(!notifications.length){$("notificationList").innerHTML=emptyHTML("No notifications yet","New announcements from the administrator will appear here.");return}
-  $("notificationList").innerHTML=notifications.map(n=>{
-    const read=viewedNotifications.has(n.id),expanded=expandedNotifications.has(n.id);
-    return `<article class="notification-card ${read?"read":"unread"}"><div class="notification-card-top"><span class="notification-time">${escapeHTML(notificationDate(n))}</span>${read?'<span class="notification-time">VIEWED</span>':'<span class="notification-new">NEW</span>'}</div><h3>${escapeHTML(n.title||"Notification")}</h3>${expanded?`<div class="notification-message">${escapeHTML(n.message||"")}</div>${notificationContactHTML(n)}`:""}<div class="notification-card-actions"><button class="small-btn" type="button" data-notification-toggle="${escapeHTML(n.id)}">${expanded?"Hide details":"View notification"}</button>${admin?`<button class="small-btn delete" type="button" data-notification-delete="${escapeHTML(n.id)}">Delete</button>`:""}</div></article>`;
-  }).join("");
+ const unread=notifications.filter(n=>!viewedNotifications.has(n.id)).length;
+ const badge=$("notificationBadge"),navCount=$("notificationNavCount");
+ badge.textContent=unread>99?"99+":String(unread);
+ badge.classList.toggle("hidden",unread===0);
+ navCount.textContent=unread>99?"99+":String(unread);
+ navCount.classList.toggle("hidden",unread===0);
+ $("notificationSummary").textContent=`${unread} new · ${notifications.length} total`;
+ $("notificationAdminBanner").classList.toggle("hidden",!admin);
+ $("markAllRead").classList.toggle("hidden",unread===0);
+
+ if(!notifications.length){
+   $("notificationList").innerHTML=emptyHTML("No notifications yet","New announcements from the administrator will appear here.");
+   return;
+ }
+
+ $("notificationList").innerHTML=notifications.map(n=>{
+   const read=viewedNotifications.has(n.id),expanded=expandedNotifications.has(n.id);
+   return `<article class="notification-card ${read?"read":"unread"}">
+   <div class="notification-card-top"><span class="notification-time">${escapeHTML(notificationDate(n))}</span>${read?'<span class="notification-time">VIEWED</span>':'<span class="notification-new">NEW</span>'}</div>
+   <h3>${escapeHTML(n.title||"Notification")}</h3>
+   ${expanded?`<div class="notification-message">${escapeHTML(n.message||"")}</div>${notificationContactHTML(n)}`:""}
+   <div class="notification-card-actions"><button class="small-btn" type="button" data-notification-toggle="${escapeHTML(n.id)}">${expanded?"Hide details":"View notification"}</button>
+   ${admin?`<button class="small-btn delete" type="button" data-notification-delete="${escapeHTML(n.id)}">Delete</button>`:""}
+   </div></article>`;
+ }).join("");
 }
 function startNotificationListener(){
-  onSnapshot(notificationsRef,snapshot=>{
-    notifications=snapshot.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>{
-      const at=a.createdAt?.seconds||0,bt=b.createdAt?.seconds||0;return bt-at;
-    });
-    renderNotifications();
-  },error=>{console.error("Notifications listener:",error);notify("Could not load notifications. Check Firestore rules and connection.")});
+ onSnapshot(notificationsRef,snapshot=>{
+   notifications=snapshot.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+   renderNotifications();
+ },error=>{
+   console.error("Notifications listener:",error);
+   notify("Could not load notifications. Check Firestore rules and connection.");
+ });
 }
-function markAllNotificationsViewed(){notifications.forEach(n=>viewedNotifications.add(n.id));saveViewedNotifications();renderNotifications();notify("All notifications marked as viewed.")}
+function markAllNotificationsViewed(){
+ notifications.forEach(n=>viewedNotifications.add(n.id));
+ saveViewedNotifications();
+ renderNotifications();
+ notify("All notifications marked as viewed.");
+}
 $("notificationBell").addEventListener("click",()=>setNavigation("notifications"));
-$("addNotification").addEventListener("click",()=>{if(!admin)return;$("notificationForm").reset();$("notificationError").textContent="";$("notificationContactField").classList.add("hidden");$("notificationContactValue").required=false;$("notificationDialog").showModal()});
+$("addNotification").addEventListener("click",()=>{
+ if(!admin)return;
+ $("notificationForm").reset();
+ $("notificationError").textContent="";
+ $("notificationContactField").classList.add("hidden");
+ $("notificationContactValue").required=false;
+ $("notificationDialog").showModal();
+});
 $("notificationContactType").addEventListener("change",()=>{
-  const type=$("notificationContactType").value,show=type!=="none";
-  $("notificationContactField").classList.toggle("hidden",!show);$("notificationContactValue").required=show;
-  $("notificationContactValue").type=type==="email"?"email":"text";
-  $("notificationContactLabel").textContent=type==="email"?"Email address":"Phone number";
-  $("notificationContactValue").placeholder=type==="email"?"name@example.com":"e.g. +2348012345678";
+ const type=$("notificationContactType").value,show=type!=="none";
+ $("notificationContactField").classList.toggle("hidden",!show);
+ $("notificationContactValue").required=show;
+ $("notificationContactValue").type=type==="email"?"email":"text";
+ $("notificationContactLabel").textContent=type==="email"?"Email address":"Phone number";
+ $("notificationContactValue").placeholder=type==="email"?"name@example.com":"e.g. +2348012345678";
 });
+
+/* Publish notification and then send push */
 $("notificationForm").addEventListener("submit",async e=>{
-  e.preventDefault();if(!admin||!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){$("notificationError").textContent="Administrator session required. Sign in again.";return}
-  const title=$("notificationTitle").value.trim(),message=$("notificationMessage").value.trim(),contactType=$("notificationContactType").value,contactValue=$("notificationContactValue").value.trim();
-  if(!title||!message){$("notificationError").textContent="Enter a title and message.";return}
-  if(contactType==="email"&&contactValue&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue)){$("notificationError").textContent="Enter a valid email address.";return}
-  if(contactType==="phone"&&contactValue.replace(/\D/g,"").length<7){$("notificationError").textContent="Enter a valid phone number.";return}
-  const b=$("notificationPublish");b.disabled=true;$("notificationError").textContent="";
-  try{await addDoc(notificationsRef,{title,message,contactType:contactType==="none"?"":contactType,contactValue:contactType==="none"?"":contactValue,createdAt:serverTimestamp()});$("notificationDialog").close();notify("Notification published for all visitors.")}
-  catch(err){console.error(err);$("notificationError").textContent=err.code==="permission-denied"?"Permission denied. Check your Firestore rules and admin UID.":(err.message||"Could not publish notification.")}
-  finally{b.disabled=false}
+ e.preventDefault();
+
+ if(!admin||!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){
+   $("notificationError").textContent="Administrator session required. Sign in again.";
+   return;
+ }
+
+ const title=$("notificationTitle").value.trim();
+ const message=$("notificationMessage").value.trim();
+ const contactType=$("notificationContactType").value;
+ const contactValue=$("notificationContactValue").value.trim();
+
+ if(!title||!message){
+   $("notificationError").textContent="Enter a title and message.";
+   return;
+ }
+ if(contactType==="email"&&contactValue&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue)){
+   $("notificationError").textContent="Enter a valid email address.";
+   return;
+ }
+ if(contactType==="phone"&&contactValue.replace(/\D/g,"").length<7){
+   $("notificationError").textContent="Enter a valid phone number.";
+   return;
+ }
+
+ const b=$("notificationPublish");
+ b.disabled=true;
+ b.textContent="Publishing...";
+ $("notificationError").textContent="";
+
+ try{
+   await addDoc(notificationsRef,{
+     title,
+     message,
+     contactType:contactType==="none"?"":contactType,
+     contactValue:contactType==="none"?"":contactValue,
+     createdAt:serverTimestamp()
+   });
+
+   $("notificationDialog").close();
+   $("notificationForm").reset();
+   $("notificationContactField").classList.add("hidden");
+
+   await pushAfterPublish("Notification",{
+     title:title,
+     message:message
+   });
+
+ }catch(err){
+   console.error("Notification publishing failed:",err);
+   $("notificationError").textContent=err.code==="permission-denied"?"Permission denied. Check your Firestore rules and admin UID.":(err.message||"Could not publish notification.");
+ }finally{
+   b.disabled=false;
+   b.textContent="Publish notification";
+ }
 });
+
 $("notificationList").addEventListener("click",async e=>{
-  const toggle=e.target.closest("[data-notification-toggle]");
-  if(toggle){const id=toggle.dataset.notificationToggle;if(expandedNotifications.has(id)){expandedNotifications.delete(id)}else{expandedNotifications.add(id);viewedNotifications.add(id);saveViewedNotifications()}renderNotifications();return}
-  const del=e.target.closest("[data-notification-delete]");
-  if(del&&admin&&confirm("Delete this notification for everyone?")){try{await deleteDoc(doc(db,"notifications",del.dataset.notificationDelete));expandedNotifications.delete(del.dataset.notificationDelete);notify("Notification deleted.")}catch(err){notify(err.message||"Could not delete notification.")}}
+ const toggle=e.target.closest("[data-notification-toggle]");
+ if(toggle){
+   const id=toggle.dataset.notificationToggle;
+   if(expandedNotifications.has(id))expandedNotifications.delete(id);
+   else{
+     expandedNotifications.add(id);
+     viewedNotifications.add(id);
+     saveViewedNotifications();
+   }
+   renderNotifications();
+   return;
+ }
+
+ const del=e.target.closest("[data-notification-delete]");
+ if(del&&admin&&confirm("Delete this notification for everyone?")){
+   try{
+     await deleteDoc(doc(db,"notifications",del.dataset.notificationDelete));
+     expandedNotifications.delete(del.dataset.notificationDelete);
+     notify("Notification deleted.");
+   }catch(err){
+     notify(err.message||"Could not delete notification.");
+   }
+ }
 });
 $("markAllRead").addEventListener("click",markAllNotificationsViewed);
 
 /* Rendering */
 function renderLectures(){
-  $("timetableGrid").innerHTML=TIMETABLE.map(day=>`<article class="day-card"><h3>${day.day}</h3>${day.items.length?day.items.map(item=>`<div class="lecture-slot"><div class="lecture-time">${item[0]}</div><div class="lecture-course">${escapeHTML(item[1])}</div><div class="lecture-venue">📍 ${escapeHTML(item[2])}</div></div>`).join(""):'<div class="no-lecture">No lectures scheduled</div>'}</article>`).join("");
-  $("lectureAdminBanner").classList.toggle("hidden",!admin);
-  $("lectureUpdatesList").innerHTML=lectureUpdates.length?lectureUpdates.map(u=>`<article class="lecture-update"><div class="lecture-update-meta"><span class="tag course">${escapeHTML(u.course||"GENERAL")}</span> ${u.date?` · Effective ${escapeHTML(new Date(u.date+"T00:00:00").toLocaleDateString("en-GB"))}`:""}</div><h3>${escapeHTML(u.title)}</h3><p>${escapeHTML(u.details)}</p>${admin?`<div class="admin-actions" style="margin-top:12px"><button class="small-btn delete" data-lecture-delete="${escapeHTML(u.id)}">Delete update</button></div>`:""}</article>`).join(""):emptyHTML("No lecture updates yet","Important class announcements will appear here.");
+ $("timetableGrid").innerHTML=TIMETABLE.map(day=>`<article class="day-card"><h3>${day.day}</h3>${day.items.length?day.items.map(item=>`<div class="lecture-slot"><div class="lecture-time">${item[0]}</div><div class="lecture-course">${escapeHTML(item[1])}</div><div class="lecture-venue">📍 ${escapeHTML(item[2])}</div></div>`).join(""):'<div class="no-lecture">No lectures scheduled</div>'}</article>`).join("");
+
+ $("lectureAdminBanner").classList.toggle("hidden",!admin);
+ $("lectureUpdatesList").innerHTML=lectureUpdates.length?lectureUpdates.map(u=>`<article class="lecture-update"><div class="lecture-update-meta"><span class="tag course">${escapeHTML(u.course||"GENERAL")}</span> ${u.date?` · Effective ${escapeHTML(new Date(u.date+"T00:00:00").toLocaleDateString("en-GB"))}`:""}</div><h3>${escapeHTML(u.title)}</h3><p>${escapeHTML(u.details)}</p>${admin?`<div class="admin-actions" style="margin-top:12px"><button class="small-btn delete" data-lecture-delete="${escapeHTML(u.id)}">Delete update</button></div>`:""}</article>`).join(""):emptyHTML("No lecture updates yet","Important class announcements will appear here.");
 }
 function renderDashboard(){
-  const active=assignments.filter(a=>!isPast(a)),past=assignments.filter(isPast),soon=assignments.filter(isSoon);
-  $("statCourses").textContent=COURSES.length;$("statActive").textContent=active.length;$("statSoon").textContent=soon.length;$("statPast").textContent=past.length;$("navTotal").textContent=active.length;
-  $("dashboardAssignments").innerHTML=active.length?[...active].sort((a,b)=>new Date(a.deadline)-new Date(b.deadline)).slice(0,4).map(assignmentHTML).join(""):emptyHTML("You're all caught up","New assignments will appear here when published.");
-  $("adminBanner").classList.toggle("hidden",!admin);
+ const active=assignments.filter(a=>!isPast(a));
+ const past=assignments.filter(isPast);
+ const soon=assignments.filter(isSoon);
+ $("statCourses").textContent=COURSES.length;
+ $("statActive").textContent=active.length;
+ $("statSoon").textContent=soon.length;
+ $("statPast").textContent=past.length;
+ $("navTotal").textContent=active.length;
+ $("dashboardAssignments").innerHTML=active.length?[...active].sort((a,b)=>new Date(a.deadline)-new Date(b.deadline)).slice(0,4).map(assignmentHTML).join(""):emptyHTML("You're all caught up","New assignments will appear here when published.");
+ $("adminBanner").classList.toggle("hidden",!admin);
 }
 function renderAssignmentList(){
-  let list=[...assignments],search=$("searchInput").value.trim().toLowerCase(),course=$("courseFilter").value,status=$("statusFilter").value;
-  if(currentCourse)list=list.filter(a=>a.course===currentCourse);
-  if(course)list=list.filter(a=>a.course===course);
-  if(search)list=list.filter(a=>`${a.title} ${a.details||""} ${a.course} ${COURSE_MAP[a.course]?.title||""}`.toLowerCase().includes(search));
-  if(currentView==="upcoming")list=list.filter(a=>!isPast(a));
-  if(currentView==="past")list=list.filter(isPast);
-  if(status==="upcoming")list=list.filter(a=>!isPast(a)&&!isSoon(a));
-  if(status==="soon")list=list.filter(isSoon);
-  if(status==="past")list=list.filter(isPast);
-  list.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));if(currentView==="past")list.reverse();
-  const heading=currentCourse?`${currentCourse} assignments`:currentView==="upcoming"?"Upcoming deadlines":currentView==="past"?"Past deadlines":"All assignments";
-  $("listHeading").textContent=heading;
-  $("listDescription").textContent=currentCourse?COURSE_MAP[currentCourse]?.title||"Course assignments":"Manage and track your academic assignments.";
-  $("resultTitle").textContent="Assignment records";$("resultCount").textContent=`${list.length} result${list.length===1?"":"s"}`;
-  $("assignmentList").innerHTML=list.length?list.map(assignmentHTML).join(""):emptyHTML("No assignments found","Try changing your filters or check back later.");
+ let list=[...assignments];
+ const search=$("searchInput").value.trim().toLowerCase();
+ const course=$("courseFilter").value;
+ const status=$("statusFilter").value;
+
+ if(currentCourse)list=list.filter(a=>a.course===currentCourse);
+ if(course)list=list.filter(a=>a.course===course);
+ if(search)list=list.filter(a=>`${a.title} ${a.details||""} ${a.course} ${COURSE_MAP[a.course]?.title||""}`.toLowerCase().includes(search));
+ if(currentView==="upcoming")list=list.filter(a=>!isPast(a));
+ if(currentView==="past")list=list.filter(isPast);
+ if(status==="upcoming")list=list.filter(a=>!isPast(a)&&!isSoon(a));
+ if(status==="soon")list=list.filter(isSoon);
+ if(status==="past")list=list.filter(isPast);
+
+ list.sort((a,b)=>new Date(a.deadline)-new Date(b.deadline));
+ if(currentView==="past")list.reverse();
+
+ const heading=currentCourse?`${currentCourse} assignments`:currentView==="upcoming"?"Upcoming deadlines":currentView==="past"?"Past deadlines":"All assignments";
+ $("listHeading").textContent=heading;
+ $("listDescription").textContent=currentCourse?COURSE_MAP[currentCourse]?.title||"Course assignments":"Manage and track your academic assignments.";
+ $("resultTitle").textContent="Assignment records";
+ $("resultCount").textContent=`${list.length} result${list.length===1?"":"s"}`;
+ $("assignmentList").innerHTML=list.length?list.map(assignmentHTML).join(""):emptyHTML("No assignments found","Try changing your filters or check back later.");
 }
 function renderAdmin(){
-  $("adminTrigger").textContent=admin?"↪ Sign out of admin":"⚙ Admin access";
-  $("profileName").textContent=admin?"Administrator":"Student Workspace";
-  $("profileRole").textContent=admin?admin.email:"LASU · Mathematics Education";
-  $("avatar").textContent=admin?"AD":"ST";
-  $("adminBanner").classList.toggle("hidden",!admin);
-  $("listAdd").classList.toggle("hidden",!admin);
+ $("adminTrigger").textContent=admin?"↪ Sign out of admin":"⚙ Admin access";
+ $("profileName").textContent=admin?"Administrator":"Student Workspace";
+ $("profileRole").textContent=admin?admin.email:"LASU · Mathematics Education";
+ $("avatar").textContent=admin?"AD":"ST";
+ $("adminBanner").classList.toggle("hidden",!admin);
+ $("listAdd").classList.toggle("hidden",!admin);
 }
-function renderAll(){populateCourses();renderDashboard();renderAdmin();if(["assignments","upcoming","past","course"].includes(currentView))renderAssignmentList();if(currentView==="lectures")renderLectures();renderNotifications()}
+function renderAll(){
+ populateCourses();
+ renderDashboard();
+ renderAdmin();
+ if(["assignments","upcoming","past","course"].includes(currentView))renderAssignmentList();
+ if(currentView==="lectures")renderLectures();
+ renderNotifications();
+}
 
 /* Dialogs and admin authentication */
-function openLogin(){$("loginForm").reset();$("loginError").textContent="";$("loginDialog").showModal()}
+function openLogin(){
+ $("loginForm").reset();
+ $("loginError").textContent="";
+ $("loginDialog").showModal();
+}
 function openAssignment(id=null){
-  if(!admin){notify("Administrator access required.");return}
-  editingId=id;$("assignmentForm").reset();$("formError").textContent="";
-  $("formHeading").textContent=id?"Edit assignment":"Create assignment";$("saveButton").textContent=id?"Save changes":"Publish assignment";
-  if(id){const a=assignments.find(x=>x.id===id);if(!a)return;$("formCourse").value=a.course;$("formTitle").value=a.title;$("formDetails").value=a.details||"";$("formDeadline").value=localInput(a.deadline);$("formImageURL").value=a.imageURL||""}
-  else if(currentCourse)$("formCourse").value=currentCourse;
-  $("imagePreview").innerHTML=id&&assignments.find(x=>x.id===id)?.imageURL?"Current image is shown below.":"";if(id&&assignments.find(x=>x.id===id)?.imageURL){const u=assignments.find(x=>x.id===id).imageURL;$("imagePreview").innerHTML=`<img src="${escapeHTML(u)}" alt="Current assignment image">`;}
-  $("assignmentDialog").showModal();
+ if(!admin){notify("Administrator access required.");return}
+ editingId=id;
+ $("assignmentForm").reset();
+ $("formError").textContent="";
+ $("formHeading").textContent=id?"Edit assignment":"Create assignment";
+ $("saveButton").textContent=id?"Save changes":"Publish assignment";
+
+ if(id){
+   const a=assignments.find(x=>x.id===id);
+   if(!a)return;
+   $("formCourse").value=a.course;
+   $("formTitle").value=a.title;
+   $("formDetails").value=a.details||"";
+   $("formDeadline").value=localInput(a.deadline);
+   $("formImageURL").value=a.imageURL||"";
+ }else if(currentCourse){
+   $("formCourse").value=currentCourse;
+ }
+
+ $("imagePreview").innerHTML=id&&assignments.find(x=>x.id===id)?.imageURL?"Current image is shown below.":"";
+ if(id&&assignments.find(x=>x.id===id)?.imageURL){
+   const u=assignments.find(x=>x.id===id).imageURL;
+   $("imagePreview").innerHTML=`<img src="${escapeHTML(u)}" alt="Current assignment image">`;
+ }
+ $("assignmentDialog").showModal();
 }
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest("dialog").close()));
+
 $("adminTrigger").addEventListener("click",async()=>{
-  if(!admin){openLogin();return}
-  if(!confirm("Sign out of administrator account?"))return;
-  try{await signOut(auth);notify("You have signed out.")}catch(e){notify("Sign out failed: "+e.message)}
+ if(!admin){openLogin();return}
+ if(!confirm("Sign out of administrator account?"))return;
+ try{
+   await signOut(auth);
+   notify("You have signed out.");
+ }catch(e){
+   notify("Sign out failed: "+e.message);
+ }
 });
+
 $("dashboardAdd").addEventListener("click",()=>openAssignment());
 $("listAdd").addEventListener("click",()=>openAssignment());
 
 $("loginForm").addEventListener("submit",async e=>{
-  e.preventDefault();const button=$("loginSubmit");button.disabled=true;$("loginError").textContent="";
-  try{
-    const credential=await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
-    if(credential.user.uid!==ADMIN_UID){await signOut(auth);throw new Error("This account is not authorised as the portal administrator.")}
-    $("loginDialog").close();$("password").value="";notify("Administrator signed in successfully.");
-  }catch(err){$("loginError").textContent=err.code==="auth/invalid-credential"?"Incorrect email or password.":(err.message||"Unable to sign in.")}
-  finally{button.disabled=false}
+ e.preventDefault();
+ const button=$("loginSubmit");
+ button.disabled=true;
+ $("loginError").textContent="";
+
+ try{
+   const credential=await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
+   if(credential.user.uid!==ADMIN_UID){
+     await signOut(auth);
+     throw new Error("This account is not authorised as the portal administrator.");
+   }
+   $("loginDialog").close();
+   $("password").value="";
+   notify("Administrator signed in successfully.");
+ }catch(err){
+   $("loginError").textContent=err.code==="auth/invalid-credential"?"Incorrect email or password.":(err.message||"Unable to sign in.");
+ }finally{
+   button.disabled=false;
+ }
 });
+
 onAuthStateChanged(auth,async user=>{
-  authInitialized=true;
-  if(user&&user.uid===ADMIN_UID){admin={uid:user.uid,email:user.email||"Administrator"}}
-  else{
-    admin=null;
-    if(user&&user.uid!==ADMIN_UID){try{await signOut(auth)}catch{}}
-  }
-  renderAll();
+ if(user&&user.uid===ADMIN_UID){
+   admin={uid:user.uid,email:user.email||"Administrator"};
+ }else{
+   admin=null;
+   if(user&&user.uid!==ADMIN_UID){
+     try{await signOut(auth)}catch{}
+   }
+ }
+ renderAll();
 });
 
 /* Assignment image URL preview */
 $("formImageURL").addEventListener("input",()=>{
-  const raw=$("formImageURL").value.trim();
-  if(!raw){$("imagePreview").innerHTML="";return}
-  try{
-    const url=new URL(raw);
-    if(!["https:","http:"].includes(url.protocol))throw new Error("Invalid protocol");
-    $("imagePreview").innerHTML=`<img src="${escapeHTML(url.href)}" alt="Assignment image preview" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div>Image preview unavailable. Check that the link points directly to an image.</div>')">`;
-  }catch{$("imagePreview").innerHTML="<div>Please enter a valid image URL starting with https://</div>";}
+ const raw=$("formImageURL").value.trim();
+ if(!raw){$("imagePreview").innerHTML="";return}
+ try{
+   const url=new URL(raw);
+   if(!["https:","http:"].includes(url.protocol))throw new Error("Invalid protocol");
+   $("imagePreview").innerHTML=`<img src="${escapeHTML(url.href)}" alt="Assignment image preview" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div>Image preview unavailable. Check that the link points directly to an image.</div>')">`;
+ }catch{
+   $("imagePreview").innerHTML="<div>Please enter a valid image URL starting with https://</div>";
+ }
 });
 
 /* Lecture announcements */
-$("addLectureUpdate").addEventListener("click",()=>{if(!admin)return;$("lectureForm").reset();$("lectureError").textContent="";$("lectureDialog").showModal()});
+$("addLectureUpdate").addEventListener("click",()=>{
+ if(!admin)return;
+ $("lectureForm").reset();
+ $("lectureError").textContent="";
+ $("lectureDialog").showModal();
+});
 $("lectureForm").addEventListener("submit",async e=>{
-  e.preventDefault();if(!admin)return;
-  const data={course:$("lectureCourse").value,title:$("lectureTitle").value.trim(),details:$("lectureDetails").value.trim(),date:$("lectureDate").value||"",createdAt:serverTimestamp()};
-  const b=$("lectureSave");b.disabled=true;
-  try{await addDoc(lecturesRef,data);$("lectureDialog").close();notify("Lecture update published.")}
-  catch(err){$("lectureError").textContent=err.code==="permission-denied"?"Permission denied. Update your Firestore rules.":err.message}
-  finally{b.disabled=false}
+ e.preventDefault();
+ if(!admin)return;
+
+ const data={
+   course:$("lectureCourse").value,
+   title:$("lectureTitle").value.trim(),
+   details:$("lectureDetails").value.trim(),
+   date:$("lectureDate").value||"",
+   createdAt:serverTimestamp()
+ };
+ const b=$("lectureSave");
+ b.disabled=true;
+
+ try{
+   await addDoc(lecturesRef,data);
+   $("lectureDialog").close();
+   notify("Lecture update published.");
+ }catch(err){
+   $("lectureError").textContent=err.code==="permission-denied"?"Permission denied. Update your Firestore rules.":err.message;
+ }finally{
+   b.disabled=false;
+ }
 });
 $("lectureUpdatesList").addEventListener("click",async e=>{
-  const b=e.target.closest("[data-lecture-delete]");if(!b||!admin)return;
-  if(!confirm("Delete this lecture update?"))return;
-  try{await deleteDoc(doc(db,"lectureUpdates",b.dataset.lectureDelete));notify("Lecture update deleted.")}
-  catch(err){notify(err.message||"Could not delete update.")}
+ const b=e.target.closest("[data-lecture-delete]");
+ if(!b||!admin)return;
+ if(!confirm("Delete this lecture update?"))return;
+ try{
+   await deleteDoc(doc(db,"lectureUpdates",b.dataset.lectureDelete));
+   notify("Lecture update deleted.");
+ }catch(err){
+   notify(err.message||"Could not delete update.");
+ }
 });
 
 /* Assignment create, edit and delete */
 $("assignmentForm").addEventListener("submit",async e=>{
-  e.preventDefault();
+ e.preventDefault();
 
-  if(!admin || !auth.currentUser || auth.currentUser.uid!==ADMIN_UID){
-    $("formError").textContent="Administrator session required. Please sign in again.";
-    return;
-  }
+ if(!admin||!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){
+   $("formError").textContent="Administrator session required. Please sign in again.";
+   return;
+ }
 
-  const button=$("saveButton");
-  const isEditing=Boolean(editingId);
-  const deadline=$("formDeadline").value;
-  const date=new Date(deadline);
-  if(!deadline || Number.isNaN(date.getTime())){
-    $("formError").textContent="Please enter a valid deadline.";
-    return;
-  }
+ const button=$("saveButton");
+ const isEditing=Boolean(editingId);
+ const deadline=$("formDeadline").value;
+ const date=new Date(deadline);
 
-  const data={
-    course:$("formCourse").value,
-    title:$("formTitle").value.trim(),
-    details:$("formDetails").value.trim(),
-    deadline:date.toISOString(),
-    imageURL:$("formImageURL").value.trim()
-  };
-  if(!data.title){
-    $("formError").textContent="Please enter an assignment title.";
-    return;
-  }
-  if(data.imageURL){
-    try{
-      const imageURL=new URL(data.imageURL);
-      if(!["https:","http:"].includes(imageURL.protocol))throw new Error("Invalid image URL protocol");
-    }catch{
-      $("formError").textContent="Please enter a valid image URL beginning with https://";
-      return;
-    }
-  }
+ if(!deadline||Number.isNaN(date.getTime())){
+   $("formError").textContent="Please enter a valid deadline.";
+   return;
+ }
 
-  button.disabled=true;
-  button.textContent=isEditing?"Saving...":"Publishing...";
-  $("formError").textContent="";
-  try{
-    if(isEditing){
-      await updateAssignment(editingId,data);
-    }else{
-      const saved=await addDoc(assignmentsRef,{
-        ...data,
-        createdAt:serverTimestamp(),
-        updatedAt:serverTimestamp()
-      });
-      console.info("Assignment saved to Firestore. Document ID:",saved.id);
-    }
-    $("assignmentDialog").close();
-    editingId=null;
-    notify(isEditing?"Assignment updated successfully.":"Assignment published successfully.");
-  }catch(err){
-    console.error("Assignment save failed:",err);
-    const code=err?.code?` (${err.code})`:"";
-    $("formError").textContent=(err?.message||"Unable to save assignment.")+code;
-  }finally{
-    button.disabled=false;
-    button.textContent=isEditing?"Save changes":"Publish assignment";
-  }
+ const data={
+   course:$("formCourse").value,
+   title:$("formTitle").value.trim(),
+   details:$("formDetails").value.trim(),
+   deadline:date.toISOString(),
+   imageURL:$("formImageURL").value.trim()
+ };
+
+ if(!data.title){
+   $("formError").textContent="Please enter an assignment title.";
+   return;
+ }
+
+ if(data.imageURL){
+   try{
+     const imageURL=new URL(data.imageURL);
+     if(!["https:","http:"].includes(imageURL.protocol))throw new Error("Invalid image URL protocol");
+   }catch{
+     $("formError").textContent="Please enter a valid image URL beginning with https://";
+     return;
+   }
+ }
+
+ button.disabled=true;
+ button.textContent=isEditing?"Saving...":"Publishing...";
+ $("formError").textContent="";
+
+ try{
+   if(isEditing){
+     await updateAssignment(editingId,data);
+     $("assignmentDialog").close();
+     editingId=null;
+     notify("Assignment updated successfully.");
+   }else{
+     /* Save the assignment first. A push failure will not undo this. */
+     const saved=await createAssignment(data);
+     console.info("Assignment saved to Firestore. Document ID:",saved.id);
+
+     $("assignmentDialog").close();
+     editingId=null;
+
+     const dueDate=date.toLocaleString("en-GB",{
+       day:"numeric",
+       month:"short",
+       year:"numeric",
+       hour:"2-digit",
+       minute:"2-digit"
+     });
+
+     const shortDetails=data.details
+       ?"\n"+(data.details.length>100?data.details.slice(0,97)+"…":data.details)
+       :"";
+
+     await pushAfterPublish("Assignment",{
+       title:`New assignment: ${data.course}`,
+       message:`${data.title}\nDue: ${dueDate}${shortDetails}`
+     });
+   }
+ }catch(err){
+   console.error("Assignment save failed:",err);
+   const code=err?.code?` (${err.code})`:"";
+   $("formError").textContent=(err?.message||"Unable to save assignment.")+code;
+ }finally{
+   button.disabled=false;
+   button.textContent=isEditing?"Save changes":"Publish assignment";
+ }
 });
+
 async function deleteAssignment(id){
-  const a=assignments.find(x=>x.id===id);if(!a||!admin||!confirm(`Delete "${a.title}"? This cannot be undone.`))return;
-  try{await removeAssignment(id);notify("Assignment deleted.")}catch(err){notify(err.code==="permission-denied"?"Permission denied. Check Firestore Rules.":(err.message||"Could not delete assignment."))}
+ const a=assignments.find(x=>x.id===id);
+ if(!a||!admin||!confirm(`Delete "${a.title}"? This cannot be undone.`))return;
+ try{
+   await removeAssignment(id);
+   notify("Assignment deleted.");
+ }catch(err){
+   notify(err.code==="permission-denied"?"Permission denied. Check Firestore Rules.":(err.message||"Could not delete assignment."));
+ }
 }
 function handleAssignmentActions(e){
-  const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");
-  if(edit){openAssignment(edit.dataset.edit);return}
-  if(del)deleteAssignment(del.dataset.delete);
+ const edit=e.target.closest("[data-edit]");
+ const del=e.target.closest("[data-delete]");
+ if(edit){openAssignment(edit.dataset.edit);return}
+ if(del)deleteAssignment(del.dataset.delete);
 }
 $("assignmentList").addEventListener("click",handleAssignmentActions);
 $("dashboardAssignments").addEventListener("click",handleAssignmentActions);
@@ -816,12 +1230,18 @@ $("statusFilter").addEventListener("change",renderAssignmentList);
 $("menuBtn").addEventListener("click",()=>document.body.classList.add("menu-open"));
 $("scrim").addEventListener("click",closeMenu);
 
-/* Start */
-$("today").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+/* Start application */
+$("today").textContent=new Date().toLocaleDateString("en-GB",{
+ weekday:"short",
+ day:"numeric",
+ month:"short",
+ year:"numeric"
+});
+
 renderAll();
 startAssignmentListener();
 startLectureListener();
 startNotificationListener();
 </script>
-                                          </body>
-                                        </html>
+</body>
+</html>
