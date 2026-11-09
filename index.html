@@ -397,7 +397,15 @@ body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;
 </form>
 </dialog>
 
-<dialog id="assignmentPreviewDialog">\n<div class="modal">\n  <div class="modal-head"><h2>Assignment preview</h2><button type="button" class="close" data-close aria-label="Close preview">×</button></div>\n  <div id="assignmentPreviewContent" class="assignment-preview-body"></div>\n  <div class="modal-footer"><button type="button" class="btn outline" data-close>Close</button></div>\n</div>\n</dialog>\n\n<dialog id="lectureDialog">
+<dialog id="assignmentPreviewDialog">
+<div class="modal">
+  <div class="modal-head"><h2>Assignment preview</h2><button type="button" class="close" data-close aria-label="Close preview">×</button></div>
+  <div id="assignmentPreviewContent" class="assignment-preview-body"></div>
+  <div class="modal-footer"><button type="button" class="btn outline" data-close>Close</button></div>
+</div>
+</dialog>
+
+<dialog id="lectureDialog">
 <form class="modal" id="lectureForm">
   <div class="modal-head"><h2>Publish lecture update</h2><button type="button" class="close" data-close>×</button></div>
   <div class="field"><label>Course</label><select id="lectureCourse" required></select></div>
