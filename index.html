@@ -103,6 +103,12 @@ h1,h2,h3{font-family:Manrope,sans-serif}
 .assignment-list{display:flex;flex-direction:column;gap:12px}
 .assignment{background:white;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;gap:16px;box-shadow:var(--shadow);transition:.2s}
 .assignment:hover{border-color:#c7d3f6}
+.assignment[data-assignment-preview]{cursor:pointer}
+.assignment[data-assignment-preview]:focus-visible{outline:3px solid #9cb2ff;outline-offset:3px}
+.assignment-preview-body{font-size:12px;line-height:1.8;color:#59667d;white-space:pre-wrap;overflow-wrap:anywhere}
+.assignment-preview-body h3{font-size:18px;line-height:1.45;color:var(--text);margin:12px 0 8px;white-space:normal}
+.assignment-preview-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.assignment-preview-image{display:block;width:100%;max-height:420px;object-fit:contain;border:1px solid var(--border);border-radius:12px;margin-top:15px;background:#f8faff}
 .assignment-date{width:59px;height:65px;flex:none;border-radius:11px;background:var(--blue-light);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue)}
 .assignment-date strong{font-family:Manrope;font-size:22px;line-height:1}
 .assignment-date small{font-size:10px;font-weight:700;margin-top:4px}
@@ -391,7 +397,7 @@ body.menu-open .scrim{display:block;position:fixed;inset:0;background:#101b3577;
 </form>
 </dialog>
 
-<dialog id="lectureDialog">
+<dialog id="assignmentPreviewDialog">\n<div class="modal">\n  <div class="modal-head"><h2>Assignment preview</h2><button type="button" class="close" data-close aria-label="Close preview">×</button></div>\n  <div id="assignmentPreviewContent" class="assignment-preview-body"></div>\n  <div class="modal-footer"><button type="button" class="btn outline" data-close>Close</button></div>\n</div>\n</dialog>\n\n<dialog id="lectureDialog">
 <form class="modal" id="lectureForm">
   <div class="modal-head"><h2>Publish lecture update</h2><button type="button" class="close" data-close>×</button></div>
   <div class="field"><label>Course</label><select id="lectureCourse" required></select></div>
@@ -813,7 +819,7 @@ function assignmentHTML(a){
  const d=new Date(a.deadline),past=isPast(a),soon=isSoon(a),c=COURSE_MAP[a.course];
  const status=past?"overdue":soon?"soon":"upcoming";
  const statusText=past?"PAST DEADLINE":soon?"DUE SOON":"UPCOMING";
- return `<article class="assignment">
+ return `<article class="assignment" data-assignment-preview="${escapeHTML(a.id)}" tabindex="0" role="button" aria-label="Preview assignment: ${escapeHTML(a.title)}">
  <div class="assignment-date"><strong>${d.getDate()}</strong><small>${d.toLocaleDateString("en",{month:"short"}).toUpperCase()}</small></div>
  <div class="assignment-main">
  <div class="assignment-meta"><span class="tag course">${escapeHTML(a.course)}</span><span class="tag ${status}">${statusText}</span></div>
@@ -1310,14 +1316,44 @@ async function deleteAssignment(id){
    notify(err.code==="permission-denied"?"Permission denied. Check Firestore Rules.":(err.message||"Could not delete assignment."));
  }
 }
+function openAssignmentPreview(id){
+ const a=assignments.find(x=>x.id===id);
+ if(!a)return;
+ const d=new Date(a.deadline);
+ const validDate=!Number.isNaN(d.getTime());
+ const past=isPast(a),soon=isSoon(a);
+ const status=past?"overdue":soon?"soon":"upcoming";
+ const statusText=past?"PAST DEADLINE":soon?"DUE SOON":"UPCOMING";
+ const course=COURSE_MAP[a.course];
+ $("assignmentPreviewContent").innerHTML=
+   `<div class="assignment-preview-meta"><span class="tag course">${escapeHTML(a.course||"")}</span><span class="tag ${status}">${statusText}</span></div>`+
+   `<h3>${escapeHTML(a.title||"Untitled assignment")}</h3>`+
+   (course?`<div>${escapeHTML(course.title)}</div>`:"")+
+   (a.details?`<p style="margin:12px 0 0">${escapeHTML(a.details)}</p>`:"<p style='margin:12px 0 0'>No additional instructions provided.</p>")+
+   (validDate?`<p style="margin:14px 0 0"><strong>Deadline:</strong> ${escapeHTML(d.toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}))}</p>`:"")+
+   (a.imageURL?`<a href="${escapeHTML(a.imageURL)}" target="_blank" rel="noopener"><img class="assignment-preview-image" src="${escapeHTML(a.imageURL)}" alt="Assignment reference image"></a>`:"");
+ $("assignmentPreviewDialog").showModal();
+}
 function handleAssignmentActions(e){
  const edit=e.target.closest("[data-edit]");
  const del=e.target.closest("[data-delete]");
  if(edit){openAssignment(edit.dataset.edit);return}
- if(del)deleteAssignment(del.dataset.delete);
+ if(del){deleteAssignment(del.dataset.delete);return}
+ if(e.target.closest("a"))return;
+ const card=e.target.closest("[data-assignment-preview]");
+ if(card)openAssignmentPreview(card.dataset.assignmentPreview);
 }
 $("assignmentList").addEventListener("click",handleAssignmentActions);
 $("dashboardAssignments").addEventListener("click",handleAssignmentActions);
+function handleAssignmentKeyboard(e){
+ if(e.key!=="Enter"&&e.key!==" ")return;
+ const card=e.target.closest("[data-assignment-preview]");
+ if(!card||e.target.closest("button,a"))return;
+ e.preventDefault();
+ openAssignmentPreview(card.dataset.assignmentPreview);
+}
+$("assignmentList").addEventListener("keydown",handleAssignmentKeyboard);
+$("dashboardAssignments").addEventListener("keydown",handleAssignmentKeyboard);
 
 /* Filters and mobile navigation */
 $("searchInput").addEventListener("input",renderAssignmentList);
